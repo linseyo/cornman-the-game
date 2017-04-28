@@ -28,6 +28,7 @@ class Main extends Phaser.State {
 			this.game.cache.getImage('fence-mid2').height,
 			'fence-mid2'
 		);
+
 	}
 
 	update() {
