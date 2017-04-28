@@ -41,7 +41,7 @@ class Main extends Phaser.State {
 		this.mountainsBack.tilePosition.x -= 0.10;
 		this.hillsMid1.tilePosition.x -= 0.3;
 		this.fenceMid2.tilePosition.x -= 0.75;
-		this.groundFront.tilePosition.x -= 2.0;
+		this.groundFront.tilePosition.x -= 15.0;
 
 	}
 
