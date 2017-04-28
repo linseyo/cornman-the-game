@@ -7,7 +7,6 @@ class Main extends Phaser.State {
 		this.jumpTimer = 0;
 	}
 
-	}
 	create() {
 		//Enable Arcade Physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -67,8 +66,9 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.collide(this.player, this.groundFront);
 		this.mountainsBack.tilePosition.x -= 0.10;
 		this.hillsMid1.tilePosition.x -= 0.3;
-		this.fenceMid2.tilePosition.x -= 0.75;
-		this.groundFront.tilePosition.x -= 10.0;
+		this.fenceMid2.tilePosition.x -= 3;
+		this.groundFront.tilePosition.x -= 6.0;
+
 		if(this.game.input.activePointer.justPressed() && this.player.body.touching.down && (this.game.time.now > this.jumpTimer)) {
 			this.player.body.velocity.y = -1100;
 			this.jumpTimer = this.game.time.now + 750;
@@ -77,7 +77,6 @@ class Main extends Phaser.State {
 
 
 	}
-
 }
 
 export default Main;
