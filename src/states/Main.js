@@ -7,6 +7,7 @@ class Main extends Phaser.State {
 
 		//Set the games background colour
 		this.game.stage.backgroundColor = '#4f90c1';
+		this.game.add.sprite('sky');
 
 		this.mountainsBack = this.game.add.tileSprite(0,
 			this.game.height - this.game.cache.getImage('mountains-back').height,
