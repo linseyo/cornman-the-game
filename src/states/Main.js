@@ -10,7 +10,7 @@ class Main extends Phaser.State {
 	create() {
 		//Enable Arcade Physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
-		this.game.physics.arcade.gravity.y = 200;
+		this.game.physics.arcade.gravity.y = 1000;
 
 		//Set the games background colour
 		this.game.stage.backgroundColor = '#4f90c1';
@@ -62,7 +62,7 @@ class Main extends Phaser.State {
 
 		//
 
-		this.player = this.game.add.sprite(500, 2000, 'dude');
+		this.player = this.game.add.sprite(500, 1000, 'dude');
 		this.player.scale.setTo(3, 3);
 		// this.game.physics.arcade.enable(this.player);
 		// this.player.body.bounce.y = 0.2;
