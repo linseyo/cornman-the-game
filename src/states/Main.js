@@ -1,25 +1,19 @@
 class Main extends Phaser.State {
 	constructor() {
 		super();
-		// let platforms;
-		// let ground;
-		let groundFront;
-		let player;
+		this.groundFront;
+		this.player;
+		this.jumpButton;
+		this.jumpTimer = 0;
 	}
 
 	create() {
 		//Enable Arcade Physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
-		this.game.physics.arcade.gravity.y = 1000;
+		this.game.physics.arcade.gravity.y = 2000;
 
 		//Set the games background colour
 		this.game.stage.backgroundColor = '#4f90c1';
-
-		// this.groundFront.enableBody = true;
-
-		// var ground = this.platforms.create(0, this.game.world.height - 64, 'ground-front');
-		// ground.scale.setTo(2, 2);
-		// ground.immovable = true;
 
 		this.mountainsBack = this.game.add.tileSprite(0,
 			this.game.height - this.game.cache.getImage('mountains-back').height,
@@ -49,44 +43,41 @@ class Main extends Phaser.State {
 			'ground-front'
 		);
 
-		// console.log(this.groundFront);
-		// this.game.physics.arcade.enable(this.groundFront);
-		// this.groundFront.immovable = true;
-		// this.groundFront.body.moves = false;
-		// this.groundFront.allowGravity = false;
-		// this.groundFront.body.gravity.x = 0;
-		// this.groundFront.body.gravity.y = 0;
-		// this.groundFront.body.velocity.x = 0;
-		// this.groundFront.body.velocity.y = 0;
-		// this.groundFront.body.enable = false;
-
-		//
-
 		this.player = this.game.add.sprite(500, 1000, 'dude');
 		this.player.scale.setTo(3, 3);
-		// this.game.physics.arcade.enable(this.player);
-		// this.player.body.bounce.y = 0.2;
-		// this.player.body.gravity.y = 300;
-		// this.player.body.collideWorldBounds = true;
-		//
+		// this.player.enableBody = true;
+
 		this.player.animations.add('left', [0, 1, 2, 3], 10, true);
 		this.player.animations.add('right', [5, 6, 7, 8], 10, true);
-		// this.game.physics.enable([this.groundFront, this.player], Phaser.Physics.ARCADE);
+
 		this.game.physics.arcade.enable([this.player, this.groundFront]);
 		this.player.body.collideWorldBounds = true;
-		// this.player.body.bounce.set(1);
+
 		this.groundFront.body.collideWorldBounds = true;
 		this.groundFront.body.immovable = true;
 		this.groundFront.body.allowGravity = false;
+
+		this.cursors = this.game.input.keyboard.createCursorKeys();
+		this.jumpButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+		// this.jumpButton = this.game.input.MOUSE_TOUCH_COMBINE;
 	}
 
 	update() {
+		this.player.animations.play('right');
 		this.game.physics.arcade.collide(this.player, this.groundFront);
 		this.mountainsBack.tilePosition.x -= 0.10;
 		this.hillsMid1.tilePosition.x -= 0.3;
 		this.fenceMid2.tilePosition.x -= 0.75;
 		this.groundFront.tilePosition.x -= 10.0;
-
+		// console.log("updating")
+		// this.player.body.velocity.y = 0;
+		// console.log(this.jumpTimer, this.game.time.now);
+		if(this.jumpButton.isDown && this.player.body.touching.down && (this.game.time.now > this.jumpTimer)) {
+			console.log("hello!");
+			this.player.body.velocity.y = -1000;
+			this.jumpTimer = this.game.time.now + 750;
+		// 	// this.player.animations.play('left', [3]);
+		}
 	}
 
 }
