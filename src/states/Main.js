@@ -28,13 +28,20 @@ class Main extends Phaser.State {
 			this.game.cache.getImage('fence-mid2').height,
 			'fence-mid2'
 		);
+
+		this.groundFront = this.game.add.tileSprite(0,
+			this.game.height - this.game.cache.getImage('ground-front').height,
+			this.game.width,
+			this.game.cache.getImage('ground-front').height,
+			'ground-front'
+		);
 	}
 
 	update() {
 		this.mountainsBack.tilePosition.x -= 0.10;
 		this.hillsMid1.tilePosition.x -= 0.3;
-		this.fenceMid2.tilePosition.x -= 10;
-
+		this.fenceMid2.tilePosition.x -= 0.75;
+		this.groundFront.tilePosition.x -= 2.0;
 
 	}
 
