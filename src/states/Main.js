@@ -7,13 +7,16 @@ class Main extends Phaser.State {
 		this.jumpTimer = 0;
 	}
 
+	}
 	create() {
 		//Enable Arcade Physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		this.game.physics.arcade.gravity.y = 2000;
 
 		//Set the games background colour
-		this.game.stage.backgroundColor = '#4f90c1';
+		this.game.stage.backgroundColor = '#c8f2fb';
+		// this.sky = this.game.add.sprite(0,0,'sky');
+		// this.sky.scale.setTo(5,5);
 
 		this.mountainsBack = this.game.add.tileSprite(0,
 			this.game.height - this.game.cache.getImage('mountains-back').height,
@@ -43,9 +46,9 @@ class Main extends Phaser.State {
 			'ground-front'
 		);
 
+
 		this.player = this.game.add.sprite(500, 1000, 'dude');
 		this.player.scale.setTo(3, 3);
-		// this.player.enableBody = true;
 
 		this.player.animations.add('left', [0, 1, 2, 3], 10, true);
 		this.player.animations.add('right', [5, 6, 7, 8], 10, true);
@@ -70,6 +73,9 @@ class Main extends Phaser.State {
 			this.player.body.velocity.y = -1100;
 			this.jumpTimer = this.game.time.now + 750;
 		}
+		this.groundFront.tilePosition.x -= 15.0;
+
+
 	}
 
 }

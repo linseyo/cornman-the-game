@@ -6,6 +6,7 @@ class Preload extends Phaser.State {
 		this.game.load.image('fence-mid2', 'assets/fence-mid2.png');
 		this.game.load.image('ground-front', 'assets/ground-front.png');
 		this.game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+		this.game.load.image('sky', 'assets/sky.png');
 	}
 
 	create() {
