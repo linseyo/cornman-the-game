@@ -1,7 +1,8 @@
 class Main extends Phaser.State {
 	constructor(){
 		super();
-
+		this.timer = 0;
+		this.total = 0;
 	}
 	create() {
 
@@ -49,9 +50,18 @@ class Main extends Phaser.State {
 
 	addRocks() {
 		// Generate Obstacles
+		// this.tempRock = this.game.add.sprite(0,0, 'rock');
 		this.tempRock = this.game.add.sprite(this.game.world.randomX,
-			(this.game.height - this.groundFront.height) + 200, 'rock');
+			(this.game.height - this.groundFront.height) - 200, 'rock', );
 		this.tempRock.scale.setTo(3, 3);
+
+		this.tempRock.animations.add('walk')
+		this.tempRock.animations.play('walk', 20, true);
+
+		this.game.add.tween(this.tempRock).to({ x: this.game.width + (1600 + this.tempRock.x) }, 20000, Phaser.Easing.Linear.None, true);
+
+		this.total++;
+		this.timer = this.game.time.now + 100;
 	}
 
 	update() {
@@ -60,8 +70,9 @@ class Main extends Phaser.State {
 		this.fenceMid2.tilePosition.x -= 0.75;
 		this.groundFront.tilePosition.x -= 15.0;
 
-		this.addRocks();
-
+		if (this.total < 200 && this.game.time.now > this.timer){
+			this.addRocks();
+		}
 	}
 
 }
