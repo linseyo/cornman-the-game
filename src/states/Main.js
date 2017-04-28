@@ -6,7 +6,7 @@ class Main extends Phaser.State {
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
 		//Set the games background colour
-		this.game.stage.backgroundColor = '#697e96';
+		this.game.stage.backgroundColor = '#4f90c1';
 
 		this.mountainsBack = this.game.add.tileSprite(0,
 			this.game.height - this.game.cache.getImage('mountains-back').height,
@@ -15,25 +15,25 @@ class Main extends Phaser.State {
 			'mountains-back'
 		);
 
-		this.mountainsMid1 = this.game.add.tileSprite(0,
-			this.game.height - this.game.cache.getImage('mountains-mid1').height,
+		this.hillsMid1 = this.game.add.tileSprite(0,
+			this.game.height - this.game.cache.getImage('hills-mid1').height,
 			this.game.width,
-			this.game.cache.getImage('mountains-mid1').height,
-			'mountains-mid1'
+			this.game.cache.getImage('hills-mid1').height,
+			'hills-mid1'
 		);
 
-		this.mountainsMid2 = this.game.add.tileSprite(0,
-			this.game.height - this.game.cache.getImage('mountains-mid2').height,
+		this.fenceMid2 = this.game.add.tileSprite(0,
+			this.game.height - this.game.cache.getImage('fence-mid2').height,
 			this.game.width,
-			this.game.cache.getImage('mountains-mid2').height,
-			'mountains-mid2'
+			this.game.cache.getImage('fence-mid2').height,
+			'fence-mid2'
 		);
 	}
 
 	update() {
 		this.mountainsBack.tilePosition.x -= 0.05;
-		this.mountainsMid1.tilePosition.x -= 0.3;
-		this.mountainsMid2.tilePosition.x -= 0.75;
+		this.hillsMid1.tilePosition.x -= 0.3;
+		this.fenceMid2.tilePosition.x -= 0.75;
 	}
 
 }
