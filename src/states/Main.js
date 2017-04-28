@@ -9,7 +9,9 @@ class Main extends Phaser.State {
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
 		//Set the games background colour
-		this.game.stage.backgroundColor = '#4f90c1';
+		this.game.stage.backgroundColor = '#c8f2fb';
+		// this.sky = this.game.add.sprite(0,0,'sky');
+		// this.sky.scale.setTo(5,5);
 
 		this.mountainsBack = this.game.add.tileSprite(0,
 			this.game.height - this.game.cache.getImage('mountains-back').height,
