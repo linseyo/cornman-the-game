@@ -57,9 +57,6 @@ class Main extends Phaser.State {
 		this.groundFront.body.immovable = true;
 		this.groundFront.body.allowGravity = false;
 
-		this.cursors = this.game.input.keyboard.createCursorKeys();
-		this.jumpButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-		// this.jumpButton = this.game.input.MOUSE_TOUCH_COMBINE;
 	}
 
 	update() {
@@ -69,14 +66,9 @@ class Main extends Phaser.State {
 		this.hillsMid1.tilePosition.x -= 0.3;
 		this.fenceMid2.tilePosition.x -= 0.75;
 		this.groundFront.tilePosition.x -= 10.0;
-		// console.log("updating")
-		// this.player.body.velocity.y = 0;
-		// console.log(this.jumpTimer, this.game.time.now);
-		if(this.jumpButton.isDown && this.player.body.touching.down && (this.game.time.now > this.jumpTimer)) {
-			console.log("hello!");
-			this.player.body.velocity.y = -1000;
+		if(this.game.input.activePointer.justPressed() && this.player.body.touching.down && (this.game.time.now > this.jumpTimer)) {
+			this.player.body.velocity.y = -1100;
 			this.jumpTimer = this.game.time.now + 750;
-		// 	// this.player.animations.play('left', [3]);
 		}
 	}
 
