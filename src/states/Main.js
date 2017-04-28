@@ -35,6 +35,11 @@ class Main extends Phaser.State {
 			this.game.cache.getImage('ground-front').height,
 			'ground-front'
 		);
+
+
+		// Generate Obstacles
+
+
 	}
 
 	update() {
