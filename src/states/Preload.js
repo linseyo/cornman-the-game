@@ -8,9 +8,11 @@ class Preload extends Phaser.State {
 		this.game.load.image('ground-front', 'assets/ground-front.png');
 		// this.game.load.image('rock', 'assets/rock.gif');
 		this.game.load.image('sky', 'assets/sky.png');
+
 		this.game.load.image('restart', 'assets/restart-button.png');
 		this.game.load.image('main-menu', 'assets/menu-button.png');
 		this.game.load.image('start-game', 'assets/start-button.png');
+		this.game.load.image('stop-game', 'assets/stop-button.png');
 	}
 
 	create() {

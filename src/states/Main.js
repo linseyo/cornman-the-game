@@ -40,6 +40,12 @@ class Main extends Phaser.State {
 			this.game.cache.getImage('ground-front').height,
 			'ground-front'
 		);
+
+		this.stopButton = this.game.add.button(850, 700, 'stop-game', this.stopGame, this);
+	}
+
+	stopGame() {
+		this.game.state.start('Stats');
 	}
 
 	addRocks() {
