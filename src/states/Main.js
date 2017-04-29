@@ -1,10 +1,15 @@
 class Main extends Phaser.State {
 	constructor() {
 		super();
+<<<<<<< HEAD
 		this.groundFront;
 		this.player;
 		this.jumpButton;
 		this.jumpTimer = 0;
+=======
+		this.timer = 0;
+		this.total = 0;
+>>>>>>> master
 	}
 
 	create() {
@@ -44,6 +49,7 @@ class Main extends Phaser.State {
 			this.game.cache.getImage('ground-front').height,
 			'ground-front'
 		);
+<<<<<<< HEAD
 
 		this.tractor = this.game.add.sprite(1000, 1350, 'tractor');
 		this.tractor.scale.setTo(.5, .5);
@@ -61,6 +67,25 @@ class Main extends Phaser.State {
 		this.groundFront.body.immovable = true;
 		this.groundFront.body.allowGravity = false;
 
+=======
+	}
+
+	addRocks() {
+		// Generate Obstacles
+		// this.tempRock = this.game.add.sprite(0,0, 'rock');
+		this.tempRock = this.game.add.sprite( 3000,
+			(this.game.height - this.groundFront.height) - 200, 'rock', );
+		this.tempRock.scale.setTo(3, 3);
+
+		this.tempRock.animations.add('walk')
+		this.tempRock.animations.play('walk', 200, true);
+
+		this.game.add.tween(this.tempRock).to({
+			x: this.tempRock.x - 20000 }, 110000, Phaser.Easing.Linear.None, true);
+
+		this.total++;
+		this.timer = this.game.time.now + 18000;
+>>>>>>> master
 	}
 
 	update() {
@@ -68,6 +93,7 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.collide(this.player, this.groundFront);
 		this.mountainsBack.tilePosition.x -= 0.10;
 		this.hillsMid1.tilePosition.x -= 0.3;
+<<<<<<< HEAD
 		this.fenceMid2.tilePosition.x -= 3;
 		this.groundFront.tilePosition.x -= 6.0;
 		this.tractor.position.x -= 3.0;
@@ -78,7 +104,14 @@ class Main extends Phaser.State {
 		}
 		this.groundFront.tilePosition.x -= 15.0;
 
+=======
+		this.fenceMid2.tilePosition.x -= 3.0;
+		this.groundFront.tilePosition.x -= 6.0;
+>>>>>>> master
 
+		if (this.total < 200 && this.game.time.now > this.timer){
+			this.addRocks();
+		}
 	}
 }
 
