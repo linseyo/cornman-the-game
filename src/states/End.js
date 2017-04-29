@@ -9,8 +9,6 @@ class End extends Phaser.State {
 
     this.restartButton = this.game.add.button(650, 700, 'restart', this.restartGame, this);
     this.mainMenuButton = this.game.add.button(1050, 700, 'main-menu', this.goToMenu, this);
-
-		console.log(this.game.width)
 	}
 
   restartGame() {
