@@ -55,6 +55,9 @@ class Main extends Phaser.State {
 		this.fenceMid2.tilePosition.x -= 3.0;
 		this.groundFront.tilePosition.x -= 6.0;
 
+		if(this.game.input.activePointer.justPressed()) {
+      this.game.state.start('Stats');
+    }
 	}
 
 }
