@@ -59,7 +59,7 @@ class Main extends Phaser.State {
 		this.tempRock.animations.play('walk', 200, true);
 
 		this.game.add.tween(this.tempRock).to({
-			x: this.tempRock.x - 20000 }, 180000, Phaser.Easing.Linear.None, true);
+			x: this.tempRock.x - 20000 }, 110000, Phaser.Easing.Linear.None, true);
 
 		this.total++;
 		this.timer = this.game.time.now + 18000;
