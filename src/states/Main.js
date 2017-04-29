@@ -7,6 +7,7 @@ class Main extends Phaser.State {
 		this.jumpTimer = 0;
 		this.timer = 0;
 		this.total = 0;
+		this.score = 0;
 	}
 
 	create() {
@@ -47,8 +48,7 @@ class Main extends Phaser.State {
 			'ground-front'
 		);
 
-		// this.tractor = this.game.add.sprite(1000, 1350, 'tractor');
-		// this.tractor.scale.setTo(0.25, 0.25);
+		this.labelScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#fffff"});
 
 		this.player = this.game.add.sprite(500, 1000, 'dude');
 		this.player.scale.setTo(3, 3);
@@ -78,13 +78,15 @@ class Main extends Phaser.State {
 		this.tempRock.animations.play('walk', 200, true);
 
 		this.game.add.tween(this.tempRock).to({
-			x: this.tempRock.x - 20000 }, 110000, Phaser.Easing.Linear.None, true);
+			x: this.tempRock.x - 15000 }, 50000, Phaser.Easing.Linear.None, true);
 
 		this.total++;
-		this.timer = this.game.time.now + 18000;
+		this.timer = this.game.time.now + 8500;
 
 		this.tempRock.checkWorldBounds = true;
 		this.tempRock.outofBoundsKill = true;
+		this.score += 1;
+		this.labelScore.text = this.score;
 
 	}
 
@@ -103,7 +105,7 @@ class Main extends Phaser.State {
 			this.jumpTimer = this.game.time.now + 750;
 		}
 
-		if (this.total < 200 && this.game.time.now > this.timer){
+		if (this.total < 400 && this.game.time.now > this.timer){
 			this.addRocks();
 		}
 	}
