@@ -41,7 +41,7 @@ class Main extends Phaser.State {
 			'ground-front'
 		);
 
-		this.stopButton = this.game.add.button(850, 700, 'stop-game', this.stopGame, this);
+		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
 	}
 
 	stopGame() {
@@ -60,10 +60,6 @@ class Main extends Phaser.State {
 		this.hillsMid1.tilePosition.x -= 0.3;
 		this.fenceMid2.tilePosition.x -= 3.0;
 		this.groundFront.tilePosition.x -= 6.0;
-
-		if(this.game.input.activePointer.justPressed()) {
-      this.game.state.start('Stats');
-    }
 	}
 
 }
