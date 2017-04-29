@@ -47,8 +47,8 @@ class Main extends Phaser.State {
 			'ground-front'
 		);
 
-		this.tractor = this.game.add.sprite(1000, 1350, 'tractor');
-		this.tractor.scale.setTo(.5, .5);
+		// this.tractor = this.game.add.sprite(1000, 1350, 'tractor');
+		// this.tractor.scale.setTo(0.25, 0.25);
 
 		this.player = this.game.add.sprite(500, 1000, 'dude');
 		this.player.scale.setTo(3, 3);
@@ -71,8 +71,8 @@ class Main extends Phaser.State {
 		// Generate Obstacles
 		// this.tempRock = this.game.add.sprite(0,0, 'rock');
 		this.tempRock = this.game.add.sprite( 3000,
-			(this.game.height - this.groundFront.height) - 200, 'rock', );
-		this.tempRock.scale.setTo(3, 3);
+			(this.game.height - this.groundFront.height) - 130, 'rock', );
+		this.tempRock.scale.setTo(2, 2);
 
 		this.tempRock.animations.add('walk')
 		this.tempRock.animations.play('walk', 200, true);
@@ -83,6 +83,9 @@ class Main extends Phaser.State {
 		this.total++;
 		this.timer = this.game.time.now + 18000;
 
+		this.tempRock.checkWorldBounds = true;
+		this.tempRock.outofBoundsKill = true;
+
 	}
 
 	update() {
@@ -91,11 +94,12 @@ class Main extends Phaser.State {
 		this.mountainsBack.tilePosition.x -= 0.10;
 		this.hillsMid1.tilePosition.x -= 0.3;
 		this.fenceMid2.tilePosition.x -= 3.0;
-		this.groundFront.tilePosition.x -= 6.0;
-		this.tractor.position.x -= 3.0;
+		this.groundFront.tilePosition.x -= 10.0;
+
 
 		if(this.game.input.activePointer.justPressed() && this.player.body.touching.down && (this.game.time.now > this.jumpTimer)) {
-			this.player.body.velocity.y = -1100;
+			this.player.body.velocity.y = -1200;
+			this.player.body.velocity.x = 2;
 			this.jumpTimer = this.game.time.now + 750;
 		}
 
