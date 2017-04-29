@@ -5,11 +5,13 @@ class End extends Phaser.State {
     this.game.stage.backgroundColor = '#DFF4FF';
 
     let text = "Game Over"
-    this.startText = this.game.add.text(this.game.width/2, this.game.height/2, text, { font: "50px Arial", textalign: "center"});
+    this.startText = this.game.add.text(880, 300, text, { font: "50px Arial", textalign: "center"});
 
-    this.restartButton = this.game.add.button(0, 0, 'restart', this.restartGame, this);
-    this.mainMenuButton = this.game.add.button(50, 50, 'main-menu', this.goToMenu, this);
-  }
+    this.restartButton = this.game.add.button(650, 600, 'restart', this.restartGame, this);
+    this.mainMenuButton = this.game.add.button(1050, 600, 'main-menu', this.goToMenu, this);
+
+		console.log(this.game.width)
+	}
 
   restartGame() {
     this.game.state.start('Main');
