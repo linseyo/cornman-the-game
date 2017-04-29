@@ -8,6 +8,7 @@ class Main extends Phaser.State {
 		this.timer = 0;
 		this.total = 0;
 		this.score = 0;
+		this.tempRock;
 	}
 
 	create() {
@@ -63,16 +64,21 @@ class Main extends Phaser.State {
 		this.groundFront.body.immovable = true;
 		this.groundFront.body.allowGravity = false;
 
+
 		this.addRocks();
 
 	}
 
 	addRocks() {
 		// Generate Obstacles
-		// this.tempRock = this.game.add.sprite(0,0, 'rock');
-		this.tempRock = this.game.add.sprite( 3000,
-			(this.game.height - this.groundFront.height) - 130, 'rock', );
+		// this.tempRock = this.game.add.sprite( 1000, 1350, 'rock');
+		this.tempRock = this.game.add.sprite( 2700, 800, 'rock', );
+			this.game.physics.arcade.enable(this.tempRock);
+			console.log((this.game.height - this.groundFront.height) - 500)
+
 		this.tempRock.scale.setTo(2, 2);
+
+		this.tempRock.body.collideWorldBounds = true;
 
 		this.tempRock.animations.add('walk')
 		this.tempRock.animations.play('walk', 200, true);
@@ -81,8 +87,7 @@ class Main extends Phaser.State {
 			x: this.tempRock.x - 15000 }, 50000, Phaser.Easing.Linear.None, true);
 
 		this.total++;
-		this.timer = this.game.time.now + 8500;
-
+		this.timer += this.game.time.now + 5500;
 		this.tempRock.checkWorldBounds = true;
 		this.tempRock.outofBoundsKill = true;
 		this.score += 1;
@@ -90,9 +95,14 @@ class Main extends Phaser.State {
 
 	}
 
+	endGame() {
+		this.game.state.start('Menu');
+	}
+
 	update() {
 		this.player.animations.play('right');
 		this.game.physics.arcade.collide(this.player, this.groundFront);
+
 		this.mountainsBack.tilePosition.x -= 0.10;
 		this.hillsMid1.tilePosition.x -= 0.3;
 		this.fenceMid2.tilePosition.x -= 3.0;
@@ -107,8 +117,14 @@ class Main extends Phaser.State {
 
 		if (this.total < 400 && this.game.time.now > this.timer){
 			this.addRocks();
+
 		}
+
+
+		// this.game.physics.arcade.overlap(
+		// 	this.player, this.tempRock, this.endGame(), null, this);
 	}
+
 }
 
 export default Main;
