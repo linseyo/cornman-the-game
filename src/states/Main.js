@@ -45,6 +45,8 @@ class Main extends Phaser.State {
 			'ground-front'
 		);
 
+		this.tractor = this.game.add.sprite(1000, 1350, 'tractor');
+		this.tractor.scale.setTo(.5, .5);
 
 		this.player = this.game.add.sprite(500, 1000, 'dude');
 		this.player.scale.setTo(3, 3);
@@ -68,6 +70,7 @@ class Main extends Phaser.State {
 		this.hillsMid1.tilePosition.x -= 0.3;
 		this.fenceMid2.tilePosition.x -= 3;
 		this.groundFront.tilePosition.x -= 6.0;
+		this.tractor.position.x -= 3.0;
 
 		if(this.game.input.activePointer.justPressed() && this.player.body.touching.down && (this.game.time.now > this.jumpTimer)) {
 			this.player.body.velocity.y = -1100;
