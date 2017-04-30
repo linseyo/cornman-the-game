@@ -44,25 +44,42 @@ class Main extends Phaser.State {
 
 
 
-		// this.game.physics.enable(this.tempRock);
-		this.addRocks();
+
+		this.addTractors();
+		this.addWeeds();
 	}
 
-	addRocks() {
+	addTractors() {
 		// Generate Obstacles
 		// this.tempRock = this.game.add.sprite(0,0, 'rock');
-		this.tempRock = this.game.add.sprite( 3000,
-			(this.game.height - this.groundFront.height) - 200, 'rock', );
-		this.tempRock.scale.setTo(3, 3);
+		this.tractor = this.game.add.sprite( this.game.world.randomX + 3000,
+			(this.game.height - this.groundFront.height) - 150, 'tractor', );
+		this.tractor.scale.setTo(5, 5);
 
-		this.tempRock.animations.add('walk')
-		this.tempRock.animations.play('walk', 200, true);
+		this.tractor.animations.add('walk')
+		this.tractor.animations.play('walk', 200, true);
 
-		this.game.add.tween(this.tempRock).to({
-			x: this.tempRock.x - 20000 }, 110000, Phaser.Easing.Linear.None, true);
+		this.game.add.tween(this.tractor).to({
+			x: this.tractor.x - 20000 }, 110000, Phaser.Easing.Linear.None, true);
 
 		this.total++;
-		this.timer = this.game.time.now + 18000;
+		this.timer = this.game.time.now + 6000;
+	}
+
+	addWeeds() {
+		this.weed = this.game.add.sprite( this.game.world.randomX + 1350,
+			(this.game.height - this.groundFront.height) - 120, 'weed', );
+		this.weed.scale.setTo(5, 5);
+
+		this.weed.animations.add('waddle')
+		this.weed.animations.play('waddle', 1000, true);
+		this.weed.animations.getAnimation('waddle').delay = 500
+
+		this.game.add.tween(this.weed).to({
+			x: this.weed.x - 20000 }, 110000, Phaser.Easing.Linear.None, true);
+
+		this.total++;
+		this.timer = this.game.time.now + 9000;
 	}
 
 	update() {
@@ -71,9 +88,12 @@ class Main extends Phaser.State {
 		this.fenceMid2.tilePosition.x -= 3.0;
 		this.groundFront.tilePosition.x -= 6.0;
 
-		if (this.total < 200 && this.game.time.now > this.timer){
-			this.addRocks();
+		if (this.total < 1000 && this.game.time.now > this.timer){
+			this.addTractors();
+			this.addWeeds();
 		}
+
+
 	}
 
 }
