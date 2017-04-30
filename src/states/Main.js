@@ -76,8 +76,7 @@ class Main extends Phaser.State {
 
 		// Generate Obstacles
 		// this.tempRock = this.game.add.sprite( 1000, 1350, 'rock');
-		this.tempRock = this.game.add.sprite( 2700,
-			(this.game.height - this.groundFront.height) - 100, 'rock', );
+		this.tempRock = this.game.add.sprite( 2700, 1350, 'rock', );
 			this.game.physics.arcade.enable([this.tempRock, this.groundFront]);
 
 		this.tempRock.scale.setTo(2, 2);
