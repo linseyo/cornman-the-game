@@ -65,8 +65,11 @@ class Main extends Phaser.State {
 		this.groundFront.body.allowGravity = false;
 
 		this.rocks = this.game.add.group();
-		// this.addRocks();
+		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
+	}
 
+	stopGame() {
+		this.game.state.start('Stats');
 	}
 
 	addRocks() {
@@ -99,7 +102,7 @@ class Main extends Phaser.State {
 	}
 
 	endGame() {
-		this.game.state.start('Menu');
+		this.game.state.start('Stats');
 	}
 
 
@@ -110,7 +113,8 @@ class Main extends Phaser.State {
 		this.mountainsBack.tilePosition.x -= 0.10;
 		this.hillsMid1.tilePosition.x -= 0.3;
 		this.fenceMid2.tilePosition.x -= 3.0;
-		this.groundFront.tilePosition.x -= 10.0;
+		this.groundFront.tilePosition.x -= 6.0;
+
 
 
 		if(this.game.input.activePointer.justPressed() && this.player.body.touching.down && (this.game.time.now > this.jumpTimer)) {

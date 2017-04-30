@@ -8,15 +8,13 @@ class Menu extends Phaser.State {
     this.menuBackground.autoScroll(0, -20);
     this.menuBackground.alpha = 0.5;
 
-    let text = "Tap to begin"
-    this.startText = this.game.add.text(this.game.width/2, this.game.height/2, text, { font: "50px Arial", textalign: "center"});
+    let title = "CORNMAN"
+    this.titleText = this.game.add.text(200, 300, title, { font: "300px Revalia", textalign: "center"});
+    this.startButton = this.game.add.button(850, 700, 'start-game', this.startGame, this);
   }
 
-  update() {
-
-    if(this.game.input.activePointer.justPressed()) {
-      this.game.state.start('Main');
-    }
+  startGame() {
+      this.game.state.start('Main')
   }
 
 }
