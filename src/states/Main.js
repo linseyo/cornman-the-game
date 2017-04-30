@@ -64,35 +64,59 @@ class Main extends Phaser.State {
 		this.groundFront.body.immovable = true;
 		this.groundFront.body.allowGravity = false;
 
-		this.rocks = this.game.add.group();
+		this.tractors = this.game.add.group();
+		this.weeds = this.game.add.group();
 		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
+	}
+
+		// this.addTractors();
+		// this.addWeeds();
 	}
 
 	stopGame() {
 		this.game.state.start('Stats');
 	}
 
-	addRocks() {
 
+	addTractors() {
 		// Generate Obstacles
-		// this.tempRock = this.game.add.sprite( 1000, 1350, 'rock');
-		this.tempRock = this.game.add.sprite( 2700, 1350, 'rock', );
-			this.game.physics.arcade.enable([this.tempRock, this.groundFront]);
+		// this.tempRock = this.game.add.sprite(0,0, 'rock');
+		this.tractor = this.game.add.sprite( this.game.world.randomX + 3000,
+			(this.game.height - this.groundFront.height) - 150, 'tractor', );
+		this.tractor.scale.setTo(5, 5);
 
-		this.tempRock.scale.setTo(2, 2);
+		this.tractor.animations.add('walk')
+		this.tractor.animations.play('walk', 200, true);
 
-		this.tempRock.body.collideWorldBounds = true;
-		// this.game.physics.arcade.collide(this.tempRock, this.groundFront);
-		this.tempRock.animations.add('walk')
-		this.tempRock.animations.play('walk', 200, true);
+		this.game.add.tween(this.tractor).to({
+			x: this.tractor.x - 20000 }, 110000, Phaser.Easing.Linear.None, true);
 
-		this.game.add.tween(this.tempRock).to({
-			x: this.tempRock.x - 15000 }, 50000, Phaser.Easing.Linear.None, true);
-
-
-		this.rocks.add(this.tempRock);
+		this.tractors.add(this.tractor);
 		this.total++;
-		this.timer = this.game.time.now + 5500;
+		this.timer = this.game.time.now + 6000;
+		this.tempRock.checkWorldBounds = true;
+		this.tempRock.outofBoundsKill = true;
+		this.score += 1;
+		this.labelScore.text = this.score;
+
+	}
+
+	addWeeds() {
+		this.weed = this.game.add.sprite( this.game.world.randomX + 1350,
+			(this.game.height - this.groundFront.height) - 120, 'weed', );
+		this.weed.scale.setTo(5, 5);
+
+		this.weed.animations.add('waddle')
+		this.weed.animations.play('waddle', 1000, true);
+		this.weed.animations.getAnimation('waddle').delay = 500
+
+		this.game.add.tween(this.weed).to({
+			x: this.weed.x - 20000 }, 110000, Phaser.Easing.Linear.None, true);
+
+
+		this.weeds.add(this.weed);
+		this.total++;
+		this.timer = this.game.time.now + 9000;
 		this.tempRock.checkWorldBounds = true;
 		this.tempRock.outofBoundsKill = true;
 		this.score += 1;
@@ -115,19 +139,24 @@ class Main extends Phaser.State {
 		this.groundFront.tilePosition.x -= 6.0;
 
 
-
 		if(this.game.input.activePointer.justPressed() && this.player.body.touching.down && (this.game.time.now > this.jumpTimer)) {
 			this.player.body.velocity.y = -1200;
 			this.player.body.velocity.x = 2;
 			this.jumpTimer = this.game.time.now + 750;
 		}
 
-		if (this.total < 400 && this.game.time.now > this.timer){
-			this.addRocks();
+		if (this.total < 1000 && this.game.time.now > this.timer){
+			this.addTractors();
+			this.addWeeds();
 		}
 
 		this.game.physics.arcade.overlap(
-			this.player, this.rocks, this.endGame, null, this);
+			this.player, this.tractors, this.endGame, null, this);
+		this.game.physics.arcade.overlap(
+				this.player, this.weeds, this.endGame, null, this);
+
+
+>>>>>>> render-obstacles
 
 	}
 
