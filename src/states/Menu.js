@@ -11,10 +11,14 @@ class Menu extends Phaser.State {
     let title = "CORNMAN"
     this.titleText = this.game.add.text(200, 300, title, { font: "300px Revalia", textalign: "center"});
     this.startButton = this.game.add.button(850, 700, 'start-game', this.startGame, this);
+
+    this.cow = this.game.add.sprite(1490, 170, 'cow-menu');
+    this.cow.animations.add('walk');
+    this.cow.animations.play('walk', 3, true);
   }
 
   startGame() {
-      this.game.state.start('Main')
+    this.game.state.start('Main')
   }
 
 }

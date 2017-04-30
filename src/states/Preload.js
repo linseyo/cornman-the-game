@@ -13,6 +13,8 @@ class Preload extends Phaser.State {
 		this.game.load.image('main-menu', 'assets/menu-button.png');
 		this.game.load.image('start-game', 'assets/start-button.png');
 		this.game.load.image('stop-game', 'assets/stop-button.png');
+
+		this.game.load.spritesheet('cow-menu', 'assets/cow-menu-spritesheet.png', 210, 210, 2);
 	}
 
 	create() {
