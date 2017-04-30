@@ -47,6 +47,7 @@ class Main extends Phaser.State {
 		this.cow.animations.add('walk');
 		this.cow.animations.play('walk', 3, true);
 
+		this.corn = this.game.add.sprite(0, 0, 'corn-coin');
 	}
 
 	stopGame() {
