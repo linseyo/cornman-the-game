@@ -68,10 +68,6 @@ class Main extends Phaser.State {
 		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
 	}
 
-		// this.addTractors();
-		// this.addWeeds();
-
-
 	stopGame() {
 		this.game.state.start('Stats');
 	}
