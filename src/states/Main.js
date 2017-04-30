@@ -8,7 +8,6 @@ class Main extends Phaser.State {
 		this.timer = 0;
 		this.total = 0;
 		this.score = 0;
-		this.tempRock;
 	}
 
 	create() {
@@ -71,7 +70,7 @@ class Main extends Phaser.State {
 
 		// this.addTractors();
 		// this.addWeeds();
-	}
+
 
 	stopGame() {
 		this.game.state.start('Stats');
@@ -94,8 +93,8 @@ class Main extends Phaser.State {
 		this.tractors.add(this.tractor);
 		this.total++;
 		this.timer = this.game.time.now + 6000;
-		this.tempRock.checkWorldBounds = true;
-		this.tempRock.outofBoundsKill = true;
+		this.tractor.checkWorldBounds = true;
+		this.tractor.outofBoundsKill = true;
 		this.score += 1;
 		this.labelScore.text = this.score;
 
@@ -117,8 +116,8 @@ class Main extends Phaser.State {
 		this.weeds.add(this.weed);
 		this.total++;
 		this.timer = this.game.time.now + 9000;
-		this.tempRock.checkWorldBounds = true;
-		this.tempRock.outofBoundsKill = true;
+		this.weed.checkWorldBounds = true;
+		this.weed.outofBoundsKill = true;
 		this.score += 1;
 		this.labelScore.text = this.score;
 
@@ -152,11 +151,10 @@ class Main extends Phaser.State {
 
 		this.game.physics.arcade.overlap(
 			this.player, this.tractors, this.endGame, null, this);
+
 		this.game.physics.arcade.overlap(
 				this.player, this.weeds, this.endGame, null, this);
 
-
->>>>>>> render-obstacles
 
 	}
 
