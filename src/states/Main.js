@@ -78,7 +78,6 @@ class Main extends Phaser.State {
 		// Generate Obstacles
 		// this.tempRock = this.game.add.sprite(0,0, 'rock');
 		this.tractor = this.game.add.sprite( 2800 , 1000, 'tractor', );
-		// this.tractor.scale.setTo(5, 5);
 		this.game.physics.arcade.enable(this.tractor);
 		console.log(this.tractor.x)
 
