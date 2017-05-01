@@ -52,7 +52,7 @@ class Main extends Phaser.State {
 			'ground-front'
 		);
 
-		this.labelScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#fffff"});
+		this.enemyScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#fffff"});
 		this.coinScore = this.game.add.text(60, 20, "0", { font: "30px Arial", fill: "#fffff"});
 
 		this.player = this.game.add.sprite(500, 1000, 'cornman');
@@ -108,6 +108,8 @@ class Main extends Phaser.State {
 	addCows() {
 		// Generate Obstacles
 		this.cow = this.game.add.sprite( 2800, 1290, 'cow');
+		this.cow.grantPoint = true;
+
 		this.game.physics.arcade.enable(this.cow);
 
 		this.cow.animations.add('walk')
@@ -121,8 +123,6 @@ class Main extends Phaser.State {
 		this.timer = this.game.time.now + 6000;
 		this.cow.checkWorldBounds = true;
 		this.cow.outofBoundsKill = true;
-		this.score += 1;
-		this.labelScore.text = this.score;
 	}
 
 	jumpPressed(){
@@ -143,6 +143,7 @@ class Main extends Phaser.State {
 	addTractors() {
 		// Generate Obstacles
 		this.tractor = this.game.add.sprite( 2800, 1225, 'tractor', );
+		this.tractor.grantPoint = true;
 
 		this.game.physics.arcade.enable(this.tractor);
 
@@ -157,12 +158,12 @@ class Main extends Phaser.State {
 		this.timer = this.game.time.now + 4000;
 		this.tractor.checkWorldBounds = true;
 		this.tractor.outofBoundsKill = true;
-		this.score += 1;
-		this.labelScore.text = this.score;
 	}
 
 	addWeeds() {
 		this.weed = this.game.add.sprite( 3500 ,1000, 'weed', );
+		this.weed.grantPoint = true;
+
 		this.game.physics.arcade.enable(this.weed);
 
 
@@ -179,9 +180,6 @@ class Main extends Phaser.State {
 		this.timer = this.game.time.now + 9000;
 		this.weed.checkWorldBounds = true;
 		this.weed.outofBoundsKill = true;
-		this.score += 1;
-		this.labelScore.text = this.score;
-
 	}
 
 	endGame() {
@@ -216,6 +214,24 @@ class Main extends Phaser.State {
 			this.addCoins();
 		}
 
+		if (this.weed.grantPoint && (this.weed.x < this.player.x)){
+			this.score++;
+			this.weed.grantPoint = false;
+			this.enemyScore.text = this.score;
+		}
+
+		if (this.cow.grantPoint && (this.cow.x < this.player.x)){
+			this.score++;
+			this.cow.grantPoint = false;
+			this.enemyScore.text = this.score;
+		}
+
+		if (this.tractor.grantPoint && (this.tractor.x < this.player.x)){
+			this.score++;
+			this.tractor.grantPoint = false;
+			this.enemyScore.text = this.score;
+		}
+
 		// Collision to End Game between Player & Obstacles
 		this.game.physics.arcade.overlap(
 			this.player, this.coinBag, this.countCoin, null, this);
@@ -228,7 +244,7 @@ class Main extends Phaser.State {
 			this.coinCounter++;
 			console.log(this.coinCounter);
 			this.coin.kill();
-			this.coinScore.text = this.coinCounter; 
+			this.coinScore.text = this.coinCounter;
 		}
 
 }
