@@ -63,8 +63,7 @@ class Main extends Phaser.State {
 		this.groundFront.body.immovable = true;
 		this.groundFront.body.allowGravity = false;
 
-		this.tractors = this.game.add.group();
-		this.weeds = this.game.add.group();
+		this.obstacles = this.game.add.group();
 		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
 	}
 
@@ -86,7 +85,7 @@ class Main extends Phaser.State {
 		this.game.add.tween(this.tractor).to({
 			x: this.tractor.x - 20000 }, 110000, Phaser.Easing.Linear.None, true);
 
-		this.tractors.add(this.tractor);
+		this.obstacles.add(this.tractor);
 		this.total++;
 		this.timer = this.game.time.now + 6000;
 		this.tractor.checkWorldBounds = true;
@@ -109,7 +108,7 @@ class Main extends Phaser.State {
 			x: this.weed.x - 20000 }, 110000, Phaser.Easing.Linear.None, true);
 
 
-		this.weeds.add(this.weed);
+		this.obstacles.add(this.weed);
 		this.total++;
 		this.timer = this.game.time.now + 9000;
 		this.weed.checkWorldBounds = true;
@@ -146,10 +145,8 @@ class Main extends Phaser.State {
 		}
 
 		this.game.physics.arcade.overlap(
-			this.player, this.tractors, this.endGame, null, this);
+			this.player, this.obstacles, this.endGame, null, this);
 
-		this.game.physics.arcade.overlap(
-				this.player, this.weeds, this.endGame, null, this);
 
 
 	}
