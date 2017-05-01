@@ -65,26 +65,43 @@ class Main extends Phaser.State {
 
 		this.tractors = this.game.add.group();
 		this.weeds = this.game.add.group();
+		this.cows = this.game.add.group();
+
 		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
 
-		this.cow = this.game.add.sprite(1490, 725, 'cow');
-		this.cow.animations.add('walk');
-		this.cow.animations.play('walk', 3, true);
-
-		this.corn = this.game.add.sprite(0, 0, 'corn-coin');
+		// this.cow = this.game.add.sprite(1490, 725, 'cow');
+		// this.cow.animations.add('walk');
+		// this.cow.animations.play('walk', 3, true);
+		//
+		// this.corn = this.game.add.sprite(0, 0, 'corn-coin');
 	}
 
 	stopGame() {
 		this.game.state.start('Stats');
 	}
 
+	addCows() {
+		this.cow = this.game.add.sprite( this.game.world.randomX + 3000,
+			(this.game.height - this.groundFront.height) - 230, 'cow');
+
+		this.cow.animations.add('walk')
+		this.cow.animations.play('walk', 3, true);
+
+		this.game.add.tween(this.cow).to({
+			x: this.cow.x - 20000 }, 110000, Phaser.Easing.Linear.None, true);
+
+		this.cows.add(this.cow);
+		this.total++;
+		this.timer = this.game.time.now + 6000;
+		this.cow.checkWorldBounds = true;
+		this.cow.outofBoundsKill = true;
+		this.score += 1;
+		this.labelScore.text = this.score;
+	}
 
 	addTractors() {
-		// Generate Obstacles
-		// this.tempRock = this.game.add.sprite(0,0, 'rock');
 		this.tractor = this.game.add.sprite( this.game.world.randomX + 3000,
 			(this.game.height - this.groundFront.height) - 275, 'tractor');
-		// this.tractor.scale.setTo(5, 5);
 
 		this.tractor.animations.add('walk')
 		this.tractor.animations.play('walk', 200, true);
@@ -99,13 +116,11 @@ class Main extends Phaser.State {
 		this.tractor.outofBoundsKill = true;
 		this.score += 1;
 		this.labelScore.text = this.score;
-
 	}
 
 	addWeeds() {
 		this.weed = this.game.add.sprite( this.game.world.randomX + 1350,
 			(this.game.height - this.groundFront.height) - 120, 'weed', );
-		// this.weed.scale.setTo(5, 5);
 
 		this.weed.animations.add('waddle')
 		this.weed.animations.play('waddle', 1000, true);
@@ -114,7 +129,6 @@ class Main extends Phaser.State {
 		this.game.add.tween(this.weed).to({
 			x: this.weed.x - 20000 }, 110000, Phaser.Easing.Linear.None, true);
 
-
 		this.weeds.add(this.weed);
 		this.total++;
 		this.timer = this.game.time.now + 9000;
@@ -122,13 +136,11 @@ class Main extends Phaser.State {
 		this.weed.outofBoundsKill = true;
 		this.score += 1;
 		this.labelScore.text = this.score;
-
 	}
 
 	endGame() {
 		this.game.state.start('Stats');
 	}
-
 
 	update() {
 		this.player.animations.play('right');
@@ -149,6 +161,7 @@ class Main extends Phaser.State {
 		if (this.total < 1000 && this.game.time.now > this.timer){
 			this.addTractors();
 			this.addWeeds();
+			this.addCows();
 		}
 
 		this.game.physics.arcade.overlap(
@@ -156,6 +169,9 @@ class Main extends Phaser.State {
 
 		this.game.physics.arcade.overlap(
 				this.player, this.weeds, this.endGame, null, this);
+
+		this.game.physics.arcade.overlap(
+				this.player, this.cows, this.endGame, null, this);
 
 
 	}
