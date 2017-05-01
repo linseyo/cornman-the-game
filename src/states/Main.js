@@ -77,8 +77,8 @@ class Main extends Phaser.State {
 		// Generate Obstacles
 		// this.tempRock = this.game.add.sprite(0,0, 'rock');
 		this.tractor = this.game.add.sprite( this.game.world.randomX + 3000,
-			(this.game.height - this.groundFront.height) - 150, 'tractor', );
-		this.tractor.scale.setTo(5, 5);
+			(this.game.height - this.groundFront.height) - 275, 'tractor');
+		// this.tractor.scale.setTo(5, 5);
 
 		this.tractor.animations.add('walk')
 		this.tractor.animations.play('walk', 200, true);
