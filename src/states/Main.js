@@ -70,10 +70,20 @@ class Main extends Phaser.State {
 
 		this.obstacles = this.game.add.group();
 		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
-	}
 
-	stopGame() {
-		this.game.state.start('Stats');
+		// Create Button Controller
+			// Jump Button
+		this.buttonJump = this.add.button(-(this.world.width*0.5), 0, 'blank', null, this);
+		this.buttonJump.scale.setTo(20, 20)
+		this.buttonJump.onInputDown.add(this.jumpPressed, this);
+		this.buttonJump.onInputUp.add(this.jumpReleased, this);
+
+
+		this.fireButton = this.game.add.button((this.game.world.width*0.5), 0, 'blank', null, this);
+		this.fireButton.onInputDown.add(this.goShootPressed, this);
+		this.fireButton.onInputUp.add(this.goShootReleased, this);
+
+
 	}
 
 	addCows() {
@@ -98,10 +108,21 @@ class Main extends Phaser.State {
 
 	}
 
+	jumpPressed(){
+			this.player.body.velocity.y = -2000;
+		}
+
+	jumpReleased(){}
+
+	goShootPressed(){}
+
+	goShootReleased(){}
+
 	addTractors() {
 		// Generate Obstacles
 		// this.tempRock = this.game.add.sprite(0,0, 'rock');
 		this.tractor = this.game.add.sprite( 2800, 1225, 'tractor', );
+
 		this.game.physics.arcade.enable(this.tractor);
 
 		this.tractor.animations.add('walk')
@@ -160,7 +181,7 @@ class Main extends Phaser.State {
 		this.fenceMid2.tilePosition.x -= 3.0;
 		this.groundFront.tilePosition.x -= 6.0;
 
-
+		// Jump Functionality on pointerClick
 		if(this.game.input.activePointer.justPressed() && (this.game.time.now > this.jumpTimer) && this.doubleJump < 2) {
 			this.player.body.velocity.y = -1250;
 			this.player.body.velocity.x = 2;
@@ -171,15 +192,21 @@ class Main extends Phaser.State {
 		if(this.player.body.touching.down){
 			this.doubleJump = 1;
 		}
+		// Jump Functionality with button press
 
+
+
+
+		// Generate Obstacles
 		if (this.total < 1000 && this.game.time.now > this.timer){
 			this.addTractors();
 			this.addWeeds();
 			this.addCows();
 		}
 
-		this.game.physics.arcade.overlap(
-			this.player, this.obstacles, this.endGame, null, this);
+		// Collision to End Game between Player & Obstacles
+		// this.game.physics.arcade.overlap(
+		// 	this.player, this.obstacles, this.endGame, null, this);
 		}
 
 }
