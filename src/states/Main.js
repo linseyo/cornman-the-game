@@ -52,11 +52,11 @@ class Main extends Phaser.State {
 
 		this.labelScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#fffff"});
 
-		this.player = this.game.add.sprite(500, 1000, 'dude');
-		this.player.scale.setTo(3, 3);
+		this.player = this.game.add.sprite(500, 1000, 'cornman');
+		// this.player.scale.setTo(3, 3);
 
 		this.player.animations.add('left', [0, 1, 2, 3], 10, true);
-		this.player.animations.add('right', [5, 6, 7, 8], 10, true);
+		this.player.animations.add('right', [0, 1, 2, 3], 10, true);
 
 		this.game.physics.arcade.enable([this.player, this.groundFront]);
 		this.player.body.collideWorldBounds = true;
