@@ -73,26 +73,21 @@ class Main extends Phaser.State {
 		this.buttonJump = this.add.button(-(this.world.width*0.5), 0, 'blank', null, this);
 		this.buttonJump.scale.setTo(20, 20)
 		this.buttonJump.onInputDown.add(this.jumpPressed, this);
-		this.buttonJump.onInputUp.add(this.jumpReleased, this);
 
 
 		this.fireButton = this.game.add.button((this.game.world.width*0.5), 0, 'blank', null, this);
 		this.fireButton.onInputDown.add(this.goShootPressed, this);
-		this.fireButton.onInputUp.add(this.goShootReleased, this);
-
 
 	}
-
-<<<<<<< HEAD
+		// Touch Enabled jumping function
 		jumpPressed(){
 			this.player.body.velocity.y = -2000;
 		}
+		// Touch Enabled firing function
+		goShootPressed(){
+			
+		}
 
-		jumpReleased(){}
-
-		goShootPressed(){}
-
-		goShootReleased(){}
 
 
 	addCows() {
