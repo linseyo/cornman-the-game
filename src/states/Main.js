@@ -8,13 +8,16 @@ class Main extends Phaser.State {
 		this.jumpTimer = 0;
 		this.timer = 0;
 		this.total = 0;
-		this.coinCounter = 0;
-		this.score = 0;
+
 		this.tractor;
 		this.weed;
 	}
 
 	create() {
+		// Score and coinCounter reinitialize to zero upon restarting
+		this.score = 0;
+		this.coinCounter = 0;
+
 		//Enable Arcade Physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		this.game.physics.arcade.gravity.y = 2000;
@@ -108,6 +111,7 @@ class Main extends Phaser.State {
 	addCows() {
 		// Generate Obstacles
 		this.cow = this.game.add.sprite( 2800, 1290, 'cow');
+		// Gives each cow a point to grant when player passes successfully
 		this.cow.grantPoint = true;
 
 		this.game.physics.arcade.enable(this.cow);
@@ -143,6 +147,7 @@ class Main extends Phaser.State {
 	addTractors() {
 		// Generate Obstacles
 		this.tractor = this.game.add.sprite( 2800, 1225, 'tractor', );
+		// Gives each tractor a point to grant when player passes successfully
 		this.tractor.grantPoint = true;
 
 		this.game.physics.arcade.enable(this.tractor);
@@ -162,6 +167,7 @@ class Main extends Phaser.State {
 
 	addWeeds() {
 		this.weed = this.game.add.sprite( 3500 ,1000, 'weed', );
+		// Gives each weed a point to grant when player passes successfully
 		this.weed.grantPoint = true;
 
 		this.game.physics.arcade.enable(this.weed);
@@ -214,6 +220,7 @@ class Main extends Phaser.State {
 			this.addCoins();
 		}
 
+		// Functionality to count passing enemies ONCE
 		if (this.weed.grantPoint && (this.weed.x < this.player.x)){
 			this.score++;
 			this.weed.grantPoint = false;
@@ -232,17 +239,17 @@ class Main extends Phaser.State {
 			this.enemyScore.text = this.score;
 		}
 
-		// Collision to End Game between Player & Obstacles
+		// Collision to collect Corn Coins
 		this.game.physics.arcade.overlap(
 			this.player, this.coinBag, this.countCoin, null, this);
 
-		// this.game.physics.arcade.overlap(
-		// 	this.player, this.coin, this.countCoin, null, this);
+		// Collision to End Game between Player & Obstacles
+		this.game.physics.arcade.overlap(
+			this.player, this.obstacles, this.endGame, null, this);
 		}
 		//
 		countCoin() {
 			this.coinCounter++;
-			console.log(this.coinCounter);
 			this.coin.kill();
 			this.coinScore.text = this.coinCounter;
 		}
