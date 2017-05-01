@@ -4,6 +4,7 @@ class Main extends Phaser.State {
 		this.groundFront;
 		this.player;
 		this.jumpButton;
+		this.doubleJump = 1;
 		this.jumpTimer = 0;
 		this.timer = 0;
 		this.total = 0;
@@ -60,6 +61,8 @@ class Main extends Phaser.State {
 
 		this.game.physics.arcade.enable([this.player, this.groundFront]);
 		this.player.body.collideWorldBounds = true;
+		this.player.body.gravity.y = -50;
+		// this.player.body.maxVelocity.y = 1000;
 
 		this.groundFront.body.collideWorldBounds = true;
 		this.groundFront.body.immovable = true;
@@ -140,10 +143,15 @@ class Main extends Phaser.State {
 		this.groundFront.tilePosition.x -= 6.0;
 
 
-		if(this.game.input.activePointer.justPressed() && this.player.body.touching.down && (this.game.time.now > this.jumpTimer)) {
-			this.player.body.velocity.y = -2000;
+		if(this.game.input.activePointer.justPressed() && (this.game.time.now > this.jumpTimer) && this.doubleJump < 2) {
+			this.player.body.velocity.y = -1250;
 			this.player.body.velocity.x = 2;
-			this.jumpTimer = this.game.time.now + 750;
+			this.jumpTimer = this.game.time.now + 200;
+			this.doubleJump += 1;
+		}
+
+		if (this.player.body.touching.down){
+			this.doubleJump = 1;
 		}
 
 		if (this.total < 1000 && this.game.time.now > this.timer){
