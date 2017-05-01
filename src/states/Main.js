@@ -66,6 +66,7 @@ class Main extends Phaser.State {
 		this.tractors = this.game.add.group();
 		this.weeds = this.game.add.group();
 		this.cows = this.game.add.group();
+		this.corns = this.game.add.group();
 
 		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
 
@@ -73,11 +74,30 @@ class Main extends Phaser.State {
 		// this.cow.animations.add('walk');
 		// this.cow.animations.play('walk', 3, true);
 		//
-		// this.corn = this.game.add.sprite(0, 0, 'corn-coin');
+		// this.corn = this.game.add.sprite(50, 0, 'corn-coin');
 	}
 
 	stopGame() {
 		this.game.state.start('Stats');
+	}
+
+	addCorns() {
+		this.corn = this.game.add.sprite( this.game.world.randomX + 3000,
+			(this.game.height - this.groundFront.height) - 550, 'corn-coin');
+
+		this.corn.animations.add('walk')
+		this.corn.animations.play('walk', 3, true);
+
+		this.game.add.tween(this.corn).to({
+			x: this.corn.x - 20000 }, 110000, Phaser.Easing.Linear.None, true);
+
+		this.corns.add(this.corn);
+		this.total++;
+		this.timer = this.game.time.now + 6000;
+		this.corn.checkWorldBounds = true;
+		this.corn.outofBoundsKill = true;
+		this.score += 1;
+		this.labelScore.text = this.score;
 	}
 
 	addCows() {
@@ -162,6 +182,7 @@ class Main extends Phaser.State {
 			this.addTractors();
 			this.addWeeds();
 			this.addCows();
+			this.addCorns();
 		}
 
 		this.game.physics.arcade.overlap(
