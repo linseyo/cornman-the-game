@@ -53,6 +53,7 @@ class Main extends Phaser.State {
 		);
 
 		this.labelScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#fffff"});
+		this.coinScore = this.game.add.text(60, 20, "0", { font: "30px Arial", fill: "#fffff"});
 
 		this.player = this.game.add.sprite(500, 1000, 'cornman');
 		// this.player.scale.setTo(3, 3);
@@ -227,6 +228,7 @@ class Main extends Phaser.State {
 			this.coinCounter++;
 			console.log(this.coinCounter);
 			this.coin.kill();
+			this.coinScore.text = this.coinCounter; 
 		}
 
 }
