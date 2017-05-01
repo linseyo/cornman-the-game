@@ -76,7 +76,7 @@ class Main extends Phaser.State {
 		this.buttonJump = this.add.button(-(this.world.width*0.5), 0, 'blank', null, this);
 		this.buttonJump.scale.setTo(20, 20)
 		this.buttonJump.onInputDown.add(this.jumpPressed, this);
-		this.buttonJump.onInputUp.add(this.jumpReleased, this);
+		// this.buttonJump.onInputUp.add(this.jumpReleased, this);
 
 
 		this.fireButton = this.game.add.button((this.game.world.width*0.5), 0, 'blank', null, this);
@@ -109,10 +109,15 @@ class Main extends Phaser.State {
 	}
 
 	jumpPressed(){
-			this.player.body.velocity.y = -2000;
+		if((this.game.time.now > this.jumpTimer) && this.doubleJump <= 2) {
+			this.player.body.velocity.y = -1250;
+			this.player.body.velocity.x = 2;
+			this.jumpTimer = this.game.time.now + 200;
+			this.doubleJump += 1;
 		}
+	}
 
-	jumpReleased(){}
+	// jumpReleased(){}
 
 	goShootPressed(){}
 
@@ -182,13 +187,6 @@ class Main extends Phaser.State {
 		this.groundFront.tilePosition.x -= 6.0;
 
 		// Jump Functionality on pointerClick
-		if(this.game.input.activePointer.justPressed() && (this.game.time.now > this.jumpTimer) && this.doubleJump < 2) {
-			this.player.body.velocity.y = -1250;
-			this.player.body.velocity.x = 2;
-			this.jumpTimer = this.game.time.now + 200;
-			this.doubleJump += 1;
-		}
-
 		if(this.player.body.touching.down){
 			this.doubleJump = 1;
 		}
