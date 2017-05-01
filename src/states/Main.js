@@ -4,6 +4,7 @@ class Main extends Phaser.State {
 		this.groundFront;
 		this.player;
 		this.jumpButton;
+		this.doubleJump = 1;
 		this.jumpTimer = 0;
 		this.timer = 0;
 		this.total = 0;
@@ -60,6 +61,8 @@ class Main extends Phaser.State {
 
 		this.game.physics.arcade.enable([this.player, this.groundFront]);
 		this.player.body.collideWorldBounds = true;
+		this.player.body.gravity.y = -50;
+		// this.player.body.maxVelocity.y = 1000;
 
 		this.groundFront.body.collideWorldBounds = true;
 		this.groundFront.body.immovable = true;
@@ -79,19 +82,33 @@ class Main extends Phaser.State {
 		this.fireButton.onInputDown.add(this.goShootPressed, this);
 
 		// Create Firing Object
-		this.kernel = 
+		this.kernel = this.game.add.weapon(100, 'bullet');
+
+		// Destroy kernel once it is out of world bounds
+		this.kernel.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
+		this.kernel.bulletSpeed = 400;
+		this.kernel.fireRate = 60;
+		this.kernel.trackSprite('player', 0, 14);
+
+		this.fire = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
 
 	}
+
+
 		// Touch Enabled jumping function
 		jumpPressed(){
-			this.player.body.velocity.y = -2000;
+			if((this.game.time.now > this.jumpTimer) && this.doubleJump <= 2) {
+				this.player.body.velocity.y = -1250;
+				this.player.body.velocity.x = 2;
+				this.jumpTimer = this.game.time.now + 200;
+				this.doubleJump += 1;
+			}
 		}
-		// Touch Enabled firing function
-		goShootPressed(){
-
-		}
 
 
+		goShootPressed(){}
+
+		goShootReleased(){}
 
 	addCows() {
 		this.cow = this.game.add.sprite( 2800, 1290, 'cow');
@@ -113,6 +130,8 @@ class Main extends Phaser.State {
 
 	}
 
+
+
 	addTractors() {
 		this.tractor = this.game.add.sprite( 2800, 1225, 'tractor', );
 		this.game.physics.arcade.enable(this.tractor);
@@ -133,6 +152,7 @@ class Main extends Phaser.State {
 	}
 
 	addWeeds() {
+
 		this.weed = this.game.add.sprite( 3500, 1000, 'weed', );
 		this.game.physics.arcade.enable(this.weed);
 
@@ -170,10 +190,8 @@ class Main extends Phaser.State {
 		this.groundFront.tilePosition.x -= 6.0;
 
 		// Jump Functionality on pointerClick
-		if(this.game.input.activePointer.justPressed() && this.player.body.touching.down && (this.game.time.now > this.jumpTimer)) {
-			this.player.body.velocity.y = -2000;
-			this.player.body.velocity.x = 2;
-			this.jumpTimer = this.game.time.now + 750;
+		if(this.player.body.touching.down){
+			this.doubleJump = 1;
 		}
 		// Jump Functionality with button press
 
