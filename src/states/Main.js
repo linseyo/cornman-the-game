@@ -67,16 +67,9 @@ class Main extends Phaser.State {
 
 		this.obstacles = this.game.add.group();
 		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
-	}
-
-	stopGame() {
-		this.game.state.start('Stats');
-	}
-
+		this.buttonJump = this.game.add.button()
 
 	addTractors() {
-		// Generate Obstacles
-		// this.tempRock = this.game.add.sprite(0,0, 'rock');
 		this.tractor = this.game.add.sprite( 2800 , 1000, 'tractor', );
 		this.tractor.scale.setTo(5, 5);
 		this.game.physics.arcade.enable(this.tractor);
@@ -128,6 +121,9 @@ class Main extends Phaser.State {
 	}
 
 
+
+}
+
 	update() {
 		this.player.animations.play('right');
 		this.game.physics.arcade.collide(this.player, this.groundFront);
@@ -139,18 +135,21 @@ class Main extends Phaser.State {
 		this.fenceMid2.tilePosition.x -= 3.0;
 		this.groundFront.tilePosition.x -= 6.0;
 
-
+		// Jump Functionality
 		if(this.game.input.activePointer.justPressed() && this.player.body.touching.down && (this.game.time.now > this.jumpTimer)) {
 			this.player.body.velocity.y = -2000;
 			this.player.body.velocity.x = 2;
 			this.jumpTimer = this.game.time.now + 750;
 		}
 
+
+		// Generate Obstacles
 		if (this.total < 1000 && this.game.time.now > this.timer){
 			this.addTractors();
 			this.addWeeds();
 		}
 
+		// Collision to End Game between Player & Obstacles
 		this.game.physics.arcade.overlap(
 			this.player, this.obstacles, this.endGame, null, this);
 		}
