@@ -15,7 +15,7 @@ class Main extends Phaser.State {
 
 	create() {
 		// Score and coinCounter reinitialize to zero upon restarting
-		this.score = 0;
+		this.enemiesPassed = 0;
 		this.coinCounter = 0;
 		this.totalScore = 0;
 
@@ -224,27 +224,27 @@ class Main extends Phaser.State {
 
 		// Functionality to count passing enemies ONCE
 		if (this.weed.grantPoint && (this.weed.x < this.player.x)){
-			this.score++;
+			this.enemiesPassed++;
 			this.weed.grantPoint = false;
-			this.enemyScore.text = this.score;
-			this.totalScore = (this.score + this.coinCounter);
+			this.enemyScore.text = this.enemiesPassed;
+			this.totalScore = (this.enemiesPassed + this.coinCounter);
 			this.sumScore.text = this.totalScore;
 		}
 
 		if (this.cow.grantPoint && (this.cow.x < this.player.x)){
-			this.score++;
+			this.enemiesPassed++;
 			this.cow.grantPoint = false;
-			this.enemyScore.text = this.score;
-			this.totalScore = (this.score + this.coinCounter);
+			this.enemyScore.text = this.enemiesPassed;
+			this.totalScore = (this.enemiesPassed + this.coinCounter);
 			this.sumScore.text = this.totalScore;
 
 		}
 
 		if (this.tractor.grantPoint && (this.tractor.x < this.player.x)){
-			this.score++;
+			this.enemiesPassed++;
 			this.tractor.grantPoint = false;
-			this.enemyScore.text = this.score;
-			this.totalScore = (this.score + this.coinCounter);
+			this.enemyScore.text = this.enemiesPassed;
+			this.totalScore = (this.enemiesPassed + this.coinCounter);
 			this.sumScore.text = this.totalScore;
 
 		}
@@ -260,7 +260,7 @@ class Main extends Phaser.State {
 		//
 		countCoin() {
 			this.coinCounter++;
-			this.totalScore = (this.score + this.coinCounter);
+			this.totalScore = (this.enemiesPassed + this.coinCounter);
 			this.coin.kill();
 			this.coinScore.text = this.coinCounter;
 			this.sumScore.text = this.totalScore;
