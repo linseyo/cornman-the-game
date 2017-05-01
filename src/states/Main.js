@@ -81,7 +81,6 @@ class Main extends Phaser.State {
 		// this.tempRock = this.game.add.sprite(0,0, 'rock');
 		this.cow = this.game.add.sprite( 2800, 1290, 'cow');
 		this.game.physics.arcade.enable(this.cow);
-		console.log(this.cow.x)
 
 		this.cow.animations.add('walk')
 		this.cow.animations.play('walk', 3, true);
@@ -104,7 +103,6 @@ class Main extends Phaser.State {
 		// this.tempRock = this.game.add.sprite(0,0, 'rock');
 		this.tractor = this.game.add.sprite( 2800, 1225, 'tractor', );
 		this.game.physics.arcade.enable(this.tractor);
-		console.log(this.tractor.x)
 
 		this.tractor.animations.add('walk')
 		this.tractor.animations.play('walk', 200, true);
