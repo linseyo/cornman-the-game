@@ -8,7 +8,7 @@ class Main extends Phaser.State {
 		this.jumpTimer = 0;
 		this.timer = 0;
 		this.total = 0;
-
+		this.totalScore = 0;
 		this.tractor;
 		this.weed;
 	}
@@ -17,6 +17,7 @@ class Main extends Phaser.State {
 		// Score and coinCounter reinitialize to zero upon restarting
 		this.score = 0;
 		this.coinCounter = 0;
+		this.totalScore = 0;
 
 		//Enable Arcade Physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -57,6 +58,7 @@ class Main extends Phaser.State {
 
 		this.enemyScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#fffff"});
 		this.coinScore = this.game.add.text(60, 20, "0", { font: "30px Arial", fill: "#fffff"});
+		this.sumScore = this.game.add.text(100, 20, "0", { font: "30px Arial", fill: "#fffff"});
 
 		this.player = this.game.add.sprite(500, 1000, 'cornman');
 		// this.player.scale.setTo(3, 3);
@@ -225,18 +227,26 @@ class Main extends Phaser.State {
 			this.score++;
 			this.weed.grantPoint = false;
 			this.enemyScore.text = this.score;
+			this.totalScore = (this.score + this.coinCounter);
+			this.sumScore.text = this.totalScore;
 		}
 
 		if (this.cow.grantPoint && (this.cow.x < this.player.x)){
 			this.score++;
 			this.cow.grantPoint = false;
 			this.enemyScore.text = this.score;
+			this.totalScore = (this.score + this.coinCounter);
+			this.sumScore.text = this.totalScore;
+
 		}
 
 		if (this.tractor.grantPoint && (this.tractor.x < this.player.x)){
 			this.score++;
 			this.tractor.grantPoint = false;
 			this.enemyScore.text = this.score;
+			this.totalScore = (this.score + this.coinCounter);
+			this.sumScore.text = this.totalScore;
+
 		}
 
 		// Collision to collect Corn Coins
@@ -250,8 +260,10 @@ class Main extends Phaser.State {
 		//
 		countCoin() {
 			this.coinCounter++;
+			this.totalScore = (this.score + this.coinCounter);
 			this.coin.kill();
 			this.coinScore.text = this.coinCounter;
+			this.sumScore.text = this.totalScore;
 		}
 
 }
