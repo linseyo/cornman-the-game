@@ -10,8 +10,8 @@ class Stats extends Phaser.State {
 		this.continueText = this.game.add.text(820, 300, continuePhrase, { font: "50px Arial", textalign: "center"});
 
 
-		this.playerName = prompt("Please enter your name", "Player");
-		this.playerScore = this.game.add.text(20, 20, (this.playerName + "'s Score: " + this.totalScore), { font: "60px Arial", fill: "#fffff"});
+		// this.playerName = prompt("Please enter your name", "Player");
+		this.playerScore = this.game.add.text(1000, 800, ("Total Score: " + this.totalScore), { font: "60px Arial", fill: "#fffff"});
 
 	}
 
