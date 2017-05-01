@@ -74,9 +74,12 @@ class Main extends Phaser.State {
 		this.buttonJump.scale.setTo(20, 20)
 		this.buttonJump.onInputDown.add(this.jumpPressed, this);
 
-
+			// Fire Button
 		this.fireButton = this.game.add.button((this.game.world.width*0.5), 0, 'blank', null, this);
 		this.fireButton.onInputDown.add(this.goShootPressed, this);
+
+		// Create Firing Object
+		this.kernel = 
 
 	}
 		// Touch Enabled jumping function
@@ -85,7 +88,7 @@ class Main extends Phaser.State {
 		}
 		// Touch Enabled firing function
 		goShootPressed(){
-			
+
 		}
 
 
