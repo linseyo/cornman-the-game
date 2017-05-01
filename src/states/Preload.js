@@ -16,7 +16,7 @@ class Preload extends Phaser.State {
 		this.game.load.image('start-game', 'assets/start-button.png');
 		this.game.load.image('stop-game', 'assets/stop-button.png');
 		this.game.load.spritesheet('tractor', 'assets/tractor-resize.png', 320, 320, 2);
-		this.game.load.spritesheet('weed', 'assets/Weeds.png', 32, 32, 2);
+		this.game.load.spritesheet('weed', 'assets/weeds-resize.png', 160, 160, 2);
 	}
 
 	create() {

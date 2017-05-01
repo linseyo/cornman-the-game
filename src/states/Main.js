@@ -99,7 +99,7 @@ class Main extends Phaser.State {
 	addWeeds() {
 		this.weed = this.game.add.sprite( this.game.world.randomX + 1350,
 			(this.game.height - this.groundFront.height) - 120, 'weed', );
-		this.weed.scale.setTo(5, 5);
+		// this.weed.scale.setTo(5, 5);
 
 		this.weed.animations.add('waddle')
 		this.weed.animations.play('waddle', 1000, true);
