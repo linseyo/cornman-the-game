@@ -11,6 +11,10 @@ class Main extends Phaser.State {
 		this.score = 0;
 		this.tractor;
 		this.weed;
+		this.kernel;
+		this.ammo;
+		this.fireRate = 100;
+		this.nextFire = 0;
 	}
 
 	create() {
@@ -77,20 +81,23 @@ class Main extends Phaser.State {
 		this.buttonJump.scale.setTo(20, 20)
 		this.buttonJump.onInputDown.add(this.jumpPressed, this);
 
-			// Fire Button
-		this.fireButton = this.game.add.button((this.game.world.width*0.5), 0, 'blank', null, this);
+			// Fire Button & Keyboard Press
+		this.fireButton = this.add.button((this.game.world.width*0.5), 0, 'blank', null, this);
+		this.fireButton.scale.setTo(20, 20)
 		this.fireButton.onInputDown.add(this.goShootPressed, this);
-
-		// Create Firing Object
-		this.kernel = this.game.add.weapon(100, 'bullet');
-
-		// Destroy kernel once it is out of world bounds
-		this.kernel.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
-		this.kernel.bulletSpeed = 400;
-		this.kernel.fireRate = 60;
-		this.kernel.trackSprite('player', 0, 14);
-
 		this.fire = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
+		this.fire.onDown.add(this.goShootPressed, this);
+
+		// Create Firing Object group
+		this.ammo = this.game.add.group();
+		this.ammo.enableBody = true;
+		this.ammo.physicsBodyType = Phaser.Physics.ARCADE;
+		this.ammo.createMultiple(100, 'bullet', 0, false);
+		this.ammo.setAll('checkWorldBounds', true);
+		this.ammo.setAll('outOfBoundsKill', true);
+		this.ammo.setAll('anchor.x', - 2);
+    this.ammo.setAll('anchor.y', - 1);
+
 
 	}
 
@@ -106,7 +113,19 @@ class Main extends Phaser.State {
 		}
 
 
-		goShootPressed(){}
+		goShootPressed(){
+			if(this.game.time.now > this.nextFire && this.ammo.countDead() > 0) {
+				this.nextFire = this.game.time.now + this.fireRate;
+				this.kernel = this.ammo.getFirstDead();
+				this.kernel.physicsBodyType = Phaser.Physics.ARACADE;
+				this.kernel.bulletSpeed = 600
+				this.kernel.bulletAngleOffset = 180;
+				this.kernel.reset(this.player.x + 8, this.player.y - 8);
+				this.kernel.body.velocity.x = 1600;
+				// this.game.physics.arcade.moveToPointer(this.kernel, 3000);
+			}
+		}
+
 
 		goShootReleased(){}
 
@@ -189,14 +208,9 @@ class Main extends Phaser.State {
 		this.fenceMid2.tilePosition.x -= 3.0;
 		this.groundFront.tilePosition.x -= 6.0;
 
-		// Jump Functionality on pointerClick
-		if(this.player.body.touching.down){
+			if(this.player.body.touching.down){
 			this.doubleJump = 1;
 		}
-		// Jump Functionality with button press
-
-
-
 
 		// Generate Obstacles
 		if (this.total < 1000 && this.game.time.now > this.timer){
