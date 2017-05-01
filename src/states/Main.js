@@ -73,11 +73,33 @@ class Main extends Phaser.State {
 		this.game.state.start('Stats');
 	}
 
+	addCows() {
+		// Generate Obstacles
+		// this.tempRock = this.game.add.sprite(0,0, 'rock');
+		this.cow = this.game.add.sprite( 2800, 1290, 'cow');
+		this.game.physics.arcade.enable(this.cow);
+		console.log(this.cow.x)
+
+		this.cow.animations.add('walk')
+		this.cow.animations.play('walk', 3, true);
+
+		this.game.add.tween(this.cow).to({
+			x: this.cow.x - 55000 }, 110000, Phaser.Easing.Linear.None, true);
+
+		this.obstacles.add(this.cow);
+		this.total++;
+		this.timer = this.game.time.now + 6000;
+		this.cow.checkWorldBounds = true;
+		this.cow.outofBoundsKill = true;
+		this.score += 1;
+		this.labelScore.text = this.score;
+
+	}
 
 	addTractors() {
 		// Generate Obstacles
 		// this.tempRock = this.game.add.sprite(0,0, 'rock');
-		this.tractor = this.game.add.sprite( 2800 , 1000, 'tractor', );
+		this.tractor = this.game.add.sprite( 2800, 1225, 'tractor', );
 		this.game.physics.arcade.enable(this.tractor);
 		console.log(this.tractor.x)
 
@@ -85,11 +107,11 @@ class Main extends Phaser.State {
 		this.tractor.animations.play('walk', 200, true);
 
 		this.game.add.tween(this.tractor).to({
-			x: this.tractor.x - 50000 }, 110000, Phaser.Easing.Linear.None, true);
+			x: this.tractor.x - 70000 }, 110000, Phaser.Easing.Linear.None, true);
 
 		this.obstacles.add(this.tractor);
 		this.total++;
-		this.timer = this.game.time.now + 6000;
+		this.timer = this.game.time.now + 4000;
 		this.tractor.checkWorldBounds = true;
 		this.tractor.outofBoundsKill = true;
 		this.score += 1;
@@ -98,7 +120,7 @@ class Main extends Phaser.State {
 	}
 
 	addWeeds() {
-		this.weed = this.game.add.sprite( 3500 ,1000, 'weed', );
+		this.weed = this.game.add.sprite( 3500, 1000, 'weed', );
 		console.log(this.weed.x)
 		this.game.physics.arcade.enable(this.weed);
 
@@ -131,6 +153,7 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.collide(this.player, this.groundFront);
 		this.game.physics.arcade.collide(this.weed, this.groundFront);
 		this.game.physics.arcade.collide(this.tractor, this.groundFront);
+		this.game.physics.arcade.collide(this.cow, this.groundFront);
 
 		this.mountainsBack.tilePosition.x -= 0.10;
 		this.hillsMid1.tilePosition.x -= 0.3;
@@ -147,6 +170,7 @@ class Main extends Phaser.State {
 		if (this.total < 1000 && this.game.time.now > this.timer){
 			this.addTractors();
 			this.addWeeds();
+			this.addCows();
 		}
 
 		this.game.physics.arcade.overlap(
