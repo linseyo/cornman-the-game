@@ -83,7 +83,22 @@ class Main extends Phaser.State {
 		this.fireButton.onInputDown.add(this.goShootPressed, this);
 		this.fireButton.onInputUp.add(this.goShootReleased, this);
 
+	}
 
+	addCoins() {
+		// Generate Obstacles
+		this.coin = this.game.add.sprite( 2800, 800, 'coin');
+
+		this.game.add.tween(this.coin).to({
+			x: this.coin.x - 55000 }, 110000, Phaser.Easing.Linear.None, true);
+
+		this.obstacles.add(this.coin);
+		this.total++;
+		this.timer = this.game.time.now + 6000;
+		this.coin.checkWorldBounds = true;
+		this.coin.outofBoundsKill = true;
+		this.score += 1;
+		this.labelScore.text = this.score;
 	}
 
 	addCows() {
@@ -193,6 +208,7 @@ class Main extends Phaser.State {
 			this.addTractors();
 			this.addWeeds();
 			this.addCows();
+			this.addCoins();
 		}
 
 		// Collision to End Game between Player & Obstacles
