@@ -150,7 +150,7 @@ class Main extends Phaser.State {
 			this.doubleJump += 1;
 		}
 
-		if (this.player.body.touching.down){
+		if(this.player.body.touching.down){
 			this.doubleJump = 1;
 		}
 
