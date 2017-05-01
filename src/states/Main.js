@@ -8,6 +8,8 @@ class Main extends Phaser.State {
 		this.timer = 0;
 		this.total = 0;
 		this.score = 0;
+		this.tractor;
+		this.weed;
 	}
 
 	create() {
@@ -75,15 +77,15 @@ class Main extends Phaser.State {
 	addTractors() {
 		// Generate Obstacles
 		// this.tempRock = this.game.add.sprite(0,0, 'rock');
-		this.tractor = this.game.add.sprite( this.game.world.randomX + 3000,
-			(this.game.height - this.groundFront.height) - 150, 'tractor', );
+		this.tractor = this.game.add.sprite( (this.world.randomX + 2600), 100, 'tractor', );
 		this.tractor.scale.setTo(5, 5);
+		this.game.physics.arcade.enable(this.tractor);
 
 		this.tractor.animations.add('walk')
 		this.tractor.animations.play('walk', 200, true);
 
 		this.game.add.tween(this.tractor).to({
-			x: this.tractor.x - 20000 }, 110000, Phaser.Easing.Linear.None, true);
+			x: this.tractor.x - 28000 }, 110000, Phaser.Easing.Linear.None, true);
 
 		this.obstacles.add(this.tractor);
 		this.total++;
@@ -96,16 +98,18 @@ class Main extends Phaser.State {
 	}
 
 	addWeeds() {
-		this.weed = this.game.add.sprite( this.game.world.randomX + 1350,
-			(this.game.height - this.groundFront.height) - 120, 'weed', );
+		this.weed = this.game.add.sprite(  (this.world.randomX + 2100) ,100, 'weed', );
+		console.log(this.world.randomX)
 		this.weed.scale.setTo(5, 5);
+		this.game.physics.arcade.enable(this.weed);
+
 
 		this.weed.animations.add('waddle')
 		this.weed.animations.play('waddle', 1000, true);
 		this.weed.animations.getAnimation('waddle').delay = 500
 
 		this.game.add.tween(this.weed).to({
-			x: this.weed.x - 20000 }, 110000, Phaser.Easing.Linear.None, true);
+			x: this.weed.x - 28000 }, 110000, Phaser.Easing.Linear.None, true);
 
 
 		this.obstacles.add(this.weed);
@@ -126,6 +130,8 @@ class Main extends Phaser.State {
 	update() {
 		this.player.animations.play('right');
 		this.game.physics.arcade.collide(this.player, this.groundFront);
+		this.game.physics.arcade.collide(this.weed, this.groundFront);
+		this.game.physics.arcade.collide(this.tractor, this.groundFront);
 
 		this.mountainsBack.tilePosition.x -= 0.10;
 		this.hillsMid1.tilePosition.x -= 0.3;
@@ -134,7 +140,7 @@ class Main extends Phaser.State {
 
 
 		if(this.game.input.activePointer.justPressed() && this.player.body.touching.down && (this.game.time.now > this.jumpTimer)) {
-			this.player.body.velocity.y = -1200;
+			this.player.body.velocity.y = -3000;
 			this.player.body.velocity.x = 2;
 			this.jumpTimer = this.game.time.now + 750;
 		}
@@ -146,10 +152,7 @@ class Main extends Phaser.State {
 
 		this.game.physics.arcade.overlap(
 			this.player, this.obstacles, this.endGame, null, this);
-
-
-
-	}
+		}
 
 }
 
