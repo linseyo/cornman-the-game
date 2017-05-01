@@ -77,15 +77,16 @@ class Main extends Phaser.State {
 	addTractors() {
 		// Generate Obstacles
 		// this.tempRock = this.game.add.sprite(0,0, 'rock');
-		this.tractor = this.game.add.sprite( (this.world.randomX + 2600), 100, 'tractor', );
+		this.tractor = this.game.add.sprite( 2800 , 1000, 'tractor', );
 		this.tractor.scale.setTo(5, 5);
 		this.game.physics.arcade.enable(this.tractor);
+		console.log(this.tractor.x)
 
 		this.tractor.animations.add('walk')
 		this.tractor.animations.play('walk', 200, true);
 
 		this.game.add.tween(this.tractor).to({
-			x: this.tractor.x - 28000 }, 110000, Phaser.Easing.Linear.None, true);
+			x: this.tractor.x - 30000 }, 110000, Phaser.Easing.Linear.None, true);
 
 		this.obstacles.add(this.tractor);
 		this.total++;
@@ -98,8 +99,8 @@ class Main extends Phaser.State {
 	}
 
 	addWeeds() {
-		this.weed = this.game.add.sprite(  (this.world.randomX + 2100) ,100, 'weed', );
-		console.log(this.world.randomX)
+		this.weed = this.game.add.sprite( 3500 ,1000, 'weed', );
+		console.log(this.weed.x)
 		this.weed.scale.setTo(5, 5);
 		this.game.physics.arcade.enable(this.weed);
 
@@ -109,7 +110,7 @@ class Main extends Phaser.State {
 		this.weed.animations.getAnimation('waddle').delay = 500
 
 		this.game.add.tween(this.weed).to({
-			x: this.weed.x - 28000 }, 110000, Phaser.Easing.Linear.None, true);
+			x: this.weed.x - 300000 }, 110000, Phaser.Easing.Linear.None, true);
 
 
 		this.obstacles.add(this.weed);
@@ -140,7 +141,7 @@ class Main extends Phaser.State {
 
 
 		if(this.game.input.activePointer.justPressed() && this.player.body.touching.down && (this.game.time.now > this.jumpTimer)) {
-			this.player.body.velocity.y = -3000;
+			this.player.body.velocity.y = -2000;
 			this.player.body.velocity.x = 2;
 			this.jumpTimer = this.game.time.now + 750;
 		}
