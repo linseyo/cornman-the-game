@@ -4,6 +4,7 @@ class Main extends Phaser.State {
 		this.groundFront;
 		this.player;
 		this.jumpButton;
+		this.doubleJump = 1;
 		this.jumpTimer = 0;
 		this.timer = 0;
 		this.total = 0;
@@ -60,6 +61,8 @@ class Main extends Phaser.State {
 
 		this.game.physics.arcade.enable([this.player, this.groundFront]);
 		this.player.body.collideWorldBounds = true;
+		this.player.body.gravity.y = -50;
+		// this.player.body.maxVelocity.y = 1000;
 
 		this.groundFront.body.collideWorldBounds = true;
 		this.groundFront.body.immovable = true;
@@ -67,17 +70,26 @@ class Main extends Phaser.State {
 
 		this.obstacles = this.game.add.group();
 		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
-	}
 
-	stopGame() {
-		this.game.state.start('Stats');
+		// Create Button Controller
+			// Jump Button
+		this.buttonJump = this.add.button(-(this.world.width*0.5), 0, 'blank', null, this);
+		this.buttonJump.scale.setTo(20, 20)
+		this.buttonJump.onInputDown.add(this.jumpPressed, this);
+		// this.buttonJump.onInputUp.add(this.jumpReleased, this);
+
+
+		this.fireButton = this.game.add.button((this.game.world.width*0.5), 0, 'blank', null, this);
+		this.fireButton.onInputDown.add(this.goShootPressed, this);
+		this.fireButton.onInputUp.add(this.goShootReleased, this);
+
+
 	}
 
 	addCows() {
 		// Generate Obstacles
 		this.cow = this.game.add.sprite( 2800, 1290, 'cow');
 		this.game.physics.arcade.enable(this.cow);
-		console.log(this.cow.x)
 
 		this.cow.animations.add('walk')
 		this.cow.animations.play('walk', 3, true);
@@ -94,11 +106,26 @@ class Main extends Phaser.State {
 		this.labelScore.text = this.score;
 	}
 
+	jumpPressed(){
+		if((this.game.time.now > this.jumpTimer) && this.doubleJump <= 2) {
+			this.player.body.velocity.y = -1250;
+			this.player.body.velocity.x = 2;
+			this.jumpTimer = this.game.time.now + 200;
+			this.doubleJump += 1;
+		}
+	}
+
+	// jumpReleased(){}
+
+	goShootPressed(){}
+
+	goShootReleased(){}
+
 	addTractors() {
 		// Generate Obstacles
 		this.tractor = this.game.add.sprite( 2800, 1225, 'tractor', );
+
 		this.game.physics.arcade.enable(this.tractor);
-		console.log(this.tractor.x)
 
 		this.tractor.animations.add('walk')
 		this.tractor.animations.play('walk', 200, true);
@@ -116,8 +143,7 @@ class Main extends Phaser.State {
 	}
 
 	addWeeds() {
-		this.weed = this.game.add.sprite( 3500, 1000, 'weed', );
-		console.log(this.weed.x)
+		this.weed = this.game.add.sprite( 3500 ,1000, 'weed', );
 		this.game.physics.arcade.enable(this.weed);
 
 
@@ -156,21 +182,22 @@ class Main extends Phaser.State {
 		this.fenceMid2.tilePosition.x -= 3.0;
 		this.groundFront.tilePosition.x -= 6.0;
 
-
-		if(this.game.input.activePointer.justPressed() && this.player.body.touching.down && (this.game.time.now > this.jumpTimer)) {
-			this.player.body.velocity.y = -2000;
-			this.player.body.velocity.x = 2;
-			this.jumpTimer = this.game.time.now + 750;
+		// Jump Functionality on pointerClick
+		if(this.player.body.touching.down){
+			this.doubleJump = 1;
 		}
+		// Jump Functionality with button press
 
-		if (this.total < 1000 && (this.game.time.now > this.timer)){
+		// Generate Obstacles
+		if (this.total < 1000 && this.game.time.now > this.timer){
 			this.addTractors();
 			this.addWeeds();
 			this.addCows();
 		}
 
-		this.game.physics.arcade.overlap(
-			this.player, this.obstacles, this.endGame, null, this);
+		// Collision to End Game between Player & Obstacles
+		// this.game.physics.arcade.overlap(
+		// 	this.player, this.obstacles, this.endGame, null, this);
 		}
 
 }
