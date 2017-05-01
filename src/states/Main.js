@@ -75,7 +75,6 @@ class Main extends Phaser.State {
 
 	addCows() {
 		// Generate Obstacles
-		// this.tempRock = this.game.add.sprite(0,0, 'rock');
 		this.cow = this.game.add.sprite( 2800, 1290, 'cow');
 		this.game.physics.arcade.enable(this.cow);
 		console.log(this.cow.x)
@@ -93,12 +92,10 @@ class Main extends Phaser.State {
 		this.cow.outofBoundsKill = true;
 		this.score += 1;
 		this.labelScore.text = this.score;
-
 	}
 
 	addTractors() {
 		// Generate Obstacles
-		// this.tempRock = this.game.add.sprite(0,0, 'rock');
 		this.tractor = this.game.add.sprite( 2800, 1225, 'tractor', );
 		this.game.physics.arcade.enable(this.tractor);
 		console.log(this.tractor.x)
@@ -116,7 +113,6 @@ class Main extends Phaser.State {
 		this.tractor.outofBoundsKill = true;
 		this.score += 1;
 		this.labelScore.text = this.score;
-
 	}
 
 	addWeeds() {
@@ -167,7 +163,7 @@ class Main extends Phaser.State {
 			this.jumpTimer = this.game.time.now + 750;
 		}
 
-		if (this.total < 1000 && this.game.time.now > this.timer){
+		if (this.total < 1000 && (this.game.time.now > this.timer)){
 			this.addTractors();
 			this.addWeeds();
 			this.addCows();
