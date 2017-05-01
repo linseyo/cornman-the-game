@@ -69,6 +69,7 @@ class Main extends Phaser.State {
 		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
 
 		// Create Button Controller
+			// Jump Button
 		this.buttonJump = this.game.add.button(200, 600, 'upJump', null, this, 0, 1, 0, 1);
 		this.buttonJump.scale.setTo(0.25, 0.25);
 		this.buttonJump.fixedToCamera = true;
@@ -76,6 +77,13 @@ class Main extends Phaser.State {
 		this.buttonJump.events.onInputOut.add(function(){jump = false;});
 		this.buttonJump.events.onInputDown.add(function(){jump = true;});
 		this.buttonJump.events.onInputUp.add(function(){jump = false;});
+
+			// Fire Button
+		this.fireButton = this.game.add.button(1600, 600, 'fire', null, this, 0, 1, 0, 1);
+		this.fireButton.scale.setTo(1, 1);
+		this.fireButton.fixedToCamera = true;
+
+
 	}
 
 
