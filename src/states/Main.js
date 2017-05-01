@@ -70,22 +70,37 @@ class Main extends Phaser.State {
 
 		// Create Button Controller
 			// Jump Button
-		this.buttonJump = this.game.add.button(200, 600, 'upJump', null, this, 0, 1, 0, 1);
-		this.buttonJump.scale.setTo(0.25, 0.25);
-		this.buttonJump.fixedToCamera = true;
-		this.buttonJump.events.onInputOver.add(function(){jump = false;});
-		this.buttonJump.events.onInputOut.add(function(){jump = false;});
-		this.buttonJump.events.onInputDown.add(function(){jump = true;});
-		this.buttonJump.events.onInputUp.add(function(){jump = false;});
+		this.buttonJump = this.game.add.button((this.game.world.width*0.5), 0, 'upJump', null, this);
+		this.buttonJump.onInputDown.add(this.jumpPressed, this);
+		this.buttonJump.onInputUp.add(this.jumpReleased, this);
 
 			// Fire Button
-		this.fireButton = this.game.add.button(1600, 600, 'fire', null, this, 0, 1, 0, 1);
-		this.fireButton.scale.setTo(1, 1);
-		this.fireButton.fixedToCamera = true;
+		// this.fireButton = this.game.add.button(2700, 600, 'fire', null, this, 0, 1, 0, 1);
+		// this.fireButton.scale.setTo(0.25, 0.25);
+		// this.fireButton.fixedToCamera = true;
+		// this.buttonJump.events.onInputOver.add(function(){jump = false;});
+		// this.buttonJump.events.onInputOut.add(function(){jump = false;});
+		// this.buttonJump.events.onInputDown.add(function(){jump = true;});
+		// this.buttonJump.events.onInputUp.add(function(){jump = false;});
+
+
+
+		this.fireButton = this.game.add.button((this.game.world.width*0.5), 0, 'fire', null, this);
+		this.fireButton.onInputDown.add(this.goShootPressed, this);
+		this.fireButton.onInputUp.add(this.goShootReleased, this);
 
 
 	}
 
+		jumpPressed(){
+			this.player.body.velocity.y = -2000;
+		}
+
+		jumpReleased(){}
+
+		goShootPressed(){}
+
+		goShootReleased(){}
 
 
 	addTractors() {
@@ -153,11 +168,12 @@ class Main extends Phaser.State {
 		this.groundFront.tilePosition.x -= 6.0;
 
 		// Jump Functionality on pointerClick
-		if(this.game.input.activePointer.justPressed() && this.player.body.touching.down && (this.game.time.now > this.jumpTimer)) {
-			this.player.body.velocity.y = -2000;
-			this.player.body.velocity.x = 2;
-			this.jumpTimer = this.game.time.now + 750;
-		}
+		// if(this.game.input.activePointer.justPressed() && this.player.body.touching.down && (this.game.time.now > this.jumpTimer)) {
+		// 	this.player.body.velocity.y = -2000;
+		// 	this.player.body.velocity.x = 2;
+		// 	this.jumpTimer = this.game.time.now + 750;
+		// }
+		// Jump Functionality with button press
 
 
 
@@ -169,8 +185,8 @@ class Main extends Phaser.State {
 		}
 
 		// Collision to End Game between Player & Obstacles
-		this.game.physics.arcade.overlap(
-			this.player, this.obstacles, this.endGame, null, this);
+		// this.game.physics.arcade.overlap(
+		// 	this.player, this.obstacles, this.endGame, null, this);
 		}
 
 }
