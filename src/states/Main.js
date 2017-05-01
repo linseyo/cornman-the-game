@@ -8,6 +8,7 @@ class Main extends Phaser.State {
 		this.jumpTimer = 0;
 		this.timer = 0;
 		this.total = 0;
+		this.coinCounter = 0;
 		this.score = 0;
 		this.tractor;
 		this.weed;
@@ -69,6 +70,8 @@ class Main extends Phaser.State {
 		this.groundFront.body.allowGravity = false;
 
 		this.obstacles = this.game.add.group();
+		this.coinBag = this.game.add.group();
+
 		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
 
 		// Create Button Controller
@@ -88,17 +91,17 @@ class Main extends Phaser.State {
 	addCoins() {
 		// Generate Obstacles
 		this.coin = this.game.add.sprite( 2800, 800, 'coin');
+		this.game.physics.arcade.enable(this.coin);
+		this.coin.body.allowGravity = false;
 
 		this.game.add.tween(this.coin).to({
 			x: this.coin.x - 55000 }, 110000, Phaser.Easing.Linear.None, true);
 
-		this.obstacles.add(this.coin);
+		this.coinBag.add(this.coin);
 		this.total++;
 		this.timer = this.game.time.now + 6000;
 		this.coin.checkWorldBounds = true;
 		this.coin.outofBoundsKill = true;
-		this.score += 1;
-		this.labelScore.text = this.score;
 	}
 
 	addCows() {
@@ -191,6 +194,7 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.collide(this.weed, this.groundFront);
 		this.game.physics.arcade.collide(this.tractor, this.groundFront);
 		this.game.physics.arcade.collide(this.cow, this.groundFront);
+		this.game.physics.arcade.collide(this.coin, this.groundFront);
 
 		this.mountainsBack.tilePosition.x -= 0.10;
 		this.hillsMid1.tilePosition.x -= 0.3;
@@ -212,8 +216,17 @@ class Main extends Phaser.State {
 		}
 
 		// Collision to End Game between Player & Obstacles
+		this.game.physics.arcade.overlap(
+			this.player, this.coinBag, this.countCoin, null, this);
+
 		// this.game.physics.arcade.overlap(
-		// 	this.player, this.obstacles, this.endGame, null, this);
+		// 	this.player, this.coin, this.countCoin, null, this);
+		}
+		//
+		countCoin() {
+			this.coinCounter++;
+			console.log(this.coinCounter);
+			this.coin.kill();
 		}
 
 }
