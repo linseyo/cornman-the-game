@@ -100,7 +100,7 @@ class Main extends Phaser.State {
 	addWeeds() {
 		this.weed = this.game.add.sprite( 3500 ,1000, 'weed', );
 		console.log(this.weed.x)
-		this.weed.scale.setTo(5, 5);
+		// this.weed.scale.setTo(5, 5);
 		this.game.physics.arcade.enable(this.weed);
 
 
