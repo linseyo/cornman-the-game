@@ -9,6 +9,7 @@ class Preload extends Phaser.State {
 		this.game.load.spritesheet('cornman', 'assets/cornman.png', 143, 165);
 		this.game.load.image('sky', 'assets/sky.png');
 		this.game.load.image('rock', 'assets/rock.gif');
+		this.game.load.image('cm-title', 'assets/cornman-title.png')
 
 		this.game.load.image('restart', 'assets/restart-button.png');
 		this.game.load.image('main-menu', 'assets/menu-button.png');
@@ -28,6 +29,8 @@ class Preload extends Phaser.State {
 		this.game.load.image('coin', 'assets/corn-coin.png');
 		this.game.load.image('blank', 'assets/blankbutton.png');
 		this.game.load.image('send', 'assets/send.png');
+
+		this.game.load.audio('banjo', 'assets/banjo-music.mp3')
 
 	}
 
