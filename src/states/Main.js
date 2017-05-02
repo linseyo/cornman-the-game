@@ -186,8 +186,8 @@ class Main extends Phaser.State {
 				this.kernel.body.velocity.x = 1000;
 				this.kernel.body.allowGravity = false;
 				// this.kernel.kill();
-				this.ammoCounter--;
-				this.ammoTotal.text = this.ammoCounter;
+				// this.ammoCounter--;
+				// this.ammoTotal.text = this.ammoCounter;
 			}
 		}
 
@@ -368,8 +368,8 @@ class Main extends Phaser.State {
 
 		// Add reload function to the same callback
 		this.ammo.createMultiple(5, 'bullet', false);
-		this.ammoCounter += 5;
-		this.ammoTotal.text = this.ammoCounter;
+		// this.ammoCounter += 5;
+		// this.ammoTotal.text = this.ammoCounter;
 	}
 }
 
