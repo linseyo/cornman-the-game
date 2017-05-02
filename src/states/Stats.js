@@ -30,7 +30,7 @@ class Stats extends Phaser.State {
 	sendScore() {
     $.ajax({
       // need to edit url accordingly
-      url: "http://localhost:3000/scores",
+      url: "https://cornman-api.herokuapp.com/scores",
       type: "post",
       dataType: "json",
       data: {
