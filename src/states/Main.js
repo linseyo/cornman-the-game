@@ -98,8 +98,16 @@ class Main extends Phaser.State {
 		this.ammo.setAll('anchor.x', - 2);
     this.ammo.setAll('anchor.y', - 1);
 
+		//  An popcorn pool
+    this.popcorn = this.game.add.group();
+    this.popcorn.createMultiple(100, 'taco');
+    this.popcorn.forEach(this.setupPopcorn, this);
 
 	}
+
+		setupPopcorn(obstacle){
+			obstacle.animations.add('taco');
+		}
 
 		// Touch Enabled jumping function
 		jumpPressed(){
@@ -191,16 +199,26 @@ class Main extends Phaser.State {
 	destroyWeed(kernel, obstacle){
 		this.kernel.kill();
 		this.weed.kill();
+		// Create Popcorn Effect
+		this.poppin = this.popcorn.getFirstExists(false);
+		this.poppin.reset(this.weed.x, this.weed.y);
+		this.poppin.play('taco', 100, false, true)
 	}
 
 	destroyTractor(kernel, obstacle){
 		this.kernel.kill();
 		this.tractor.kill();
+		this.poppin = this.popcorn.getFirstExists(false);
+		this.poppin.reset(this.tractor.x, this.tractor.y);
+		this.poppin.play('taco', 100, false, true)
 	}
 
 	destroyCow(kernel, obstacle){
 		this.kernel.kill();
 		this.cow.kill();
+		this.poppin = this.popcorn.getFirstExists(false);
+		this.poppin.reset(this.cow.x, this.cow.y);
+		this.poppin.play('taco', 100, false, true)
 	}
 
 	update() {
