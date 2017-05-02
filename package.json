@@ -1,6 +1,5 @@
 {
   "name": "cornman-the-game",
-  "version": "1.0.2",
   "description": "You are corn man. You shoot corn. 🌽",
   "main": "src/index.js",
   "scripts": {
