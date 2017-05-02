@@ -27,6 +27,7 @@ class Preload extends Phaser.State {
 		// Pixel Neutral Assets
 		this.game.load.image('coin', 'assets/corn-coin.png');
 		this.game.load.spritesheet('cloud-ani', 'assets/cloud-sheet.png', 559, 200);
+		this.game.load.spritesheet('golden-corn', 'assets/golden-coin.png', 140, 140);
 
 		// Pixel Weapon Assets
 		this.game.load.spritesheet('bullet', 'assets/bullet.png', 62, 32);
