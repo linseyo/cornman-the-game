@@ -148,7 +148,7 @@ class Main extends Phaser.State {
 
 	addCoins() {
 		// Generate Obstacles
-		this.coin = this.game.add.sprite( 2800, 800, 'coin');
+		this.coin = this.game.add.sprite( 2800, this.game.rnd.integerInRange(400, 1300), 'coin');
 		this.game.physics.arcade.enable(this.coin);
 		this.coin.body.allowGravity = false;
 
