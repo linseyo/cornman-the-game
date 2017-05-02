@@ -215,7 +215,7 @@ class Main extends Phaser.State {
 	addTractors() {
 
 		// Generate Obstacles
-		this.tractor = this.game.add.sprite( 2800, 1225, 'tractor', );
+		this.tractor = this.game.add.sprite((this.game.rnd.integerInRange(2800, this.game.width - 100), this.game.height + 1200, 'tractor', );
 		// Gives each tractor a point to grant when player passes successfully
 		this.tractor.grantPoint = true;
 		this.game.physics.arcade.enable(this.tractor);
