@@ -9,7 +9,7 @@ class Stats extends Phaser.State {
 
 		let statsHeader = "STATS";
     let continuePhrase = "Tap to Continue";
-    let saved = "";
+    // let saved = "";
     // let score = function(){adds everything}
     this.statsHeaderText = this.game.add.text(650, 50, statsHeader, { font: "250px Revalia", textalign: "center"});
 		this.continueText = this.game.add.text(820, 300, continuePhrase, { font: "50px Arial", textalign: "center"});
@@ -40,9 +40,9 @@ class Stats extends Phaser.State {
           username: "test",
           score: this.totalScore,
         },
-        success: () => {
-          this.saved = "Saved Successfully!";
-        }
+        // success: () => {
+        //   this.saved = "Saved Successfully!";
+        // }
       })
       this.game.state.start('End');
     }
