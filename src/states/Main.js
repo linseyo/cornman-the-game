@@ -8,7 +8,7 @@ class Main extends Phaser.State {
 		this.jumpTimer = 0;
 		this.timer = 0;
 		this.total = 0;
-		this.score = 0;
+		this.totalScore = 0;
 		this.tractor;
 		this.weed;
 		this.kernel;
@@ -18,6 +18,11 @@ class Main extends Phaser.State {
 	}
 
 	create() {
+		// Score and coinCounter reinitialize to zero upon restarting
+		this.enemiesPassed = 0;
+		this.coinCounter = 0;
+		this.totalScore = 0;
+
 		//Enable Arcade Physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		this.game.physics.arcade.gravity.y = 2000;
@@ -55,7 +60,9 @@ class Main extends Phaser.State {
 			'ground-front'
 		);
 
-		this.labelScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#fffff"});
+		this.enemyScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#fffff"});
+		this.coinScore = this.game.add.text(60, 20, "0", { font: "30px Arial", fill: "#fffff"});
+		this.sumScore = this.game.add.text(100, 20, "0", { font: "30px Arial", fill: "#fffff"});
 
 		this.player = this.game.add.sprite(500, 1000, 'cornman');
 		// this.player.scale.setTo(3, 3);
@@ -73,6 +80,8 @@ class Main extends Phaser.State {
 		this.groundFront.body.allowGravity = false;
 
 		this.obstacles = this.game.add.group();
+		this.coinBag = this.game.add.group();
+
 		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
 
 		// Create Button Controller
@@ -92,32 +101,60 @@ class Main extends Phaser.State {
 		this.ammo = this.game.add.group();
 		this.ammo.enableBody = true;
 		this.ammo.physicsBodyType = Phaser.Physics.ARCADE;
+
 		this.ammo.createMultiple(100, 'bullet', false);
 		this.ammo.callAll('animations.add', 'animations', 'fly', [0, 1], 3, true);
 		this.ammo.callAll('play', null, 'fly');
+
 		this.ammo.setAll('checkWorldBounds', true);
 		this.ammo.setAll('outOfBoundsKill', true);
 		this.ammo.setAll('anchor.x', - 2);
     this.ammo.setAll('anchor.y', - 1);
 
+		//  An popcorn pool
+    this.popcorn = this.game.add.group();
+    this.popcorn.createMultiple(100, 'popcorn');
+    this.popcorn.forEach(this.setupPopcorn, this);
 
 	}
 
+
+	addCoins() {
+		// Generate Obstacles
+		this.coin = this.game.add.sprite( 2800, 800, 'coin');
+		this.game.physics.arcade.enable(this.coin);
+		this.coin.body.allowGravity = false;
+
+		this.game.add.tween(this.coin).to({
+			x: this.coin.x - 55000 }, 110000, Phaser.Easing.Linear.None, true);
+
+		this.coinBag.add(this.coin);
+		this.total++;
+		this.timer = this.game.time.now + 6000;
+		this.coin.checkWorldBounds = true;
+		this.coin.outofBoundsKill = true;
+	}
+
+	setupPopcorn(obstacle){
+		obstacle.animations.add('taco');
+	}
+
 		// Touch Enabled jumping function
-		jumpPressed(){
-			if((this.game.time.now > this.jumpTimer) && this.doubleJump <= 2) {
-				this.player.body.velocity.y = -1250;
-				this.player.body.velocity.x = 2;
-				this.jumpTimer = this.game.time.now + 200;
-				this.doubleJump += 1;
-			}
+	jumpPressed(){
+		if((this.game.time.now > this.jumpTimer) && this.doubleJump <= 2) {
+			this.player.body.velocity.y = -1250;
+			this.player.body.velocity.x = 2;
+			this.jumpTimer = this.game.time.now + 200;
+			this.doubleJump += 1;
 		}
+	}
+
 
 		goShootPressed(){
 			if(this.game.time.now > this.nextFire && this.ammo.countDead() > 0) {
 				this.nextFire = this.game.time.now + this.fireRate;
 				this.kernel = this.ammo.getFirstDead(false);
-				this.kernel.physicsBodyType = Phaser.Physics.ARACADE;
+				this.kernel.physicsBodyType = Phaser.Physics.ARCADE;
 				this.kernel.bulletSpeed = 600
 				this.kernel.bulletAngleOffset = 90;
 				this.kernel.reset(this.player.x + 10, this.player.y + 10);
@@ -125,11 +162,14 @@ class Main extends Phaser.State {
 				this.kernel.body.allowGravity = false;
 			}
 		}
+		
 
 	addCows() {
+		// Generate Obstacles
 		this.cow = this.game.add.sprite( 2800, 1290, 'cow');
+		// Gives each cow a point to grant when player passes successfully
+		this.cow.grantPoint = true;
 		this.game.physics.arcade.enable(this.cow);
-
 		this.cow.animations.add('walk')
 		this.cow.animations.play('walk', 3, true);
 
@@ -141,15 +181,15 @@ class Main extends Phaser.State {
 		this.timer = this.game.time.now + 6000;
 		this.cow.checkWorldBounds = true;
 		this.cow.outofBoundsKill = true;
-		this.score += 1;
-		this.labelScore.text = this.score;
-
 	}
 
 	addTractors() {
-		this.tractor = this.game.add.sprite( 2800, 1225, 'tractor', );
-		this.game.physics.arcade.enable(this.tractor);
 
+		// Generate Obstacles
+		this.tractor = this.game.add.sprite( 2800, 1225, 'tractor', );
+		// Gives each tractor a point to grant when player passes successfully
+		this.tractor.grantPoint = true;
+		this.game.physics.arcade.enable(this.tractor);
 		this.tractor.animations.add('walk')
 		this.tractor.animations.play('walk', 200, true);
 
@@ -161,13 +201,13 @@ class Main extends Phaser.State {
 		this.timer = this.game.time.now + 4000;
 		this.tractor.checkWorldBounds = true;
 		this.tractor.outofBoundsKill = true;
-		this.score += 1;
-		this.labelScore.text = this.score;
 	}
 
-	addWeeds() {
 
-		this.weed = this.game.add.sprite( 3500, 1000, 'weed', );
+	addWeeds() {
+		this.weed = this.game.add.sprite( 3500 ,1000, 'weed', );
+		// Gives each weed a point to grant when player passes successfully
+		this.weed.grantPoint = true;
 		this.game.physics.arcade.enable(this.weed);
 
 		this.weed.animations.add('waddle')
@@ -182,8 +222,6 @@ class Main extends Phaser.State {
 		this.timer = this.game.time.now + 9000;
 		this.weed.checkWorldBounds = true;
 		this.weed.outofBoundsKill = true;
-		this.score += 1;
-		this.labelScore.text = this.score;
 	}
 
 	endGame() {
@@ -193,16 +231,26 @@ class Main extends Phaser.State {
 	destroyWeed(kernel, obstacle){
 		this.kernel.kill();
 		this.weed.kill();
+		// Create Popcorn Effect
+		this.poppin = this.popcorn.getFirstExists(false);
+		this.poppin.reset(this.weed.x, this.weed.y);
+		this.poppin.play('taco', 100, false, true)
 	}
 
 	destroyTractor(kernel, obstacle){
 		this.kernel.kill();
 		this.tractor.kill();
+		this.poppin = this.popcorn.getFirstExists(false);
+		this.poppin.reset(this.tractor.x, this.tractor.y);
+		this.poppin.play('taco', 100, false, true)
 	}
 
 	destroyCow(kernel, obstacle){
 		this.kernel.kill();
 		this.cow.kill();
+		this.poppin = this.popcorn.getFirstExists(false);
+		this.poppin.reset(this.cow.x, this.cow.y);
+		this.poppin.play('taco', 100, false, true)
 	}
 
 	update() {
@@ -211,13 +259,14 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.collide(this.weed, this.groundFront);
 		this.game.physics.arcade.collide(this.tractor, this.groundFront);
 		this.game.physics.arcade.collide(this.cow, this.groundFront);
+		this.game.physics.arcade.collide(this.coin, this.groundFront);
 
 		this.mountainsBack.tilePosition.x -= 0.10;
 		this.hillsMid1.tilePosition.x -= 0.3;
 		this.fenceMid2.tilePosition.x -= 3.0;
 		this.groundFront.tilePosition.x -= 6.0;
 
-			if(this.player.body.touching.down){
+		if(this.player.body.touching.down){
 			this.doubleJump = 1;
 		}
 
@@ -226,7 +275,37 @@ class Main extends Phaser.State {
 			this.addTractors();
 			this.addWeeds();
 			this.addCows();
+			this.addCoins();
 		}
+
+		// Functionality to count passing enemies ONCE
+		if (this.weed.grantPoint && (this.weed.x < this.player.x)){
+			this.enemiesPassed++;
+			this.weed.grantPoint = false;
+			this.enemyScore.text = this.enemiesPassed;
+			this.totalScore = (this.enemiesPassed + this.coinCounter);
+			this.sumScore.text = this.totalScore;
+		}
+
+		if (this.cow.grantPoint && (this.cow.x < this.player.x)){
+			this.enemiesPassed++;
+			this.cow.grantPoint = false;
+			this.enemyScore.text = this.enemiesPassed;
+			this.totalScore = (this.enemiesPassed + this.coinCounter);
+			this.sumScore.text = this.totalScore;
+		}
+
+		if (this.tractor.grantPoint && (this.tractor.x < this.player.x)){
+			this.enemiesPassed++;
+			this.tractor.grantPoint = false;
+			this.enemyScore.text = this.enemiesPassed;
+			this.totalScore = (this.enemiesPassed + this.coinCounter);
+			this.sumScore.text = this.totalScore;
+		}
+
+		// Collision to collect Corn Coins
+		this.game.physics.arcade.overlap(
+			this.player, this.coinBag, this.countCoin, null, this);
 
 		// Collision to End Game between Player & Obstacles
 		this.game.physics.arcade.overlap(
@@ -241,8 +320,15 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.overlap(
 			this.ammo, this.tractor, this.destroyTractor, null, this);
 
-		}
+	}
 
+	countCoin() {
+		this.coinCounter++;
+		this.totalScore = (this.enemiesPassed + this.coinCounter);
+		this.coin.kill();
+		this.coinScore.text = this.coinCounter;
+		this.sumScore.text = this.totalScore;
+	}
 }
 
 export default Main;
