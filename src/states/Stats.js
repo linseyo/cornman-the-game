@@ -15,6 +15,7 @@ class Stats extends Phaser.State {
   update() {
     if(this.game.input.activePointer.justPressed()) {
       $.ajax({
+        // need to edit url accordingly
         url: "http://localhost:3000/scores",
         type: "post",
         dataType: "json",
