@@ -129,9 +129,10 @@ class Main extends Phaser.State {
 	}
 	addClouds() {
 		// Generate Obstacles
-		this.cloud = this.game.add.sprite( 2800, 400, 'cloud-ani');
+		this.cloud = this.game.add.sprite( 2800, 1000, 'cloud-ani');
 		this.game.physics.arcade.enable(this.cloud);
 		this.cloud.body.allowGravity = false;
+		this.cloud.body.immovable = true;
 		this.cloud.animations.add('float');
 		this.cloud.animations.play('float', 1, true);
 
@@ -295,6 +296,10 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.collide(this.tractor, this.groundFront);
 		this.game.physics.arcade.collide(this.cow, this.groundFront);
 		this.game.physics.arcade.collide(this.coin, this.groundFront);
+
+		if (this.player.body.velocity.y > 0) {
+			this.game.physics.arcade.collide(this.player, this.cloud);
+		}
 
 		this.mountainsBack.tilePosition.x -= 0.10;
 		this.hillsMid1.tilePosition.x -= 0.3;
