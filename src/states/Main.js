@@ -18,10 +18,11 @@ class Main extends Phaser.State {
 	}
 
 	create() {
-		// Score and coinCounter reinitialize to zero upon restarting
+		// Score and coinCounter & ammoCounter reinitialize to zero upon restarting
 		this.enemiesPassed = 0;
 		this.coinCounter = 0;
 		this.totalScore = 0;
+		this.ammoCounter = 5;
 
 		//Enable Arcade Physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -63,6 +64,9 @@ class Main extends Phaser.State {
 		this.enemyScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#fffff"});
 		this.coinScore = this.game.add.text(60, 20, "0", { font: "30px Arial", fill: "#fffff"});
 		this.sumScore = this.game.add.text(100, 20, "0", { font: "30px Arial", fill: "#fffff"});
+		// this.ammoTotal = this.game.add.text(140, 20, "5", { font: "30px Arial", fill: "#fffff"});
+
+
 
 		this.player = this.game.add.sprite(500, 1000, 'cornman');
 		// this.player.scale.setTo(3, 3);
@@ -102,13 +106,14 @@ class Main extends Phaser.State {
 		this.ammo = this.game.add.group();
 		this.ammo.enableBody = true;
 		this.ammo.physicsBodyType = Phaser.Physics.ARCADE;
+		// Create 10 bullets upon initialization
+		this.ammo.createMultiple(5, 'bullet', false);
 
-		this.ammo.createMultiple(100, 'bullet', false);
 		this.ammo.callAll('animations.add', 'animations', 'fly', [0, 1], 3, true);
 		this.ammo.callAll('play', null, 'fly');
 
-		this.ammo.setAll('checkWorldBounds', true);
-		this.ammo.setAll('outOfBoundsKill', true);
+		// this.ammo.setAll('checkWorldBounds', true);
+		// this.ammo.setAll('outOfBoundsKill', true);
 		this.ammo.setAll('anchor.x', - 2);
     this.ammo.setAll('anchor.y', - 1);
 
@@ -180,6 +185,9 @@ class Main extends Phaser.State {
 				this.kernel.reset(this.player.x + 10, this.player.y + 10);
 				this.kernel.body.velocity.x = 1000;
 				this.kernel.body.allowGravity = false;
+				// this.kernel.kill();
+				this.ammoCounter--;
+				this.ammoTotal.text = this.ammoCounter;
 			}
 		}
 
@@ -249,7 +257,7 @@ class Main extends Phaser.State {
 		this.game.state.start('Stats');
 	}
 
-	destroyWeed(kernel, obstacle){
+	destroyWeed(kernel, weed){
 		this.kernel.kill();
 		this.weed.kill();
 
@@ -260,7 +268,7 @@ class Main extends Phaser.State {
 		this.poppin.start(true, 2000, null, 10);
 	}
 
-	destroyTractor(kernel, obstacle){
+	destroyTractor(kernel, tractor){
 		this.kernel.kill();
 		this.tractor.kill();
 		// Create Popcorn Effect
@@ -270,7 +278,7 @@ class Main extends Phaser.State {
 		this.poppin.start(true, 2000, null, 10);
 	}
 
-	destroyCow(kernel, obstacle){
+	destroyCow(kernel, cow){
 		this.kernel.kill();
 		this.cow.kill();
 		// Create Popcorn Effect
@@ -336,8 +344,8 @@ class Main extends Phaser.State {
 			this.player, this.coinBag, this.countCoin, null, this);
 
 		// Collision to End Game between Player & Obstacles
-		this.game.physics.arcade.overlap(
-			this.player, this.obstacles, this.endGame, null, this);
+		// this.game.physics.arcade.overlap(
+		// 	this.player, this.obstacles, this.endGame, null, this);
 
 		this.game.physics.arcade.overlap(
 			this.ammo, this.weed, this.destroyWeed, null, this);
@@ -350,12 +358,18 @@ class Main extends Phaser.State {
 
 	}
 
+
 	countCoin() {
 		this.coinCounter++;
 		this.totalScore = (this.enemiesPassed + this.coinCounter);
 		this.coin.kill();
 		this.coinScore.text = this.coinCounter;
 		this.sumScore.text = this.totalScore;
+
+		// Add reload function to the same callback
+		this.ammo.createMultiple(5, 'bullet', false);
+		this.ammoCounter += 5;
+		this.ammoTotal.text = this.ammoCounter;
 	}
 }
 
