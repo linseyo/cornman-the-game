@@ -12,7 +12,7 @@ class Menu extends Phaser.State {
     this.menuBackground.autoScroll(0, -20);
     this.menuBackground.alpha = 0.5;
 
-    let title = this.game.add.image(200, 300, 'cm-title');
+    let title = this.game.add.image(250, 200, 'cm-title');
     title.scale.setTo(3, 3);
     this.startButton = this.game.add.button(this.game.width-1700, this.game.height-500, 'start-game', this.startGame, this);
     this.howButton = this.game.add.button(this.game.width-1700, this.game.height-300, 'how-to', this.startHow, this);
