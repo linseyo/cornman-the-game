@@ -69,6 +69,7 @@ class Main extends Phaser.State {
 
 
 		this.player = this.game.add.sprite(500, 1000, 'cornman');
+
 		// this.player.scale.setTo(3, 3);
 
 		this.player.animations.add('left', [0, 1, 2, 3], 10, true);
@@ -129,9 +130,10 @@ class Main extends Phaser.State {
 	}
 	addClouds() {
 		// Generate Obstacles
-		this.cloud = this.game.add.sprite( 2800, 400, 'cloud-ani');
+		this.cloud = this.game.add.sprite(2800, this.game.rnd.integerInRange(200, 1100), 'cloud-ani');
 		this.game.physics.arcade.enable(this.cloud);
 		this.cloud.body.allowGravity = false;
+		this.cloud.body.immovable = true;
 		this.cloud.animations.add('float');
 		this.cloud.animations.play('float', 1, true);
 
@@ -146,7 +148,7 @@ class Main extends Phaser.State {
 
 	addCoins() {
 		// Generate Obstacles
-		this.coin = this.game.add.sprite( 2800, 800, 'coin');
+		this.coin = this.game.add.sprite( 2800, this.game.rnd.integerInRange(400, 1300), 'coin');
 		this.game.physics.arcade.enable(this.coin);
 		this.coin.body.allowGravity = false;
 
@@ -295,6 +297,10 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.collide(this.tractor, this.groundFront);
 		this.game.physics.arcade.collide(this.cow, this.groundFront);
 		this.game.physics.arcade.collide(this.coin, this.groundFront);
+
+		if (this.player.body.velocity.y > 0) {
+			this.game.physics.arcade.collide(this.player, this.cloud);
+		}
 
 		this.mountainsBack.tilePosition.x -= 0.10;
 		this.hillsMid1.tilePosition.x -= 0.3;
