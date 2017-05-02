@@ -29,8 +29,9 @@ class Stats extends Phaser.State {
 		this.cornman.animations.play('left')
 
 
-		this.headerImage = this.game.add.image(100, 100, 'cm-title', 'assets/cm-title-darksub.png')
 
+		this.headerImage = this.game.add.image(100, 100, 'playerStat', 'assets/playerstats-title.png');
+		this.lowerImage = this.game.add.image(100, 100, 'taptocont', 'assets/taptocont.png');
 	}
 
 	sendScore() {

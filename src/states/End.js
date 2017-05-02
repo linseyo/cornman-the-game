@@ -4,7 +4,8 @@ class End extends Phaser.State {
 	create() {
     this.game.stage.backgroundColor = '#DFF4FF';
 
-    this.gameOver = this.game.add.image(100, 100, 'goTitle');
+		this.headerImage = this.game.add.image(100, 100, 'gameover-title', 'assets/gameover-title.png');
+
 
     this.restartButton = this.game.add.button(650, 700, 'restart', this.restartGame, this);
     this.mainMenuButton = this.game.add.button(1050, 700, 'main-menu', this.goToMenu, this);
