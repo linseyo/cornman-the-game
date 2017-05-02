@@ -28,7 +28,7 @@ class Stats extends Phaser.State {
 	}
 
 	sendScore() {
-    $.ajax({
+    let request = $.ajax({
       url: "http://cornman-api.herokuapp.com/scores",
       type: "post",
       crossDomain: true,
@@ -38,8 +38,12 @@ class Stats extends Phaser.State {
         username: "test",
         score: this.totalScore,
       },
-      }).fail(function(response) {
-      debugger
+      });
+    request.success((response) => {
+
+    })
+    request.fail((response) => {
+      // debugger
     });
 	}
 
