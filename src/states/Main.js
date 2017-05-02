@@ -94,7 +94,6 @@ class Main extends Phaser.State {
 		this.fireButton = this.add.button((this.game.world.width*0.5), 0, 'blank', null, this);
 		this.fireButton.scale.setTo(20, 20)
 		this.fireButton.onInputDown.add(this.goShootPressed, this);
-<<<<<<< HEAD
 		this.fire = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
 		this.fire.onDown.add(this.goShootPressed, this);
 
@@ -112,11 +111,9 @@ class Main extends Phaser.State {
     this.popcorn = this.game.add.group();
     this.popcorn.createMultiple(100, 'taco');
     this.popcorn.forEach(this.setupPopcorn, this);
-=======
-		this.fireButton.onInputUp.add(this.goShootReleased, this);
 
 	}
->>>>>>> master
+
 
 	addCoins() {
 		// Generate Obstacles
@@ -134,32 +131,32 @@ class Main extends Phaser.State {
 		this.coin.outofBoundsKill = true;
 	}
 
-		setupPopcorn(obstacle){
-			obstacle.animations.add('taco');
-		}
+	setupPopcorn(obstacle){
+		obstacle.animations.add('taco');
+	}
 
 		// Touch Enabled jumping function
-		jumpPressed(){
-			if((this.game.time.now > this.jumpTimer) && this.doubleJump <= 2) {
-				this.player.body.velocity.y = -1250;
-				this.player.body.velocity.x = 2;
-				this.jumpTimer = this.game.time.now + 200;
-				this.doubleJump += 1;
-			}
+	jumpPressed(){
+		if((this.game.time.now > this.jumpTimer) && this.doubleJump <= 2) {
+			this.player.body.velocity.y = -1250;
+			this.player.body.velocity.x = 2;
+			this.jumpTimer = this.game.time.now + 200;
+			this.doubleJump += 1;
 		}
+	}
 
-		goShootPressed(){
-			if(this.game.time.now > this.nextFire && this.ammo.countDead() > 0) {
-				this.nextFire = this.game.time.now + this.fireRate;
-				this.kernel = this.ammo.getFirstDead(false);
-				this.kernel.physicsBodyType = Phaser.Physics.ARACADE;
-				this.kernel.bulletSpeed = 600
-				this.kernel.bulletAngleOffset = 90;
-				this.kernel.reset(this.player.x + 10, this.player.y + 10);
-				this.kernel.body.velocity.x = 1600;
-				this.kernel.body.allowGravity = false;
-			}
+	goShootPressed(){
+		if(this.game.time.now > this.nextFire && this.ammo.countDead() > 0) {
+			this.nextFire = this.game.time.now + this.fireRate;
+			this.kernel = this.ammo.getFirstDead(false);
+			this.kernel.physicsBodyType = Phaser.Physics.ARACADE;
+			this.kernel.bulletSpeed = 600
+			this.kernel.bulletAngleOffset = 90;
+			this.kernel.reset(this.player.x + 10, this.player.y + 10);
+			this.kernel.body.velocity.x = 1600;
+			this.kernel.body.allowGravity = false;
 		}
+	}
 
 	addCows() {
 		// Generate Obstacles
@@ -317,14 +314,15 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.overlap(
 			this.ammo, this.tractor, this.destroyTractor, null, this);
 
-		countCoin() {
-			this.coinCounter++;
-			this.totalScore = (this.enemiesPassed + this.coinCounter);
-			this.coin.kill();
-			this.coinScore.text = this.coinCounter;
-			this.sumScore.text = this.totalScore;
-		}
+	}
 
+	countCoin() {
+		this.coinCounter++;
+		this.totalScore = (this.enemiesPassed + this.coinCounter);
+		this.coin.kill();
+		this.coinScore.text = this.coinCounter;
+		this.sumScore.text = this.totalScore;
+	}
 }
 
 export default Main;
