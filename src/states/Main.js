@@ -176,9 +176,12 @@ class Main extends Phaser.State {
 
 	addGoldCorn() {
 		// Generate Obstacles
-		this.goldCorn = this.game.add.sprite( 2800, this.game.rnd.integerInRange(600, 1400), 'rock');
+		this.goldCorn = this.game.add.sprite( 2800, this.game.rnd.integerInRange(600, 1400), 'golden-corn');
 		this.game.physics.arcade.enable(this.goldCorn);
 		this.goldCorn.body.allowGravity = false;
+
+		this.goldCorn.animations.add('shine')
+		this.goldCorn.animations.play('shine', 3, true);
 
 		this.game.add.tween(this.goldCorn).to({
 			x: this.goldCorn.x - 55000 }, 140000, Phaser.Easing.Linear.None, true);
