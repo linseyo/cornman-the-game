@@ -1,6 +1,6 @@
 {
   "name": "cornman-the-game",
-  "description": "You are corn man. You shoot corn. 🌽",
+  "description": "You are corn man. You shoot corn.",
   "main": "src/index.js",
   "scripts": {
     "start": "gulp",
