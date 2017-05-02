@@ -135,9 +135,9 @@ class Main extends Phaser.State {
     this.popcorn.forEach(this.setupPopcorn, this);
 
 		// Creates popcorn explosion
-		this.poppin = this.game.add.emitter(0, 0, 100);
+		this.poppin = this.game.add.emitter(0, 0, 150);
 		this.poppin.makeParticles('popcorn');
-		this.poppin.gravity = 200;
+		this.poppin.gravity = 300;
 	}
 	addClouds() {
 		// Generate Obstacles
