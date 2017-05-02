@@ -84,12 +84,6 @@ class Main extends Phaser.State {
 
 		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
 
-		// Clouds
-		this.cloud = this.game.add.sprite(500, 500, 'cloud');
-		this.cloudAni = this.game.add.sprite( 800, 500, 'cloud-ani');
-		this.cloudAni.animations.add('float')
-		this.cloudAni.animations.play('float', 1, true);
-
 
 		// Create Button Controller
 			// Jump Button
@@ -124,7 +118,22 @@ class Main extends Phaser.State {
     this.popcorn.forEach(this.setupPopcorn, this);
 
 	}
+	addClouds() {
+		// Generate Obstacles
+		this.cloud = this.game.add.sprite( 2800, 400, 'cloud-ani');
+		this.game.physics.arcade.enable(this.cloud);
+		this.cloud.body.allowGravity = false;
+		this.cloud.animations.add('float');
+		this.cloud.animations.play('float', 1, true);
 
+		this.game.add.tween(this.cloud).to({
+			x: this.cloud.x - 55000 }, 110000, Phaser.Easing.Linear.None, true);
+
+		this.total++;
+		this.timer = this.game.time.now + 6000;
+		this.cloud.checkWorldBounds = true;
+		this.cloud.outofBoundsKill = true;
+	}
 
 	addCoins() {
 		// Generate Obstacles
@@ -284,6 +293,7 @@ class Main extends Phaser.State {
 			this.addWeeds();
 			this.addCows();
 			this.addCoins();
+			this.addClouds();
 		}
 
 		// Functionality to count passing enemies ONCE
