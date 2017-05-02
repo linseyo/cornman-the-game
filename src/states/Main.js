@@ -64,7 +64,7 @@ class Main extends Phaser.State {
 		this.enemyScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#fffff"});
 		this.coinScore = this.game.add.text(60, 20, "0", { font: "30px Arial", fill: "#fffff"});
 		this.sumScore = this.game.add.text(100, 20, "0", { font: "30px Arial", fill: "#fffff"});
-		this.ammoTotal = this.game.add.text(140, 20, "0", { font: "30px Arial", fill: "#fffff"});
+		this.ammoTotal = this.game.add.text(140, 20, "5", { font: "30px Arial", fill: "#fffff"});
 
 
 
@@ -236,7 +236,7 @@ class Main extends Phaser.State {
 		this.game.state.start('Stats');
 	}
 
-	destroyWeed(kernel, obstacle){
+	destroyWeed(kernel, weed){
 		this.kernel.kill();
 		this.weed.kill();
 		// Create Popcorn Effect
@@ -245,7 +245,7 @@ class Main extends Phaser.State {
 		this.poppin.play('popcorn', 100, false, true)
 	}
 
-	destroyTractor(kernel, obstacle){
+	destroyTractor(kernel, tractor){
 		this.kernel.kill();
 		this.tractor.kill();
 		this.poppin = this.popcorn.getFirstExists(false);
@@ -253,7 +253,7 @@ class Main extends Phaser.State {
 		this.poppin.play('popcorn', 100, false, true)
 	}
 
-	destroyCow(kernel, obstacle){
+	destroyCow(kernel, cow){
 		this.kernel.kill();
 		this.cow.kill();
 		this.poppin = this.popcorn.getFirstExists(false);
@@ -316,8 +316,8 @@ class Main extends Phaser.State {
 			this.player, this.coinBag, this.countCoin, null, this);
 
 		// Collision to End Game between Player & Obstacles
-		this.game.physics.arcade.overlap(
-			this.player, this.obstacles, this.endGame, null, this);
+		// this.game.physics.arcade.overlap(
+		// 	this.player, this.obstacles, this.endGame, null, this);
 
 		this.game.physics.arcade.overlap(
 			this.ammo, this.weed, this.destroyWeed, null, this);
