@@ -1,4 +1,8 @@
 class Menu extends Phaser.State {
+  constructor() {
+    super()
+    this.music;
+  }
 
   create() {
     this.game.stage.backgroundColor = '#DFF4FF';
@@ -8,9 +12,15 @@ class Menu extends Phaser.State {
     this.menuBackground.autoScroll(0, -20);
     this.menuBackground.alpha = 0.5;
 
-    let title = "CORNMAN"
-    this.titleText = this.game.add.text(200, 300, title, { font: "300px Revalia", textalign: "center"});
-    this.startButton = this.game.add.button(850, 700, 'start-game', this.startGame, this);
+    let title = this.game.add.image(200, 300, 'cm-title');
+    title.scale.setTo(3, 3);
+    this.startButton = this.game.add.button(this.game.width-1700, this.game.height-500, 'start-game', this.startGame, this);
+    this.music = this.game.add.audio('banjo');
+    this.moozic();
+  }
+
+  moozic() {
+    this.music.play();
   }
 
   startGame() {
