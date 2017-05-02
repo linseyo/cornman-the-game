@@ -23,6 +23,7 @@ class Stats extends Phaser.State {
 
 	sendScore() {
 		// this.playerName = prompt("Please enter your name", "Player");
+		// STILL IN PROCESS
 	}
 
   update() {
