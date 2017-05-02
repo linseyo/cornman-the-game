@@ -117,6 +117,10 @@ class Main extends Phaser.State {
     this.popcorn.createMultiple(100, 'popcorn');
     this.popcorn.forEach(this.setupPopcorn, this);
 
+		// Creates popcorn explosion
+		this.poppin = this.game.add.emitter(0, 0, 100);
+		this.poppin.makeParticles('popcorn');
+		this.poppin.gravity = 200;
 	}
 	addClouds() {
 		// Generate Obstacles
@@ -249,25 +253,30 @@ class Main extends Phaser.State {
 		this.kernel.kill();
 		this.weed.kill();
 		// Create Popcorn Effect
-		this.poppin = this.popcorn.getFirstExists(false);
-		this.poppin.reset(this.weed.x, this.weed.y);
-		this.poppin.play('popcorn', 100, false, true)
+		this.poppin.x = this.weed.centerX;
+		this.poppin.y = this.weed.centerY;
+
+		this.poppin.start(true, 2000, null, 10);
 	}
 
 	destroyTractor(kernel, obstacle){
 		this.kernel.kill();
 		this.tractor.kill();
-		this.poppin = this.popcorn.getFirstExists(false);
-		this.poppin.reset(this.tractor.x, this.tractor.y);
-		this.poppin.play('popcorn', 100, false, true)
+		// Create Popcorn Effect
+		this.poppin.x = this.tractor.centerX;
+		this.poppin.y = this.tractor.centerY;
+
+		this.poppin.start(true, 2000, null, 10);
 	}
 
 	destroyCow(kernel, obstacle){
 		this.kernel.kill();
 		this.cow.kill();
-		this.poppin = this.popcorn.getFirstExists(false);
-		this.poppin.reset(this.cow.x, this.cow.y);
-		this.poppin.play('popcorn', 100, false, true)
+		// Create Popcorn Effect
+		this.poppin.x = this.cow.centerX;
+		this.poppin.y = this.cow.centerY;
+
+		this.poppin.start(true, 2000, null, 10);
 	}
 
 	update() {
