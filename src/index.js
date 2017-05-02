@@ -6,7 +6,6 @@ import Stats from 'states/Stats';
 import End from 'states/End'
 
 class Game extends Phaser.Game {
-
 	constructor() {
 
 		super(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio, Phaser.CANVAS, 'gameArea');
