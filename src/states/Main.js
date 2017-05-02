@@ -102,7 +102,8 @@ class Main extends Phaser.State {
 		this.ammo.enableBody = true;
 		this.ammo.physicsBodyType = Phaser.Physics.ARCADE;
 
-		this.ammo.createMultiple(100, 'bullet', false);
+		this.ammo.createMultiple(10, 'bullet', false);
+
 		this.ammo.callAll('animations.add', 'animations', 'fly', [0, 1], 3, true);
 		this.ammo.callAll('play', null, 'fly');
 
@@ -307,6 +308,8 @@ class Main extends Phaser.State {
 		// Collision to collect Corn Coins
 		this.game.physics.arcade.overlap(
 			this.player, this.coinBag, this.countCoin, null, this);
+		this.game.physics.arcade.overlap(
+				this.player, this.coinBag, this.addAmmo, null, this);
 
 		// Collision to End Game between Player & Obstacles
 		this.game.physics.arcade.overlap(
@@ -322,7 +325,10 @@ class Main extends Phaser.State {
 			this.ammo, this.tractor, this.destroyTractor, null, this);
 
 	}
+	
+	addAmmo() {
 
+	}
 	countCoin() {
 		this.coinCounter++;
 		this.totalScore = (this.enemiesPassed + this.coinCounter);
