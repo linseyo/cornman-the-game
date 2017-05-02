@@ -39,11 +39,11 @@ class Stats extends Phaser.State {
         score: this.totalScore,
       },
       });
-    request.success((response) => {
+    request.done((response) => {
 
     })
     request.fail((response) => {
-      // debugger
+
     });
 	}
 
