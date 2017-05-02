@@ -6,7 +6,11 @@ class Main extends Phaser.State {
 		this.jumpButton;
 		this.doubleJump = 1;
 		this.jumpTimer = 0;
-		this.timer = 0;
+		this.cowTimer = 0;
+		this.weedTimer = 0;
+		this.tractorTimer = 0;
+		this.coinTimer = 0;
+		this.cloudTimer = 0;
 		this.total = 0;
 		this.totalScore = 0;
 		this.tractor;
@@ -129,7 +133,7 @@ class Main extends Phaser.State {
 	}
 	addClouds() {
 		// Generate Obstacles
-		this.cloud = this.game.add.sprite( 2800, 400, 'cloud-ani');
+		this.cloud = this.game.add.sprite(2800, this.game.rnd.integerInRange(200, 1100), 'cloud-ani');
 		this.game.physics.arcade.enable(this.cloud);
 		this.cloud.body.allowGravity = false;
 		this.cloud.animations.add('float');
@@ -139,14 +143,14 @@ class Main extends Phaser.State {
 			x: this.cloud.x - 55000 }, 110000, Phaser.Easing.Linear.None, true);
 
 		this.total++;
-		this.timer = this.game.time.now + 6000;
+		this.cloudTimer = this.game.time.now + this.game.rnd.integerInRange(1000, 6000);
 		this.cloud.checkWorldBounds = true;
 		this.cloud.outofBoundsKill = true;
 	}
 
 	addCoins() {
 		// Generate Obstacles
-		this.coin = this.game.add.sprite( 2800, 800, 'coin');
+		this.coin = this.game.add.sprite( 2800, this.game.rnd.integerInRange(400, 1300), 'coin');
 		this.game.physics.arcade.enable(this.coin);
 		this.coin.body.allowGravity = false;
 
@@ -155,7 +159,7 @@ class Main extends Phaser.State {
 
 		this.coinBag.add(this.coin);
 		this.total++;
-		this.timer = this.game.time.now + 6000;
+		this.coinTimer = this.game.time.now + this.game.rnd.integerInRange(1000,  5000)
 		this.coin.checkWorldBounds = true;
 		this.coin.outofBoundsKill = true;
 	}
@@ -195,7 +199,7 @@ class Main extends Phaser.State {
 
 	addCows() {
 		// Generate Obstacles
-		this.cow = this.game.add.sprite( 2800, 1290, 'cow');
+		this.cow = this.game.add.sprite(2800, 1290, 'cow');
 		// Gives each cow a point to grant when player passes successfully
 		this.cow.grantPoint = true;
 		this.game.physics.arcade.enable(this.cow);
@@ -207,7 +211,7 @@ class Main extends Phaser.State {
 
 		this.obstacles.add(this.cow);
 		this.total++;
-		this.timer = this.game.time.now + this.game.rnd.integerInRange(800, 6000);
+		this.cowTimer = this.game.time.now + this.game.rnd.integerInRange(5000, 6000);
 		this.cow.checkWorldBounds = true;
 		this.cow.outofBoundsKill = true;
 	}
@@ -215,7 +219,7 @@ class Main extends Phaser.State {
 	addTractors() {
 
 		// Generate Obstacles
-		this.tractor = this.game.add.sprite(this.game.rnd.integerInRange(2000, this.game.width + 2200), 1000, 'tractor', );
+		this.tractor = this.game.add.sprite(2800, 1225, 'tractor');
 		// Gives each tractor a point to grant when player passes successfully
 		this.tractor.grantPoint = true;
 		this.game.physics.arcade.enable(this.tractor);
@@ -223,18 +227,19 @@ class Main extends Phaser.State {
 		this.tractor.animations.play('walk', 200, true);
 
 		this.game.add.tween(this.tractor).to({
-			x: this.tractor.x - 45000 }, 110000, Phaser.Easing.Linear.None, true);
+			x: this.tractor.x - 90000 }, 110000, Phaser.Easing.Linear.None, true);
 
 		this.obstacles.add(this.tractor);
 		this.total++;
-		this.timer = this.game.time.now + this.game.rnd.integerInRange(600, 5000);
+		this.tractorTimer = this.game.time.now + this.game.rnd.integerInRange(1000 , 9000);
 		this.tractor.checkWorldBounds = true;
 		this.tractor.outofBoundsKill = true;
 	}
 
 
 	addWeeds() {
-		this.weed = this.game.add.sprite(this.game.rnd.integerInRange(3500, this.game.width + 2000), 1000, 'weed', );
+		this.weed = this.game.add.sprite(3500, 1000, 'weed' );
+
 		// Gives each weed a point to grant when player passes successfully
 		this.weed.grantPoint = true;
 		this.game.physics.arcade.enable(this.weed);
@@ -248,7 +253,7 @@ class Main extends Phaser.State {
 
 		this.obstacles.add(this.weed);
 		this.total++;
-		this.timer = this.game.time.now + this.game.rnd.integerInRange(6000, 9000);
+		this.weedTimer = this.game.time.now + this.game.rnd.integerInRange(2000 + 9000);
 		this.weed.checkWorldBounds = true;
 		this.weed.outofBoundsKill = true;
 	}
@@ -306,11 +311,19 @@ class Main extends Phaser.State {
 		}
 
 		// Generate Obstacles
-		if (this.total < 1000 && this.game.time.now > this.timer){
+		if (this.total < 1000 && this.game.time.now > this.tractorTimer){
 			this.addTractors();
+		}
+		if (this.total < 1000 && this.game.time.now > this.weedTimer){
 			this.addWeeds();
+		}
+		if (this.total < 1000 && this.game.time.now > this.cowTimer){
 			this.addCows();
+		}
+		if (this.total < 1000 && this.game.time.now > this.coinTimer){
 			this.addCoins();
+		}
+		if (this.total < 1000 && this.game.time.now > this.cloudTimer){
 			this.addClouds();
 		}
 
@@ -341,7 +354,7 @@ class Main extends Phaser.State {
 
 		// Collision to collect Corn Coins
 		this.game.physics.arcade.overlap(
-			this.player, this.coinBag, this.countCoin, null, this);
+			this.player, this.coin, this.countCoin, null, this);
 
 		// Collision to End Game between Player & Obstacles
 		this.game.physics.arcade.overlap(
