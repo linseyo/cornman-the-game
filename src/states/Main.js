@@ -92,7 +92,9 @@ class Main extends Phaser.State {
 		this.ammo = this.game.add.group();
 		this.ammo.enableBody = true;
 		this.ammo.physicsBodyType = Phaser.Physics.ARCADE;
-		this.ammo.createMultiple(100, 'bullet', 0, false);
+		this.ammo.createMultiple(100, 'bullet', false);
+		this.ammo.callAll('animations.add', 'animations', 'fly', [0, 1], 3, true);
+		this.ammo.callAll('play', null, 'fly');
 		this.ammo.setAll('checkWorldBounds', true);
 		this.ammo.setAll('outOfBoundsKill', true);
 		this.ammo.setAll('anchor.x', - 2);
@@ -119,7 +121,7 @@ class Main extends Phaser.State {
 				this.kernel.bulletSpeed = 600
 				this.kernel.bulletAngleOffset = 90;
 				this.kernel.reset(this.player.x + 10, this.player.y + 10);
-				this.kernel.body.velocity.x = 1600;
+				this.kernel.body.velocity.x = 1000;
 				this.kernel.body.allowGravity = false;
 			}
 		}
