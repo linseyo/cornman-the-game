@@ -28,7 +28,6 @@
     "yargs": "^4.6.0"
   },
   "dependencies": {
-    "gulp": "^3.9.1",
     "phaser": "^2.4.7"
   }
 }
