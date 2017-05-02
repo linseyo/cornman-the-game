@@ -198,8 +198,6 @@ class Main extends Phaser.State {
 		this.timer = this.game.time.now + 4000;
 		this.tractor.checkWorldBounds = true;
 		this.tractor.outofBoundsKill = true;
-		this.score += 1;
-		this.labelScore.text = this.score;
 	}
 
 
@@ -221,8 +219,6 @@ class Main extends Phaser.State {
 		this.timer = this.game.time.now + 9000;
 		this.weed.checkWorldBounds = true;
 		this.weed.outofBoundsKill = true;
-		this.score += 1;
-		this.labelScore.text = this.score;
 	}
 
 	endGame() {
@@ -267,13 +263,9 @@ class Main extends Phaser.State {
 		this.fenceMid2.tilePosition.x -= 3.0;
 		this.groundFront.tilePosition.x -= 6.0;
 
-			if(this.player.body.touching.down){
+		if(this.player.body.touching.down){
 			this.doubleJump = 1;
 		}
-<<<<<<< HEAD
-=======
-		// Jump Functionality with button press
->>>>>>> master
 
 		// Generate Obstacles
 		if (this.total < 1000 && this.game.time.now > this.timer){
@@ -298,7 +290,6 @@ class Main extends Phaser.State {
 			this.enemyScore.text = this.enemiesPassed;
 			this.totalScore = (this.enemiesPassed + this.coinCounter);
 			this.sumScore.text = this.totalScore;
-
 		}
 
 		if (this.tractor.grantPoint && (this.tractor.x < this.player.x)){
@@ -307,7 +298,6 @@ class Main extends Phaser.State {
 			this.enemyScore.text = this.enemiesPassed;
 			this.totalScore = (this.enemiesPassed + this.coinCounter);
 			this.sumScore.text = this.totalScore;
-
 		}
 
 		// Collision to collect Corn Coins
@@ -317,7 +307,6 @@ class Main extends Phaser.State {
 		// Collision to End Game between Player & Obstacles
 		this.game.physics.arcade.overlap(
 			this.player, this.obstacles, this.endGame, null, this);
-<<<<<<< HEAD
 
 		this.game.physics.arcade.overlap(
 			this.ammo, this.weed, this.destroyWeed, null, this);
@@ -328,16 +317,12 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.overlap(
 			this.ammo, this.tractor, this.destroyTractor, null, this);
 
-=======
-		}
-		//
 		countCoin() {
 			this.coinCounter++;
 			this.totalScore = (this.enemiesPassed + this.coinCounter);
 			this.coin.kill();
 			this.coinScore.text = this.coinCounter;
 			this.sumScore.text = this.totalScore;
->>>>>>> master
 		}
 
 }
