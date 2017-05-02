@@ -18,10 +18,11 @@ class Main extends Phaser.State {
 	}
 
 	create() {
-		// Score and coinCounter reinitialize to zero upon restarting
+		// Score and coinCounter & ammoCounter reinitialize to zero upon restarting
 		this.enemiesPassed = 0;
 		this.coinCounter = 0;
 		this.totalScore = 0;
+		this.ammoCounter = 5;
 
 		//Enable Arcade Physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -63,6 +64,9 @@ class Main extends Phaser.State {
 		this.enemyScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#fffff"});
 		this.coinScore = this.game.add.text(60, 20, "0", { font: "30px Arial", fill: "#fffff"});
 		this.sumScore = this.game.add.text(100, 20, "0", { font: "30px Arial", fill: "#fffff"});
+		this.ammoTotal = this.game.add.text(140, 20, "0", { font: "30px Arial", fill: "#fffff"});
+
+
 
 		this.player = this.game.add.sprite(500, 1000, 'cornman');
 		// this.player.scale.setTo(3, 3);
@@ -101,14 +105,14 @@ class Main extends Phaser.State {
 		this.ammo = this.game.add.group();
 		this.ammo.enableBody = true;
 		this.ammo.physicsBodyType = Phaser.Physics.ARCADE;
-
-		this.ammo.createMultiple(10, 'bullet', false);
+		// Create 10 bullets upon initialization
+		this.ammo.createMultiple(5, 'bullet', false);
 
 		this.ammo.callAll('animations.add', 'animations', 'fly', [0, 1], 3, true);
 		this.ammo.callAll('play', null, 'fly');
 
-		this.ammo.setAll('checkWorldBounds', true);
-		this.ammo.setAll('outOfBoundsKill', true);
+		// this.ammo.setAll('checkWorldBounds', true);
+		// this.ammo.setAll('outOfBoundsKill', true);
 		this.ammo.setAll('anchor.x', - 2);
     this.ammo.setAll('anchor.y', - 1);
 
@@ -161,6 +165,8 @@ class Main extends Phaser.State {
 				this.kernel.reset(this.player.x + 10, this.player.y + 10);
 				this.kernel.body.velocity.x = 1000;
 				this.kernel.body.allowGravity = false;
+				this.ammoCounter--;
+				this.ammoTotal.text = this.ammoCounter;
 			}
 		}
 
@@ -308,8 +314,6 @@ class Main extends Phaser.State {
 		// Collision to collect Corn Coins
 		this.game.physics.arcade.overlap(
 			this.player, this.coinBag, this.countCoin, null, this);
-		this.game.physics.arcade.overlap(
-				this.player, this.coinBag, this.addAmmo, null, this);
 
 		// Collision to End Game between Player & Obstacles
 		this.game.physics.arcade.overlap(
@@ -325,16 +329,19 @@ class Main extends Phaser.State {
 			this.ammo, this.tractor, this.destroyTractor, null, this);
 
 	}
-	
-	addAmmo() {
 
-	}
+
 	countCoin() {
 		this.coinCounter++;
 		this.totalScore = (this.enemiesPassed + this.coinCounter);
 		this.coin.kill();
 		this.coinScore.text = this.coinCounter;
 		this.sumScore.text = this.totalScore;
+
+		// Add reload function to the same callback
+		this.ammo.createMultiple(5, 'bullet', false);
+		this.ammoCounter + 5;
+		this.ammoTotal.text = this.ammoCounter;
 	}
 }
 
