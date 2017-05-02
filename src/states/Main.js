@@ -344,8 +344,8 @@ class Main extends Phaser.State {
 			this.player, this.coinBag, this.countCoin, null, this);
 
 		// Collision to End Game between Player & Obstacles
-		// this.game.physics.arcade.overlap(
-		// 	this.player, this.obstacles, this.endGame, null, this);
+		this.game.physics.arcade.overlap(
+			this.player, this.obstacles, this.endGame, null, this);
 
 		this.game.physics.arcade.overlap(
 			this.ammo, this.weed, this.destroyWeed, null, this);
