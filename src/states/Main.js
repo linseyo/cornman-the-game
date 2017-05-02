@@ -64,7 +64,7 @@ class Main extends Phaser.State {
 		this.enemyScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#fffff"});
 		this.coinScore = this.game.add.text(60, 20, "0", { font: "30px Arial", fill: "#fffff"});
 		this.sumScore = this.game.add.text(100, 20, "0", { font: "30px Arial", fill: "#fffff"});
-		this.ammoTotal = this.game.add.text(140, 20, "5", { font: "30px Arial", fill: "#fffff"});
+		// this.ammoTotal = this.game.add.text(140, 20, "5", { font: "30px Arial", fill: "#fffff"});
 
 
 

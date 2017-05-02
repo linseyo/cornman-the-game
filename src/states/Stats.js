@@ -22,7 +22,7 @@ class Stats extends Phaser.State {
 
 		this.playerScore = this.game.add.text(1000, 800, ("Total Score: " + this.totalScore), { font: "60px Arial", fill: "#fffff"});
 
-		this.ammoScore = this.game.add.text(1000, 900, ("Bullets Fired: " + this.ammoScore), { font: "60px Arial", fill: "#fffff"});
+		// this.ammoScore = this.game.add.text(1000, 900, ("Bullets Fired: " + this.ammoScore), { font: "60px Arial", fill: "#fffff"});
 		this.sendButton = this.game.add.button(1000, 1000, 'send', this.sendScore, this);
 
 	}
