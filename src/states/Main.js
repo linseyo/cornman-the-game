@@ -101,7 +101,6 @@ class Main extends Phaser.State {
 
 	}
 
-
 		// Touch Enabled jumping function
 		jumpPressed(){
 			if((this.game.time.now > this.jumpTimer) && this.doubleJump <= 2) {
@@ -112,22 +111,18 @@ class Main extends Phaser.State {
 			}
 		}
 
-
 		goShootPressed(){
 			if(this.game.time.now > this.nextFire && this.ammo.countDead() > 0) {
 				this.nextFire = this.game.time.now + this.fireRate;
-				this.kernel = this.ammo.getFirstDead();
+				this.kernel = this.ammo.getFirstDead(false);
 				this.kernel.physicsBodyType = Phaser.Physics.ARACADE;
 				this.kernel.bulletSpeed = 600
-				this.kernel.bulletAngleOffset = 180;
-				this.kernel.reset(this.player.x + 8, this.player.y - 8);
+				this.kernel.bulletAngleOffset = 90;
+				this.kernel.reset(this.player.x + 10, this.player.y + 10);
 				this.kernel.body.velocity.x = 1600;
-				// this.game.physics.arcade.moveToPointer(this.kernel, 3000);
+				this.kernel.body.allowGravity = false;
 			}
 		}
-
-
-		goShootReleased(){}
 
 	addCows() {
 		this.cow = this.game.add.sprite( 2800, 1290, 'cow');
@@ -148,8 +143,6 @@ class Main extends Phaser.State {
 		this.labelScore.text = this.score;
 
 	}
-
-
 
 	addTractors() {
 		this.tractor = this.game.add.sprite( 2800, 1225, 'tractor', );
@@ -195,6 +188,10 @@ class Main extends Phaser.State {
 		this.game.state.start('Stats');
 	}
 
+	destroyEnemy(kernel, obstacle){
+		this.kernel.kill();
+		this.obstacle.kill();
+	}
 
 	update() {
 		this.player.animations.play('right');
@@ -222,6 +219,10 @@ class Main extends Phaser.State {
 		// Collision to End Game between Player & Obstacles
 		// this.game.physics.arcade.overlap(
 		// 	this.player, this.obstacles, this.endGame, null, this);
+
+		// this.game.physics.arcade.overlap(
+		// 	this.ammo, this.weed, this.destroyEnemy, null, this);
+
 		}
 
 }
