@@ -13,12 +13,16 @@ class Stats extends Phaser.State {
 		this.continueText = this.game.add.text(820, 300, continuePhrase, { font: "50px Arial", textalign: "center"});
 
 
-		// this.playerName = prompt("Please enter your name", "Player");
 		this.enemyScore = this.game.add.text(1000, 600, ("Enemies dodged: " + this.enemyScore), { font: "60px Arial", fill: "#fffff"});
 		this.coinScore = this.game.add.text(1000, 700, ("Coins collected: " + this.coinScore), { font: "60px Arial", fill: "#fffff"});
 
 		this.playerScore = this.game.add.text(1000, 800, ("Total Score: " + this.totalScore), { font: "60px Arial", fill: "#fffff"});
+		this.sendButton = this.game.add.button(1000, 900, 'send', this.sendScore, this);
 
+	}
+
+	sendScore() {
+		// this.playerName = prompt("Please enter your name", "Player");
 	}
 
   update() {
