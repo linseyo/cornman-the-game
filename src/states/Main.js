@@ -18,10 +18,11 @@ class Main extends Phaser.State {
 	}
 
 	create() {
-		// Score and coinCounter reinitialize to zero upon restarting
+		// Score and coinCounter & ammoCounter reinitialize to zero upon restarting
 		this.enemiesPassed = 0;
 		this.coinCounter = 0;
 		this.totalScore = 0;
+		this.ammoCounter = 0;
 
 		//Enable Arcade Physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -107,8 +108,8 @@ class Main extends Phaser.State {
 		this.ammo.callAll('animations.add', 'animations', 'fly', [0, 1], 3, true);
 		this.ammo.callAll('play', null, 'fly');
 
-		this.ammo.setAll('checkWorldBounds', true);
-		this.ammo.setAll('outOfBoundsKill', true);
+		// this.ammo.setAll('checkWorldBounds', true);
+		// this.ammo.setAll('outOfBoundsKill', true);
 		this.ammo.setAll('anchor.x', - 2);
     this.ammo.setAll('anchor.y', - 1);
 
@@ -308,6 +309,7 @@ class Main extends Phaser.State {
 		// Collision to collect Corn Coins
 		this.game.physics.arcade.overlap(
 			this.player, this.coinBag, this.countCoin, null, this);
+
 		this.game.physics.arcade.overlap(
 				this.player, this.coinBag, this.addAmmo, null, this);
 
@@ -325,9 +327,10 @@ class Main extends Phaser.State {
 			this.ammo, this.tractor, this.destroyTractor, null, this);
 
 	}
-	
-	addAmmo() {
 
+	addAmmo() {
+		this.ammo.createMultiple(10, 'bullet', false);
+		this.ammoCounter++;
 	}
 	countCoin() {
 		this.coinCounter++;
