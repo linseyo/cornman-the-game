@@ -29,15 +29,18 @@ class Stats extends Phaser.State {
 
 	sendScore() {
     $.ajax({
-      // need to edit url accordingly
-      url: "https://cornman-api.herokuapp.com/scores",
+      url: "http://cornman-api.herokuapp.com/scores",
       type: "post",
-      dataType: "json",
+      crossDomain: true,
+      xhrFields: { withCredentials: true },
+      // dataType: "json",
       data: {
         username: "test",
         score: this.totalScore,
       },
-      })
+      }).fail(function(response) {
+      debugger
+    });
 	}
 
   update() {
