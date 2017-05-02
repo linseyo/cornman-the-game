@@ -203,8 +203,8 @@ class Main extends Phaser.State {
 		}
 
 		// Collision to End Game between Player & Obstacles
-		// this.game.physics.arcade.overlap(
-		// 	this.player, this.obstacles, this.endGame, null, this);
+		this.game.physics.arcade.overlap(
+			this.player, this.obstacles, this.endGame, null, this);
 		}
 
 }
