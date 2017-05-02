@@ -136,7 +136,7 @@ class Main extends Phaser.State {
 	}
 
 	setupPopcorn(obstacle){
-		obstacle.animations.add('taco');
+		obstacle.animations.add('popcorn');
 	}
 
 		// Touch Enabled jumping function
@@ -162,7 +162,8 @@ class Main extends Phaser.State {
 				this.kernel.body.allowGravity = false;
 			}
 		}
-		
+
+
 
 	addCows() {
 		// Generate Obstacles
@@ -234,7 +235,7 @@ class Main extends Phaser.State {
 		// Create Popcorn Effect
 		this.poppin = this.popcorn.getFirstExists(false);
 		this.poppin.reset(this.weed.x, this.weed.y);
-		this.poppin.play('taco', 100, false, true)
+		this.poppin.play('popcorn', 100, false, true)
 	}
 
 	destroyTractor(kernel, obstacle){
@@ -242,7 +243,7 @@ class Main extends Phaser.State {
 		this.tractor.kill();
 		this.poppin = this.popcorn.getFirstExists(false);
 		this.poppin.reset(this.tractor.x, this.tractor.y);
-		this.poppin.play('taco', 100, false, true)
+		this.poppin.play('popcorn', 100, false, true)
 	}
 
 	destroyCow(kernel, obstacle){
@@ -250,7 +251,7 @@ class Main extends Phaser.State {
 		this.cow.kill();
 		this.poppin = this.popcorn.getFirstExists(false);
 		this.poppin.reset(this.cow.x, this.cow.y);
-		this.poppin.play('taco', 100, false, true)
+		this.poppin.play('popcorn', 100, false, true)
 	}
 
 	update() {
