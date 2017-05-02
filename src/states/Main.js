@@ -84,6 +84,9 @@ class Main extends Phaser.State {
 
 		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
 
+		// Clouds
+		this.cloud = this.game.add.sprite(500, 500, 'cloud');
+
 		// Create Button Controller
 			// Jump Button
 		this.buttonJump = this.add.button(-(this.world.width*0.5), 0, 'blank', null, this);
