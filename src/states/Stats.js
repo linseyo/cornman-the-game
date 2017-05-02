@@ -13,7 +13,7 @@ class Stats extends Phaser.State {
     // let score = function(){adds everything}
     this.statsHeaderText = this.game.add.text(650, 50, statsHeader, { font: "250px Revalia", textalign: "center"});
 		this.continueText = this.game.add.text(820, 300, continuePhrase, { font: "50px Arial", textalign: "center"});
-    this.savedText = this.game.add.text(820,300, saved, { font: "50px Arial", textalign: "center"});
+    // this.savedText = this.game.add.text(820,300, saved, { font: "50px Arial", textalign: "center"});
 
 
 		this.enemyScore = this.game.add.text(1000, 600, ("Enemies dodged: " + this.enemyScore), { font: "60px Arial", fill: "#fffff"});
@@ -25,25 +25,20 @@ class Stats extends Phaser.State {
 	}
 
 	sendScore() {
-		// this.playerName = prompt("Please enter your name", "Player");
-		// STILL IN PROCESS
+    $.ajax({
+      // need to edit url accordingly
+      url: "http://localhost:3000/scores",
+      type: "post",
+      dataType: "json",
+      data: {
+        username: "test",
+        score: this.totalScore,
+      },
+      })
 	}
 
   update() {
     if(this.game.input.activePointer.justPressed()) {
-      $.ajax({
-        // need to edit url accordingly
-        url: "http://localhost:3000/scores",
-        type: "post",
-        dataType: "json",
-        data: {
-          username: "test",
-          score: this.totalScore,
-        },
-        // success: () => {
-        //   this.saved = "Saved Successfully!";
-        // }
-      })
       this.game.state.start('End');
     }
 
