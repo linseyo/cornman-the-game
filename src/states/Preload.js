@@ -1,42 +1,45 @@
 class Preload extends Phaser.State {
 
 	preload() {
+		// Background Environment Assets
 		this.game.load.image('mountains-back', 'assets/mountains-back.png');
 		this.game.load.image('hills-mid1', 'assets/hills-mid1.png');
 		this.game.load.image('fence-mid2', 'assets/fence-mid2.png');
 		this.game.load.image('menu-background', 'assets/corn.png');
 		this.game.load.image('ground-front', 'assets/ground-front.png');
-		this.game.load.spritesheet('cornman', 'assets/cornman.png', 143, 165);
-		this.game.load.image('sky', 'assets/sky.png');
-		this.game.load.image('rock', 'assets/rock.gif');
-		this.game.load.image('cm-title', 'assets/cornman-title.png')
 
+		// Menu Assets
+		this.game.load.image('cm-title', 'assets/cornman-title.png')
 		this.game.load.image('restart', 'assets/restart-button.png');
 		this.game.load.image('main-menu', 'assets/menu-button.png');
 		this.game.load.image('start-game', 'assets/start-button.png');
 		this.game.load.image('stop-game', 'assets/stop-button.png');
+		this.game.load.image('send', 'assets/send.png');
 
-		this.game.load.image('blank', 'assets/blankbutton.png');
+		// Player Assets
+		this.game.load.spritesheet('cornman', 'assets/cornman.png', 143, 165);
 
+		// Pixel Obstacle Assets
 		this.game.load.spritesheet('tractor', 'assets/tractor.png', 294, 284);
 		this.game.load.spritesheet('weed', 'assets/weeds.png', 160, 160);
 		this.game.load.spritesheet('cow', 'assets/cow.png', 255, 255);
 
+		// Pixel Neutral Assets
+		this.game.load.image('coin', 'assets/corn-coin.png');
+		this.game.load.spritesheet('cloud-ani', 'assets/cloud-sheet.png', 559, 200);
+
+		// Pixel Weapon Assets
 		this.game.load.spritesheet('bullet', 'assets/bullet.png', 62, 32);
 		this.game.load.image('popcorn', 'assets/popcorn.png');
 
-
-		this.game.load.image('coin', 'assets/corn-coin.png');
-		this.game.load.image('blank', 'assets/blankbutton.png');
-		this.game.load.image('send', 'assets/send.png');
-
-
-		this.game.load.image('cloud', 'assets/cloud.png');
-		this.game.load.spritesheet('cloud-ani', 'assets/cloud-sheet.png', 559, 200);
-
+		// Sound & Music Assets
 		this.game.load.audio('banjo', 'assets/banjo-music.mp3')
 
-
+		// Unused Assets
+		this.game.load.image('sky', 'assets/sky.png');
+		this.game.load.image('rock', 'assets/rock.gif');
+		this.game.load.image('blank', 'assets/blankbutton.png');
+		this.game.load.image('blank', 'assets/blankbutton.png');
 	}
 
 	create() {
