@@ -92,7 +92,7 @@ class Main extends Phaser.State {
 		this.ammo = this.game.add.group();
 		this.ammo.enableBody = true;
 		this.ammo.physicsBodyType = Phaser.Physics.ARCADE;
-		this.ammo.createMultiple(100, 'bullet', 0, false);
+		this.ammo.createMultiple(10, 'bullet', 0, false);
 		this.ammo.setAll('checkWorldBounds', true);
 		this.ammo.setAll('outOfBoundsKill', true);
 		this.ammo.setAll('anchor.x', - 2);
