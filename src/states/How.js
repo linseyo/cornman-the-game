@@ -1,7 +1,13 @@
 class How extends Phaser.State {
   create() {
     this.game.stage.backgroundColor = '#DFF4FF';
-    this.goBack = this.game.add.button(this.game.width-1700, this.game.height-300, 'go-back', this.back, this);
+
+    this.instruction = this.game.add.sprite(500, -60, 'instruction');
+
+    this.instruction.animations.add('show');
+		this.instruction.animations.play('show', 3, true);
+
+    this.goBack = this.game.add.button(130, 900, 'go-back', this.back, this);
   }
 
   back() {
