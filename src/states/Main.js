@@ -11,6 +11,7 @@ class Main extends Phaser.State {
 		this.totalScore = 0;
 		this.tractor;
 		this.weed;
+		// this.music;
 	}
 
 	create() {

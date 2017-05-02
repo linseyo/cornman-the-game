@@ -21,6 +21,8 @@ class Preload extends Phaser.State {
 		this.game.load.image('blank', 'assets/blankbutton.png');
 		this.game.load.image('send', 'assets/send.png');
 
+		this.game.load.audio('banjo', 'assets/banjo-music.mp3')
+
 	}
 
 	create() {
