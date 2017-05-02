@@ -69,6 +69,7 @@ class Main extends Phaser.State {
 
 
 		this.player = this.game.add.sprite(500, 1000, 'cornman');
+
 		// this.player.scale.setTo(3, 3);
 
 		this.player.animations.add('left', [0, 1, 2, 3], 10, true);
@@ -129,7 +130,7 @@ class Main extends Phaser.State {
 	}
 	addClouds() {
 		// Generate Obstacles
-		this.cloud = this.game.add.sprite( 2800, 1000, 'cloud-ani');
+		this.cloud = this.game.add.sprite(2800, this.game.rnd.integerInRange(200, 1100), 'cloud-ani');
 		this.game.physics.arcade.enable(this.cloud);
 		this.cloud.body.allowGravity = false;
 		this.cloud.body.immovable = true;
