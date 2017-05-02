@@ -207,7 +207,7 @@ class Main extends Phaser.State {
 
 		this.obstacles.add(this.cow);
 		this.total++;
-		this.timer = this.game.time.now + 6000;
+		this.timer = this.game.time.now + this.game.rnd.integerInRange(800, 6000);
 		this.cow.checkWorldBounds = true;
 		this.cow.outofBoundsKill = true;
 	}
@@ -215,7 +215,7 @@ class Main extends Phaser.State {
 	addTractors() {
 
 		// Generate Obstacles
-		this.tractor = this.game.add.sprite((this.game.rnd.integerInRange(2800, this.game.width - 100), this.game.height + 1200, 'tractor', );
+		this.tractor = this.game.add.sprite(this.game.rnd.integerInRange(2000, this.game.width + 2200), 1000, 'tractor', );
 		// Gives each tractor a point to grant when player passes successfully
 		this.tractor.grantPoint = true;
 		this.game.physics.arcade.enable(this.tractor);
@@ -223,18 +223,18 @@ class Main extends Phaser.State {
 		this.tractor.animations.play('walk', 200, true);
 
 		this.game.add.tween(this.tractor).to({
-			x: this.tractor.x - 70000 }, 110000, Phaser.Easing.Linear.None, true);
+			x: this.tractor.x - 45000 }, 110000, Phaser.Easing.Linear.None, true);
 
 		this.obstacles.add(this.tractor);
 		this.total++;
-		this.timer = this.game.time.now + 4000;
+		this.timer = this.game.time.now + this.game.rnd.integerInRange(600, 5000);
 		this.tractor.checkWorldBounds = true;
 		this.tractor.outofBoundsKill = true;
 	}
 
 
 	addWeeds() {
-		this.weed = this.game.add.sprite( 3500 ,1000, 'weed', );
+		this.weed = this.game.add.sprite(this.game.rnd.integerInRange(3500, this.game.width + 2000), 1000, 'weed', );
 		// Gives each weed a point to grant when player passes successfully
 		this.weed.grantPoint = true;
 		this.game.physics.arcade.enable(this.weed);
@@ -248,7 +248,7 @@ class Main extends Phaser.State {
 
 		this.obstacles.add(this.weed);
 		this.total++;
-		this.timer = this.game.time.now + 9000;
+		this.timer = this.game.time.now + this.game.rnd.integerInRange(6000, 9000);
 		this.weed.checkWorldBounds = true;
 		this.weed.outofBoundsKill = true;
 	}
