@@ -32,7 +32,7 @@ class Main extends Phaser.State {
 		this.enemiesPassed = 0;
 		this.coinCounter = 0;
 		this.totalScore = 0;
-		this.ammoCounter = 5;
+		this.ammoCounter = 2;
 
 		//Enable Arcade Physics
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -119,7 +119,7 @@ class Main extends Phaser.State {
 		this.ammo.enableBody = true;
 		this.ammo.physicsBodyType = Phaser.Physics.ARCADE;
 		// Create 10 bullets upon initialization
-		this.ammo.createMultiple(5, 'bullet', false);
+		this.ammo.createMultiple(2, 'bullet', false);
 
 		this.ammo.callAll('animations.add', 'animations', 'fly', [0, 1], 3, true);
 		this.ammo.callAll('play', null, 'fly');
@@ -412,7 +412,7 @@ class Main extends Phaser.State {
 
 	ammoReload(player, goldCorn){
 		// Add reload function to the same callback
-		this.ammo.createMultiple(5, 'bullet', false);
+		this.ammo.createMultiple(2, 'bullet', false);
 		goldCorn.destroy();
 		// this.ammoCounter += 5;
 		// this.ammoTotal.text = this.ammoCounter;
