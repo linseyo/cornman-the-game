@@ -252,6 +252,7 @@ class Main extends Phaser.State {
 	destroyWeed(kernel, obstacle){
 		this.kernel.kill();
 		this.weed.kill();
+
 		// Create Popcorn Effect
 		this.poppin.x = this.weed.centerX;
 		this.poppin.y = this.weed.centerY;
