@@ -165,7 +165,7 @@ class Main extends Phaser.State {
 				this.kernel.reset(this.player.x + 10, this.player.y + 10);
 				this.kernel.body.velocity.x = 1000;
 				this.kernel.body.allowGravity = false;
-				this.ammoCounter -= 1;
+				this.ammoCounter--;
 				this.ammoTotal.text = this.ammoCounter;
 			}
 		}
@@ -315,9 +315,6 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.overlap(
 			this.player, this.coinBag, this.countCoin, null, this);
 
-		this.game.physics.arcade.overlap(
-				this.player, this.coinBag, this.addAmmo, null, this);
-
 		// Collision to End Game between Player & Obstacles
 		this.game.physics.arcade.overlap(
 			this.player, this.obstacles, this.endGame, null, this);
@@ -333,9 +330,6 @@ class Main extends Phaser.State {
 
 	}
 
-	addAmmo() {
-
-	}
 
 	countCoin() {
 		this.coinCounter++;
@@ -344,8 +338,9 @@ class Main extends Phaser.State {
 		this.coinScore.text = this.coinCounter;
 		this.sumScore.text = this.totalScore;
 
+		// Add reload function to the same callback
 		this.ammo.createMultiple(5, 'bullet', false);
-		this.ammoCounter += 5
+		this.ammoCounter + 5;
 		this.ammoTotal.text = this.ammoCounter;
 	}
 }
