@@ -188,9 +188,19 @@ class Main extends Phaser.State {
 		this.game.state.start('Stats');
 	}
 
-	destroyEnemy(kernel, obstacle){
+	destroyWeed(kernel, obstacle){
 		this.kernel.kill();
-		this.obstacle.kill();
+		this.weed.kill();
+	}
+
+	destroyTractor(kernel, obstacle){
+		this.kernel.kill();
+		this.tractor.kill();
+	}
+
+	destroyCow(kernel, obstacle){
+		this.kernel.kill();
+		this.cow.kill();
 	}
 
 	update() {
@@ -217,11 +227,17 @@ class Main extends Phaser.State {
 		}
 
 		// Collision to End Game between Player & Obstacles
-		// this.game.physics.arcade.overlap(
-		// 	this.player, this.obstacles, this.endGame, null, this);
+		this.game.physics.arcade.overlap(
+			this.player, this.obstacles, this.endGame, null, this);
 
-		// this.game.physics.arcade.overlap(
-		// 	this.ammo, this.weed, this.destroyEnemy, null, this);
+		this.game.physics.arcade.overlap(
+			this.ammo, this.weed, this.destroyWeed, null, this);
+
+		this.game.physics.arcade.overlap(
+			this.ammo, this.cow, this.destroyCow, null, this);
+
+		this.game.physics.arcade.overlap(
+			this.ammo, this.tractor, this.destroyTractor, null, this);
 
 		}
 
