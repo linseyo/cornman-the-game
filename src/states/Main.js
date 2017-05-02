@@ -86,6 +86,10 @@ class Main extends Phaser.State {
 
 		// Clouds
 		this.cloud = this.game.add.sprite(500, 500, 'cloud');
+		this.cloudAni = this.game.add.sprite( 800, 500, 'cloud-ani');
+		this.cloudAni.animations.add('float')
+		this.cloudAni.animations.play('float', 3, true);
+
 
 		// Create Button Controller
 			// Jump Button
