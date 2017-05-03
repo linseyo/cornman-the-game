@@ -1,15 +1,46 @@
 class End extends Phaser.State {
+  constructor() {
+    super();
+    this.topTenJSON;
+  }
 
+  preload(){
+    this.game.load.json('topTen', 'http://cornman-api.herokuapp.com/scores');
+  }
 
 	create() {
+    this.topTenJSON = this.game.cache.getJSON('topTen');
+
     this.game.stage.backgroundColor = '#DFF4FF';
 
     let gameOver = "GAME OVER"
-    this.overText = this.game.add.text(100, 300, gameOver, { font: "300px Revalia", textalign: "center"});
+    this.overText = this.game.add.text(0, 0, gameOver, { font: "64px Revalia", textalign: "center"});
 
-    this.restartButton = this.game.add.button(650, 700, 'restart', this.restartGame, this);
-    this.mainMenuButton = this.game.add.button(1050, 700, 'main-menu', this.goToMenu, this);
+    this.restartButton = this.game.add.button(100, 100, 'restart', this.restartGame, this);
+    this.mainMenuButton = this.game.add.button(100, 300, 'main-menu', this.goToMenu, this);
+
+    // let scoreboard = "SCORE"
+    let positionY = 100;
+    this.topTenJSON.forEach((score)=>{
+      this.game.add.text(300, positionY, score.score);
+      positionY += 25;
+    })
 	}
+
+  getTen() {
+    let request = $.ajax({
+      url: "http://cornman-api.herokuapp.com/scores",
+      type: "get",
+      crossDomain: true,
+      xhrFields: { withCredentials: true },
+    });
+    request.done((response)=>{
+      this.topTen = this.game.cache.getJSON(response);
+    });
+    request.fail((response)=>{
+      debugger;
+    });
+  }
 
   restartGame() {
     this.game.state.start('Main');
