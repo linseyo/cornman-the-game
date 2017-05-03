@@ -22,10 +22,25 @@ class End extends Phaser.State {
     let title = "Top Ten Scores... in the world!"
     this.game.add.text(500, 60, title);
     let positionY = 100;
+    let rank = 1;
+    let nth = "st";
     this.topTenJSON.forEach((score)=>{
-      let scoreBoard = `SCORE: ${score.score}`
+      if (rank === 1){
+        nth = "st";
+      }
+      else if(rank === 2){
+        nth = "nd";
+      }
+      else if(rank === 3){
+        nth = "rd";
+      }
+      else {
+        nth = "th";
+      }
+      let scoreBoard = `${rank}${nth} - ${score.score}`
       this.game.add.text(600, positionY, scoreBoard);
       positionY += 25;
+      rank += 1;
     })
 	}
 
