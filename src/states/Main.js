@@ -83,7 +83,7 @@ class Main extends Phaser.State {
 
 
 
-		this.player = this.game.add.sprite(0,0, 'cornman');
+		this.player = this.game.add.sprite(100,0, 'cornman');
 		this.player.scale.setTo(this.game.aspectRatio / 1.75, this.game.aspectRatio / 1.75)
 		this.player.animations.add('left', [0, 1, 2, 3, 4, 5, 6], 5, true);
 		this.player.animations.add('right', [0, 1, 2, 3, 4, 5, 6], 5, true);
@@ -99,6 +99,7 @@ class Main extends Phaser.State {
 		this.obstacles = this.game.add.group();
 		this.coinBag = this.game.add.group();
 		this.goldenSatchel = this.game.add.group();
+		this.cumulonimbus = this.game.add.group();
 
 		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
 
@@ -154,6 +155,7 @@ class Main extends Phaser.State {
 		this.game.add.tween(this.cloud).to({
 			x: this.cloud.x - 5500 }, 25000, Phaser.Easing.Linear.None, true);
 
+		this.cumulonimbus.add(this.cloud);
 		this.cloudTotal++;
 		this.cloudTimer = this.game.time.now + this.game.rnd.integerInRange(500, 4000);
 		this.cloud.checkWorldBounds = true;
@@ -205,8 +207,8 @@ class Main extends Phaser.State {
 		// Touch Enabled jumping function
 	jumpPressed(){
 		if((this.game.time.now > this.jumpTimer) && this.doubleJump <= 2) {
-			this.player.body.velocity.y = -1250;
-			this.player.body.velocity.x = 2;
+			this.player.body.velocity.y = -920;
+			// this.player.body.velocity.x = 2;
 			this.jumpTimer = this.game.time.now + 200;
 			this.doubleJump += 1;
 		}
@@ -339,7 +341,7 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.collide(this.coin, this.groundFront);
 
 		if (this.player.body.velocity.y > 0) {
-			this.game.physics.arcade.collide(this.player, this.cloud);
+			this.game.physics.arcade.collide(this.player, this.cumulonimbus);
 		}
 
 		this.mountainsBack.tilePosition.x -= 0.10;
@@ -404,8 +406,8 @@ class Main extends Phaser.State {
 			this.player, this.goldenSatchel, this.ammoReload, null, this);
 
 		// Collision to End Game between Player & Obstacles
-		this.game.physics.arcade.overlap(
-			this.player, this.obstacles, this.endGame, null, this);
+		// this.game.physics.arcade.overlap(
+		// 	this.player, this.obstacles, this.endGame, null, this);
 
 		this.game.physics.arcade.overlap(
 			this.ammo, this.weed, this.destroyWeed, null, this);
