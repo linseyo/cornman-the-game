@@ -84,7 +84,7 @@ class Main extends Phaser.State {
 
 
 		this.player = this.game.add.sprite(0,0, 'cornman');
-		this.player.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
+		this.player.scale.setTo(this.game.aspectRatio / 1.75, this.game.aspectRatio / 1.75)
 		this.player.animations.add('left', [0, 1, 2, 3, 4, 5, 6], 5, true);
 		this.player.animations.add('right', [0, 1, 2, 3, 4, 5, 6], 5, true);
 		this.game.physics.arcade.enable([this.player, this.groundFront]);
@@ -152,10 +152,10 @@ class Main extends Phaser.State {
 		this.cloud.animations.play('float', 1, true);
 
 		this.game.add.tween(this.cloud).to({
-			x: this.cloud.x - 5500 }, 11000, Phaser.Easing.Linear.None, true);
+			x: this.cloud.x - 5500 }, 25000, Phaser.Easing.Linear.None, true);
 
 		this.cloudTotal++;
-		this.cloudTimer = this.game.time.now + this.game.rnd.integerInRange(2000, 4000);
+		this.cloudTimer = this.game.time.now + this.game.rnd.integerInRange(500, 4000);
 		this.cloud.checkWorldBounds = true;
 		this.cloud.outofBoundsKill = true;
 	}
@@ -233,8 +233,8 @@ class Main extends Phaser.State {
 
 	addCows() {
 		// Generate Obstacles
-		this.cow = this.game.add.sprite( 965, 500, 'cow');
-		this.cow.scale.setTo(this.game.aspectRatio / 3, this.game.aspectRatio / 3)
+		this.cow = this.game.add.sprite( 965, 480, 'cow');
+		this.cow.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
 		// Gives each cow a point to grant when player passes successfully
 		this.cow.grantPoint = true;
 		this.game.physics.arcade.enable(this.cow);
@@ -254,8 +254,8 @@ class Main extends Phaser.State {
 	addTractors() {
 
 		// Generate Obstacles
-		this.tractor = this.game.add.sprite(965, 500, 'tractor');
-		this.tractor.scale.setTo(this.game.aspectRatio / 3, this.game.aspectRatio / 3)
+		this.tractor = this.game.add.sprite(965, 450, 'tractor');
+		this.tractor.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
 		// Gives each tractor a point to grant when player passes successfully
 		this.tractor.grantPoint = true;
 		this.game.physics.arcade.enable(this.tractor);
@@ -274,8 +274,8 @@ class Main extends Phaser.State {
 
 
 	addWeeds() {
-		this.weed = this.game.add.sprite(965, 500, 'weed' );
-		this.weed.scale.setTo(this.game.aspectRatio / 3, this.game.aspectRatio / 3)
+		this.weed = this.game.add.sprite(965, 480, 'weed' );
+		this.weed.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
 
 		// Gives each weed a point to grant when player passes successfully
 		this.weed.grantPoint = true;
