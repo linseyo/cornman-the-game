@@ -143,7 +143,7 @@ class Main extends Phaser.State {
 	}
 	addClouds() {
 		// Generate Obstacles
-		this.cloud = this.game.add.sprite(this.game.rnd.integerInRange(0, 960), this.game.rnd.integerInRange(0, 320), 'cloud-ani');
+		this.cloud = this.game.add.sprite(this.game.rnd.integerInRange(480, 960), this.game.rnd.integerInRange(0, 320), 'cloud-ani');
 		this.game.physics.arcade.enable(this.cloud);
 		this.cloud.scale.setTo(this.game.aspectRatio / 4, this.game.aspectRatio / 4)
 		this.cloud.body.allowGravity = false;
@@ -162,7 +162,7 @@ class Main extends Phaser.State {
 
 	addCoins() {
 		// Generate Obstacles
-		this.coin = this.game.add.sprite( 2800, this.game.rnd.integerInRange(400, 1300), 'coin');
+		this.coin = this.game.add.sprite(this.game.rnd.integerInRange(480, 960), this.game.rnd.integerInRange(0, 450), 'coin');
 		this.game.physics.arcade.enable(this.coin);
 		this.coin.body.allowGravity = false;
 		// this.coin.body.immovable = true;
@@ -179,7 +179,7 @@ class Main extends Phaser.State {
 
 	addGoldCorn() {
 		// Generate Obstacles
-		this.goldCorn = this.game.add.sprite( 2800, this.game.rnd.integerInRange(600, 1400), 'golden-corn');
+		this.goldCorn = this.game.add.sprite(this.game.rnd.integerInRange(480, 960), this.game.rnd.integerInRange(0, 450), 'golden-corn');
 		this.game.physics.arcade.enable(this.goldCorn);
 		this.goldCorn.body.allowGravity = false;
 
