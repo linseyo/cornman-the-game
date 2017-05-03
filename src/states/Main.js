@@ -18,6 +18,8 @@ class Main extends Phaser.State {
 		this.tractorTotal = 0;
 		this.cloudTotal = 0;
 		this.goldTotal = 0;
+		this.powerSpawnTotal = 0;
+		this.powerSpawnTimer = 0
 		this.totalScore = 0;
 		this.tractor;
 		this.weed;
@@ -82,7 +84,7 @@ class Main extends Phaser.State {
 		// this.ammoTotal = this.game.add.text(140, 20, "5", { font: "30px Arial", fill: "#fffff"});
 
 
-
+		// THE CORNMAN
 		this.player = this.game.add.sprite(100,0, 'cornman');
 		this.player.scale.setTo(this.game.aspectRatio / 1.75, this.game.aspectRatio / 1.75)
 		this.player.animations.add('left', [0, 1, 2, 3, 4, 5, 6], 5, true);
@@ -90,6 +92,7 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.enable([this.player, this.groundFront]);
 		this.player.body.collideWorldBounds = true;
 		this.player.body.gravity.y = -50;
+		this.player.powerLevel = false;
 		// this.player.body.maxVelocity.y = 1000;
 
 		this.groundFront.body.collideWorldBounds = true;
@@ -100,6 +103,7 @@ class Main extends Phaser.State {
 		this.coinBag = this.game.add.group();
 		this.goldenSatchel = this.game.add.group();
 		this.cumulonimbus = this.game.add.group();
+		this.fertilizer = this.game.add.group();
 
 		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
 
@@ -198,6 +202,26 @@ class Main extends Phaser.State {
 		this.goldTimer = this.game.time.now + this.game.rnd.integerInRange(900,  5000);
 		this.goldCorn.checkWorldBounds = true;
 		this.goldCorn.outofBoundsKill = true;
+	}
+
+	addPowerup() {
+		// Generate Obstacles
+		this.powerup = this.game.add.sprite(this.game.rnd.integerInRange(480, 960), this.game.rnd.integerInRange(0, 450), 'taco');
+		this.game.physics.arcade.enable(this.powerup);
+		this.powerup.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
+		this.powerup.body.allowGravity = false;
+
+		// this.powerup.animations.add('taco')
+		// this.powerup.animations.play('taco', 3, true);
+
+		this.game.add.tween(this.powerup).to({
+			x: this.powerup.x - 55000 }, 140000, Phaser.Easing.Linear.None, true);
+
+		this.fertilizer.add(this.powerup);
+		this.powerSpawnTotal++;
+		this.powerSpawnTimer = this.game.time.now + this.game.rnd.integerInRange(900,  5000);
+		this.powerup.checkWorldBounds = true;
+		this.powerup.outofBoundsKill = true;
 	}
 
 	setupPopcorn(obstacle){
@@ -372,6 +396,9 @@ class Main extends Phaser.State {
 		if (this.cloudTotal < 1000 && this.game.time.now > this.cloudTimer){
 			this.addClouds();
 		}
+		if (this.powerSpawnTotal < 1000 && this.game.time.now > this.powerSpawnTimer){
+			this.addPowerup();
+		}
 
 		// Functionality to count passing enemies ONCE
 		if (this.weed.grantPoint && (this.weed.x < this.player.x)){
@@ -405,9 +432,20 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.overlap(
 			this.player, this.goldenSatchel, this.ammoReload, null, this);
 
-		// Collision to End Game between Player & Obstacles
-		// this.game.physics.arcade.overlap(
-		// 	this.player, this.obstacles, this.endGame, null, this);
+		this.game.physics.arcade.overlap(
+			this.player, this.fertilizer, this.activatePower, null, this);
+
+
+		if (this.player.powerLevel === true){
+			for (i = 0; i > 10; i++)
+			console.log("POWER LEVEL IS OVER 9000")
+			// this.player.powerLevel = false;
+		}
+		else {
+			// Collision to End Game between Player & Obstacles
+			this.game.physics.arcade.overlap(
+				this.player, this.obstacles, this.endGame, null, this);
+		}
 
 		this.game.physics.arcade.overlap(
 			this.ammo, this.weed, this.destroyWeed, null, this);
@@ -418,6 +456,12 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.overlap(
 			this.ammo, this.tractor, this.destroyTractor, null, this);
 
+	}
+
+
+	activatePower(player, powerup){
+		powerup.destroy();
+		this.player.powerLevel = true;
 	}
 
 	ammoReload(player, goldCorn){
