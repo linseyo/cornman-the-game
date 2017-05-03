@@ -15,22 +15,16 @@ class Menu extends Phaser.State {
     this.title.anchor.setTo(0.5);
     this.title.scale.setTo(this.game.aspectRatio, this.game.aspectRatio);
 
-    this.startButton = this.game.add.button(this.game.widthHalf, screen.height * 0.65, 'start-game', this.startGame, this);
+    this.startButton = this.game.add.button(this.game.widthHalf, (this.title.y) + (this.title.height/1.5), 'start-game', this.startGame, this);
     this.startButton.anchor.setTo(0.5);
     this.startButton.scale.setTo(this.game.aspectRatio/2, this.game.aspectRatio/2);
 
-    this.howButton = this.game.add.button(this.game.widthHalf, screen.height * 0.85, 'how-to', this.startHow, this);
+    this.howButton = this.game.add.button(this.game.widthHalf, (this.startButton.y) + (this.startButton.height/0.75), 'how-to', this.startHow, this);
     this.howButton.anchor.setTo(0.5);
     this.howButton.scale.setTo(this.game.aspectRatio/2, this.game.aspectRatio/2);
 
-
-    this.music = this.game.add.audio('banjo');
-    this.moozic();
-
-  }
-
-  moozic() {
-    this.music.play();
+    this.moozic = this.game.add.audio('banjo');
+    this.moozic.play();
   }
 
   startGame() {
@@ -40,7 +34,6 @@ class Menu extends Phaser.State {
   startHow() {
       this.game.state.start('How')
   }
-
 }
 
 export default Menu;
