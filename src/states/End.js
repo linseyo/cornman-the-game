@@ -2,13 +2,19 @@ class End extends Phaser.State {
 
 
 	create() {
-    this.game.stage.backgroundColor = '#DFF4FF';
+    this.game.stage.backgroundColor = '#d2d9da';
 
-    let gameOver = "GAME OVER"
-    this.overText = this.game.add.text(100, 300, gameOver, { font: "300px Revalia", textalign: "center"});
+		this.headerImage = this.game.add.image(300, 225, 'gameover-title', 'assets/gameover-title.png');
+
 
     this.restartButton = this.game.add.button(650, 700, 'restart', this.restartGame, this);
     this.mainMenuButton = this.game.add.button(1050, 700, 'main-menu', this.goToMenu, this);
+
+
+		this.endCow = this.game.add.sprite(1800, 1000, 'cow');
+		this.endCow.animations.add('walk')
+		this.endCow.animations.play('walk', 3, true);
+		this.game.add.tween(this.endCow).to( { x: this.endCow.x - 3000 }, 20000, Phaser.Easing.Linear.None, true);
 	}
 
   restartGame() {

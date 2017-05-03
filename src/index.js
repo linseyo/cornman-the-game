@@ -7,7 +7,6 @@ import End from 'states/End';
 import How from 'states/How';
 
 class Game extends Phaser.Game {
-
 	constructor() {
 
 		super(screen.width, screen.height, Phaser.CANVAS, 'gameArea');
