@@ -143,7 +143,7 @@ class Main extends Phaser.State {
 	}
 	addClouds() {
 		// Generate Obstacles
-		this.cloud = this.game.add.sprite(this.game.rnd.integerInRange(480, 960), this.game.rnd.integerInRange(0, 320), 'cloud-ani');
+		this.cloud = this.game.add.sprite(this.game.rnd.integerInRange(480, 960), this.game.rnd.integerInRange(0, 455), 'cloud-ani');
 		this.game.physics.arcade.enable(this.cloud);
 		this.cloud.scale.setTo(this.game.aspectRatio / 4, this.game.aspectRatio / 4)
 		this.cloud.body.allowGravity = false;
@@ -155,7 +155,7 @@ class Main extends Phaser.State {
 			x: this.cloud.x - 5500 }, 11000, Phaser.Easing.Linear.None, true);
 
 		this.cloudTotal++;
-		this.cloudTimer = this.game.time.now + this.game.rnd.integerInRange(6000, 10000);
+		this.cloudTimer = this.game.time.now + this.game.rnd.integerInRange(2000, 4000);
 		this.cloud.checkWorldBounds = true;
 		this.cloud.outofBoundsKill = true;
 	}
@@ -164,6 +164,7 @@ class Main extends Phaser.State {
 		// Generate Obstacles
 		this.coin = this.game.add.sprite(this.game.rnd.integerInRange(480, 960), this.game.rnd.integerInRange(0, 450), 'coin');
 		this.game.physics.arcade.enable(this.coin);
+		this.coin.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
 		this.coin.body.allowGravity = false;
 		// this.coin.body.immovable = true;
 
@@ -181,6 +182,7 @@ class Main extends Phaser.State {
 		// Generate Obstacles
 		this.goldCorn = this.game.add.sprite(this.game.rnd.integerInRange(480, 960), this.game.rnd.integerInRange(0, 450), 'golden-corn');
 		this.game.physics.arcade.enable(this.goldCorn);
+		this.goldCorn.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
 		this.goldCorn.body.allowGravity = false;
 
 		this.goldCorn.animations.add('shine')
