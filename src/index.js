@@ -7,8 +7,8 @@ import End from 'states/End';
 import How from 'states/How';
 
 class Game extends Phaser.Game {
-
 	constructor() {
+
 		super(960, 640, Phaser.CANVAS, 'container');
 		//suggested background size: 1140 by 720
 
