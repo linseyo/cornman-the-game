@@ -84,7 +84,7 @@ class Main extends Phaser.State {
 
 
 		this.player = this.game.add.sprite(0,0, 'cornman');
-		this.player.scale.setTo(this.game.aspectRatio, this.game.aspectRatio)
+		this.player.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
 		this.player.animations.add('left', [0, 1, 2, 3, 4, 5, 6], 5, true);
 		this.player.animations.add('right', [0, 1, 2, 3, 4, 5, 6], 5, true);
 		this.game.physics.arcade.enable([this.player, this.groundFront]);
@@ -143,15 +143,16 @@ class Main extends Phaser.State {
 	}
 	addClouds() {
 		// Generate Obstacles
-		this.cloud = this.game.add.sprite(2800, this.game.rnd.integerInRange(200, 1100), 'cloud-ani');
+		this.cloud = this.game.add.sprite(this.game.rnd.integerInRange(0, 960), this.game.rnd.integerInRange(0, 320), 'cloud-ani');
 		this.game.physics.arcade.enable(this.cloud);
+		this.cloud.scale.setTo(this.game.aspectRatio / 4, this.game.aspectRatio / 4)
 		this.cloud.body.allowGravity = false;
 		this.cloud.body.immovable = true;
 		this.cloud.animations.add('float');
 		this.cloud.animations.play('float', 1, true);
 
 		this.game.add.tween(this.cloud).to({
-			x: this.cloud.x - 55000 }, 110000, Phaser.Easing.Linear.None, true);
+			x: this.cloud.x - 5500 }, 11000, Phaser.Easing.Linear.None, true);
 
 		this.cloudTotal++;
 		this.cloudTimer = this.game.time.now + this.game.rnd.integerInRange(6000, 10000);
