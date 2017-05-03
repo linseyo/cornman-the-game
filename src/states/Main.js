@@ -43,12 +43,9 @@ class Main extends Phaser.State {
 		// this.sky = this.game.add.sprite(0,0,'sky');
 		// this.sky.scale.setTo(5,5);
 
-		this.mountainsBack = this.game.add.tileSprite(0,
-			this.game.height - this.game.cache.getImage('mountains-back').height,
-			this.game.width,
-			this.game.cache.getImage('mountains-back').height,
-			'mountains-back'
+		this.mountainsBack = this.game.add.tileSprite(0, 1, this.game.width, this.game.height, 'mountains-back'
 		);
+		// this.mountainsBack.scale.setTo(2, 2)
 
 		this.hillsMid1 = this.game.add.tileSprite(0,
 			this.game.height - this.game.cache.getImage('hills-mid1').height,

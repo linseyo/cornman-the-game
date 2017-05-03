@@ -8,7 +8,7 @@ import End from 'states/End'
 class Game extends Phaser.Game {
 	constructor() {
 
-		super(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio, Phaser.CANVAS, 'gameArea');
+		super(screen.width, screen.height, Phaser.CANVAS, 'gameArea');
 
 		this.state.add('Boot', Boot, false);
 		this.state.add('Preload', Preload, false);
