@@ -49,17 +49,16 @@ class Main extends Phaser.State {
 
  // Create Button Controller
 		 // Jump Button
-	 this.buttonJump = this.add.button(0, 0, 'sky', null, this);
+	 this.buttonJump = this.add.button(0, 0, 'blank', null, this);
 	 this.buttonJump.scale.setTo(this.game.aspectRatio, this.game.aspectRatio)
 	 this.buttonJump.onInputDown.add(this.jumpPressed, this);
 
 		 // Fire Button & Keyboard Press
-	 this.fireButton = this.add.button((this.game.widthHalf), 0, 'sky', null, this);
+	 this.fireButton = this.add.button((this.game.widthHalf), 0, 'blank', null, this);
 	 this.fireButton.scale.setTo(this.game.aspectRatio)
 	 this.fireButton.onInputDown.add(this.goShootPressed, this);
 	 this.fire = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
 	 this.fire.onDown.add(this.goShootPressed, this);
-}
 
 }
 	 // Touch Enabled jumping function
