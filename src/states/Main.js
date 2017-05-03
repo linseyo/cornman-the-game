@@ -86,6 +86,8 @@ class Main extends Phaser.State {
 		this.game.add.text(20, 100, "Total Score: ");
 		this.sumScore = this.game.add.text(280, 100, "0");
 
+		this.game.add.text(500, 20, "Bullets: ");
+
 
 
 
