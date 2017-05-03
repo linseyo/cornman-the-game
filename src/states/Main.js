@@ -84,12 +84,9 @@ class Main extends Phaser.State {
 
 
 		this.player = this.game.add.sprite(0,0, 'cornman');
-
-		// this.player.scale.setTo(3, 3);
-
+		this.player.scale.setTo(this.game.aspectRatio, this.game.aspectRatio)
 		this.player.animations.add('left', [0, 1, 2, 3, 4, 5, 6], 5, true);
 		this.player.animations.add('right', [0, 1, 2, 3, 4, 5, 6], 5, true);
-
 		this.game.physics.arcade.enable([this.player, this.groundFront]);
 		this.player.body.collideWorldBounds = true;
 		this.player.body.gravity.y = -50;
