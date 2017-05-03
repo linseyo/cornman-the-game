@@ -74,15 +74,35 @@ class Main extends Phaser.State {
 			'ground-front'
 		);
 
-		// this.groundFront.scale.setTo();
+		// COUNTERS & LEGEND
+		this.game.add.text(20, 20, "Enemies Dodged: ");
+		this.enemyScore = this.game.add.text(280, 20, "0");
 
-		this.enemyScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#fffff"});
-		this.coinScore = this.game.add.text(60, 20, "0", { font: "30px Arial", fill: "#fffff"});
-		this.sumScore = this.game.add.text(100, 20, "0", { font: "30px Arial", fill: "#fffff"});
-		// this.ammoTotal = this.game.add.text(140, 20, "5", { font: "30px Arial", fill: "#fffff"});
+		this.lilCorn1 = this.game.add.sprite(20, 55, 'coin');
+		this.lilCorn1.scale.setTo(0.25, 0.25);
+		this.game.add.text(60, 60, "Coins: ")
+		this.coinScore = this.game.add.text(280, 60, "0");
+
+		this.game.add.text(20, 100, "Total Score: ");
+		this.sumScore = this.game.add.text(280, 100, "0");
+
+		this.game.add.text(70, 140, "Bullets: ");
+		this.lilBullet = this.game.add.sprite(20, 142, 'bullet');
+		this.lilBullet.scale.setTo(0.75, 0.75);
+		this.lilBullet.animations.add('fire');
+		this.lilBullet.animations.play('fire', 5, true);
+		this.ammoTotal = this.game.add.text(280, 140, "2", {fill: "#ff0000"});
+
+		this.game.add.text(400, 20, "Collect         to Reload Bullets");
+		this.lilCorn2 = this.game.add.sprite(505, 15, 'golden-corn');
+		this.lilCorn2.scale.setTo(0.25, 0.25);
+		this.lilCorn2.animations.add('shine');
+		this.lilCorn2.animations.play('shine', 8, true);
+
+		this.game.add.text(400, 60, "Collect         to Power Up");
 
 
-
+		// PLAYER
 		this.player = this.game.add.sprite(0,0, 'cornman');
 		this.player.scale.setTo(this.game.aspectRatio / 1.75, this.game.aspectRatio / 1.75)
 		this.player.animations.add('left', [0, 1, 2, 3, 4, 5, 6], 5, true);
@@ -213,21 +233,21 @@ class Main extends Phaser.State {
 	}
 
 
-		goShootPressed(){
-			if(this.game.time.now > this.nextFire && this.ammo.countDead() > 0) {
-				this.nextFire = this.game.time.now + this.fireRate;
-				this.kernel = this.ammo.getFirstDead(false);
-				this.kernel.physicsBodyType = Phaser.Physics.ARCADE;
-				this.kernel.bulletSpeed = 600
-				this.kernel.bulletAngleOffset = 90;
-				this.kernel.reset(this.player.x + 10, this.player.y + 10);
-				this.kernel.body.velocity.x = 1000;
-				this.kernel.body.allowGravity = false;
-				// this.kernel.kill();
-				// this.ammoCounter--;
-				// this.ammoTotal.text = this.ammoCounter;
-			}
+	goShootPressed(){
+		if(this.game.time.now > this.nextFire && this.ammo.countDead() > 0) {
+			this.nextFire = this.game.time.now + this.fireRate;
+			this.kernel = this.ammo.getFirstDead(false);
+			this.kernel.physicsBodyType = Phaser.Physics.ARCADE;
+			this.kernel.bulletSpeed = 600
+			this.kernel.bulletAngleOffset = 90;
+			this.kernel.reset(this.player.x + 10, this.player.y + 10);
+			this.kernel.body.velocity.x = 1000;
+			this.kernel.body.allowGravity = false;
+			// this.kernel.kill();
+			this.ammoCounter--;
+			this.ammoTotal.text = this.ammoCounter;
 		}
+	}
 
 
 
@@ -302,6 +322,8 @@ class Main extends Phaser.State {
 	destroyWeed(kernel, weed){
 		this.kernel.kill();
 		this.weed.kill();
+		this.ammoCounter++;
+		this.ammoTotal.text = this.ammoCounter;
 
 		// Create Popcorn Effect
 		this.poppin.x = this.weed.centerX;
@@ -313,6 +335,8 @@ class Main extends Phaser.State {
 	destroyTractor(kernel, tractor){
 		this.kernel.kill();
 		this.tractor.kill();
+		this.ammoCounter++;
+		this.ammoTotal.text = this.ammoCounter;
 		// Create Popcorn Effect
 		this.poppin.x = this.tractor.centerX;
 		this.poppin.y = this.tractor.centerY;
@@ -323,6 +347,8 @@ class Main extends Phaser.State {
 	destroyCow(kernel, cow){
 		this.kernel.kill();
 		this.cow.kill();
+		this.ammoCounter++;
+		this.ammoTotal.text = this.ammoCounter;
 		// Create Popcorn Effect
 		this.poppin.x = this.cow.centerX;
 		this.poppin.y = this.cow.centerY;
@@ -422,8 +448,8 @@ class Main extends Phaser.State {
 		// Add reload function to the same callback
 		this.ammo.createMultiple(2, 'bullet', false);
 		goldCorn.destroy();
-		// this.ammoCounter += 5;
-		// this.ammoTotal.text = this.ammoCounter;
+		this.ammoCounter += 2;
+		this.ammoTotal.text = this.ammoCounter;
 	}
 
 	countCoin(player, coin) {
