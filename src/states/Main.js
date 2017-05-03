@@ -91,7 +91,7 @@ class Main extends Phaser.State {
 		this.lilBullet.scale.setTo(0.75, 0.75);
 		this.lilBullet.animations.add('fire');
 		this.lilBullet.animations.play('fire', 5, true);
-		this.ammoTotal = this.game.add.text(280, 140, "5", {fill: "#ff0000"});
+		this.ammoTotal = this.game.add.text(280, 140, "2", {fill: "#ff0000"});
 
 		this.game.add.text(400, 20, "Collect         to Reload Bullets");
 		this.lilCorn2 = this.game.add.sprite(505, 15, 'golden-corn');
@@ -233,21 +233,21 @@ class Main extends Phaser.State {
 	}
 
 
-		goShootPressed(){
-			if(this.game.time.now > this.nextFire && this.ammo.countDead() > 0) {
-				this.nextFire = this.game.time.now + this.fireRate;
-				this.kernel = this.ammo.getFirstDead(false);
-				this.kernel.physicsBodyType = Phaser.Physics.ARCADE;
-				this.kernel.bulletSpeed = 600
-				this.kernel.bulletAngleOffset = 90;
-				this.kernel.reset(this.player.x + 10, this.player.y + 10);
-				this.kernel.body.velocity.x = 1000;
-				this.kernel.body.allowGravity = false;
-				// this.kernel.kill();
-				// this.ammoCounter--;
-				// this.ammoTotal.text = this.ammoCounter;
-			}
+	goShootPressed(){
+		if(this.game.time.now > this.nextFire && this.ammo.countDead() > 0) {
+			this.nextFire = this.game.time.now + this.fireRate;
+			this.kernel = this.ammo.getFirstDead(false);
+			this.kernel.physicsBodyType = Phaser.Physics.ARCADE;
+			this.kernel.bulletSpeed = 600
+			this.kernel.bulletAngleOffset = 90;
+			this.kernel.reset(this.player.x + 10, this.player.y + 10);
+			this.kernel.body.velocity.x = 1000;
+			this.kernel.body.allowGravity = false;
+			// this.kernel.kill();
+			this.ammoCounter--;
+			this.ammoTotal.text = this.ammoCounter;
 		}
+	}
 
 
 
@@ -322,6 +322,8 @@ class Main extends Phaser.State {
 	destroyWeed(kernel, weed){
 		this.kernel.kill();
 		this.weed.kill();
+		this.ammoCounter++;
+		this.ammoTotal.text = this.ammoCounter;
 
 		// Create Popcorn Effect
 		this.poppin.x = this.weed.centerX;
@@ -333,6 +335,8 @@ class Main extends Phaser.State {
 	destroyTractor(kernel, tractor){
 		this.kernel.kill();
 		this.tractor.kill();
+		this.ammoCounter++;
+		this.ammoTotal.text = this.ammoCounter;
 		// Create Popcorn Effect
 		this.poppin.x = this.tractor.centerX;
 		this.poppin.y = this.tractor.centerY;
@@ -343,6 +347,8 @@ class Main extends Phaser.State {
 	destroyCow(kernel, cow){
 		this.kernel.kill();
 		this.cow.kill();
+		this.ammoCounter++;
+		this.ammoTotal.text = this.ammoCounter;
 		// Create Popcorn Effect
 		this.poppin.x = this.cow.centerX;
 		this.poppin.y = this.cow.centerY;
@@ -442,8 +448,8 @@ class Main extends Phaser.State {
 		// Add reload function to the same callback
 		this.ammo.createMultiple(2, 'bullet', false);
 		goldCorn.destroy();
-		// this.ammoCounter += 5;
-		// this.ammoTotal.text = this.ammoCounter;
+		this.ammoCounter += 2;
+		this.ammoTotal.text = this.ammoCounter;
 	}
 
 	countCoin(player, coin) {
