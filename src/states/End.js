@@ -19,10 +19,12 @@ class End extends Phaser.State {
     this.restartButton = this.game.add.button(100, 100, 'restart', this.restartGame, this);
     this.mainMenuButton = this.game.add.button(100, 300, 'main-menu', this.goToMenu, this);
 
-    // let scoreboard = "SCORE"
+    let title = "Top Ten Scores... in the world!"
+    this.game.add.text(500, 60, title);
     let positionY = 100;
     this.topTenJSON.forEach((score)=>{
-      this.game.add.text(300, positionY, score.score);
+      let scoreBoard = `SCORE: ${score.score}`
+      this.game.add.text(600, positionY, scoreBoard);
       positionY += 25;
     })
 	}
