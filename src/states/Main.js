@@ -44,32 +44,37 @@ class Main extends Phaser.State {
 		// this.sky.scale.setTo(5,5);
 
 		this.mountainsBack = this.game.add.tileSprite(0,
-			this.game.height - this.game.cache.getImage('mountains-back').height,
-			this.game.width,
-			this.game.cache.getImage('mountains-back').height,
-			'mountains-back'
-		);
+			this.game.height - (this.game.cache.getImage('mountains-back').height / 2),
+				this.game.cache.getImage('mountains-back').width,
+				this.game.cache.getImage('mountains-back').height,
+				'mountains-back'
+	 	 );
+				this.mountainsBack.scale.setTo((this.game.aspectRatio * 0.85), (this.game.aspectRatio * 0.85))
 
-		this.hillsMid1 = this.game.add.tileSprite(0,
-			this.game.height - this.game.cache.getImage('hills-mid1').height,
-			this.game.width,
-			this.game.cache.getImage('hills-mid1').height,
-			'hills-mid1'
-		);
+	 		this.hillsMid1 = this.game.add.tileSprite(0,
+				this.game.height - (this.game.cache.getImage('mountains-back').height / 2),
+			 this.game.cache.getImage('hills-mid1').width,
+			 this.game.cache.getImage('hills-mid1').height,
+			 'hills-mid1'
+	 );
+	 this.hillsMid1.scale.setTo((this.game.aspectRatio * 0.95), (this.game.aspectRatio * 0.95))
 
-		this.fenceMid2 = this.game.add.tileSprite(0,
-			this.game.height - this.game.cache.getImage('fence-mid2').height,
-			this.game.width,
-			this.game.cache.getImage('fence-mid2').height,
-			'fence-mid2'
-		);
+	 this.fenceMid2 = this.game.add.tileSprite(0,
+		 (this.game.height - this.game.cache.getImage('fence-mid2').height / 2),
+		 this.game.cache.getImage('fence-mid2').width,
+		 this.game.cache.getImage('fence-mid2').height,
+		 'fence-mid2'
+	 );
+	 this.fenceMid2.scale.setTo((this.game.aspectRatio * 0.85), (this.game.aspectRatio * 0.85));
 
-		this.groundFront = this.game.add.tileSprite(0,
-			this.game.height - this.game.cache.getImage('ground-front').height,
+	 this.groundFront = this.game.add.tileSprite(0,
+			(this.game.height - this.game.cache.getImage('ground-front').height) + 80,
 			this.game.width,
-			this.game.cache.getImage('ground-front').height,
+			this.game.cache.getImage('ground-front').height - 40 ,
 			'ground-front'
 		);
+
+		// this.groundFront.scale.setTo();
 
 		this.enemyScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#fffff"});
 		this.coinScore = this.game.add.text(60, 20, "0", { font: "30px Arial", fill: "#fffff"});
@@ -78,13 +83,10 @@ class Main extends Phaser.State {
 
 
 
-		this.player = this.game.add.sprite(500, 1000, 'cornman');
-
-		// this.player.scale.setTo(3, 3);
-
+		this.player = this.game.add.sprite(0,0, 'cornman');
+		this.player.scale.setTo(this.game.aspectRatio / 1.75, this.game.aspectRatio / 1.75)
 		this.player.animations.add('left', [0, 1, 2, 3, 4, 5, 6], 5, true);
 		this.player.animations.add('right', [0, 1, 2, 3, 4, 5, 6], 5, true);
-
 		this.game.physics.arcade.enable([this.player, this.groundFront]);
 		this.player.body.collideWorldBounds = true;
 		this.player.body.gravity.y = -50;
@@ -141,26 +143,28 @@ class Main extends Phaser.State {
 	}
 	addClouds() {
 		// Generate Obstacles
-		this.cloud = this.game.add.sprite(2800, this.game.rnd.integerInRange(200, 1100), 'cloud-ani');
+		this.cloud = this.game.add.sprite(this.game.rnd.integerInRange(480, 960), this.game.rnd.integerInRange(0, 455), 'cloud-ani');
 		this.game.physics.arcade.enable(this.cloud);
+		this.cloud.scale.setTo(this.game.aspectRatio / 4, this.game.aspectRatio / 4)
 		this.cloud.body.allowGravity = false;
 		this.cloud.body.immovable = true;
 		this.cloud.animations.add('float');
 		this.cloud.animations.play('float', 1, true);
 
 		this.game.add.tween(this.cloud).to({
-			x: this.cloud.x - 55000 }, 110000, Phaser.Easing.Linear.None, true);
+			x: this.cloud.x - 5500 }, 25000, Phaser.Easing.Linear.None, true);
 
 		this.cloudTotal++;
-		this.cloudTimer = this.game.time.now + this.game.rnd.integerInRange(6000, 10000);
+		this.cloudTimer = this.game.time.now + this.game.rnd.integerInRange(500, 4000);
 		this.cloud.checkWorldBounds = true;
 		this.cloud.outofBoundsKill = true;
 	}
 
 	addCoins() {
 		// Generate Obstacles
-		this.coin = this.game.add.sprite( 2800, this.game.rnd.integerInRange(400, 1300), 'coin');
+		this.coin = this.game.add.sprite(this.game.rnd.integerInRange(480, 960), this.game.rnd.integerInRange(0, 450), 'coin');
 		this.game.physics.arcade.enable(this.coin);
+		this.coin.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
 		this.coin.body.allowGravity = false;
 		// this.coin.body.immovable = true;
 
@@ -176,8 +180,9 @@ class Main extends Phaser.State {
 
 	addGoldCorn() {
 		// Generate Obstacles
-		this.goldCorn = this.game.add.sprite( 2800, this.game.rnd.integerInRange(600, 1400), 'golden-corn');
+		this.goldCorn = this.game.add.sprite(this.game.rnd.integerInRange(480, 960), this.game.rnd.integerInRange(0, 450), 'golden-corn');
 		this.game.physics.arcade.enable(this.goldCorn);
+		this.goldCorn.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
 		this.goldCorn.body.allowGravity = false;
 
 		this.goldCorn.animations.add('shine')
@@ -228,7 +233,8 @@ class Main extends Phaser.State {
 
 	addCows() {
 		// Generate Obstacles
-		this.cow = this.game.add.sprite(2800, 1290, 'cow');
+		this.cow = this.game.add.sprite( 965, 480, 'cow');
+		this.cow.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
 		// Gives each cow a point to grant when player passes successfully
 		this.cow.grantPoint = true;
 		this.game.physics.arcade.enable(this.cow);
@@ -236,11 +242,11 @@ class Main extends Phaser.State {
 		this.cow.animations.play('walk', 3, true);
 
 		this.game.add.tween(this.cow).to({
-			x: this.cow.x - 55000 }, 110000, Phaser.Easing.Linear.None, true);
+			x: this.cow.x - 5500 }, 11000, Phaser.Easing.Linear.None, true);
 
 		this.obstacles.add(this.cow);
 		this.cowTotal++;
-		this.cowTimer = this.game.time.now + this.game.rnd.integerInRange(6000, 10000);
+		this.cowTimer = this.game.time.now + 3000;
 		this.cow.checkWorldBounds = true;
 		this.cow.outofBoundsKill = true;
 	}
@@ -248,7 +254,8 @@ class Main extends Phaser.State {
 	addTractors() {
 
 		// Generate Obstacles
-		this.tractor = this.game.add.sprite(2800, 1225, 'tractor');
+		this.tractor = this.game.add.sprite(965, 450, 'tractor');
+		this.tractor.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
 		// Gives each tractor a point to grant when player passes successfully
 		this.tractor.grantPoint = true;
 		this.game.physics.arcade.enable(this.tractor);
@@ -256,7 +263,7 @@ class Main extends Phaser.State {
 		this.tractor.animations.play('walk', 200, true);
 
 		this.game.add.tween(this.tractor).to({
-			x: this.tractor.x - 90000 }, 110000, Phaser.Easing.Linear.None, true);
+			x: this.tractor.x - 6000 }, 9000, Phaser.Easing.Linear.None, true);
 
 		this.obstacles.add(this.tractor);
 		this.tractorTotal++;
@@ -267,7 +274,8 @@ class Main extends Phaser.State {
 
 
 	addWeeds() {
-		this.weed = this.game.add.sprite(3500, 1000, 'weed' );
+		this.weed = this.game.add.sprite(965, 480, 'weed' );
+		this.weed.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
 
 		// Gives each weed a point to grant when player passes successfully
 		this.weed.grantPoint = true;
@@ -278,7 +286,7 @@ class Main extends Phaser.State {
 		this.weed.animations.getAnimation('waddle').delay = 500
 
 		this.game.add.tween(this.weed).to({
-			x: this.weed.x - 300000 }, 110000, Phaser.Easing.Linear.None, true);
+			x: this.weed.x - 8000 }, 15000, Phaser.Easing.Linear.None, true);
 
 		this.obstacles.add(this.weed);
 		this.weedTotal++;

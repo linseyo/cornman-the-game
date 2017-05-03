@@ -20,7 +20,7 @@ class Preload extends Phaser.State {
 		this.game.load.image('send', 'assets/send.png');
 		this.game.load.image('how-to', 'assets/how-to.png');
 		this.game.load.image('go-back', 'assets/go-back.png');
-		this.game.load.spritesheet('instruction', 'assets/instruction.png', 2400, 1800);
+		this.game.load.spritesheet('instruction', 'assets/instruction.png', 786, 590);
 
 		// Player Assets
 		this.game.load.spritesheet('cornman', 'assets/cornman2.png', 145, 204);
@@ -47,10 +47,16 @@ class Preload extends Phaser.State {
 		this.game.load.image('rock', 'assets/rock.gif');
 		this.game.load.image('blank', 'assets/blankbutton.png');
 		this.game.load.image('blank', 'assets/blankbutton.png');
+
+		// Page Assets
+		this.game.load.image('gameover-title', 'assets/gameover-title.png');
+		this.game.load.image('playerStat', 'assets/playerstats-title.png');
+		this.game.load.image('taptocont', 'assets/taptocont.png');
 	}
 
 	create() {
 		this.game.state.start("Orientation");
+
 	}
 }
 
