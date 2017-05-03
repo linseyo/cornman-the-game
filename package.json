@@ -1,10 +1,9 @@
 {
   "name": "cornman-the-game",
-  "description": "You are corn man. You shoot corn. 🌽",
+  "description": "You are corn man. You shoot corn.",
   "main": "src/index.js",
   "scripts": {
-    "start": "gulp",
-    "production": "gulp --production"
+    "start": "gulp build",
   },
   "repository": {
     "type": "git",
@@ -28,7 +27,6 @@
     "yargs": "^4.6.0"
   },
   "dependencies": {
-    "gulp": "^3.9.1",
     "phaser": "^2.4.7"
   }
 }
