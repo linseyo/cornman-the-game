@@ -12,11 +12,11 @@ class Stats extends Phaser.State {
 		this.headerImage.anchor.setTo(0.5)
 
 
-		this.enemyScore = this.game.add.text(this.game.widthHalf, (this.headerImage.y) + (this.headerImage.height/ 9), ("Enemies dodged: " + this.enemyScore), { font: "12px Arial", fill: "#fffff"});
-		this.coinScore = this.game.add.text(this.game.widthHalf, (this.enemyScore.y) + 10, ("Coins collected: " + this.coinScore), { font: "12px Arial", fill: "#fffff"});
-		this.playerScore = this.game.add.text(this.game.widthHalf, (this.coinScore.y) + 10, ("Total Score: " + this.totalScore), { font: "12px Arial", fill: "#fffff"});
+		this.enemyScore = this.game.add.text(this.game.widthHalf, (this.headerImage.y) + (this.headerImage.height/ 4), ("Enemies dodged: " + this.enemyScore), { font: "24px Arial", fill: "#fffff"});
+		this.coinScore = this.game.add.text(this.game.widthHalf, (this.enemyScore.y) + 25, ("Coins collected: " + this.coinScore), { font: "24px Arial", fill: "#fffff"});
+		this.playerScore = this.game.add.text(this.game.widthHalf, (this.coinScore.y) + 25, ("Total Score: " + this.totalScore), { font: "24px Arial", fill: "#fffff"});
 		// this.ammoScore = this.game.add.text(1000, 900, ("Bullets Fired: " + this.ammoScore), { font: "60px Arial", fill: "#fffff"});
-		this.sendButton = this.game.add.button(this.game.widthHalf, (this.playerScore.y) + (this.playerScore.height) + 10, 'send', this.sendScore, this);
+		this.sendButton = this.game.add.button(this.game.widthHalf, (this.playerScore.y) + (this.playerScore.height) + 15, 'send', this.sendScore, this);
 		this.sendButton.anchor.setTo(0.5);
 		this.sendButton.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
 
@@ -30,13 +30,13 @@ class Stats extends Phaser.State {
 		this.lowerImage.anchor.setTo(0.5)
 		this.lowerImage.scale.setTo(this.game.aspectRatio, this.game.aspectRatio)
 
-		this.cornman = this.game.add.sprite(this.game.width /3 , (this.lowerImage.y) + (this.lowerImage.height) + 10, 'cornman');
+		this.cornman = this.game.add.sprite(20, 550, 'cornman');
 		this.cornman.anchor.setTo(0.5)
 		this.cornman.scale.setTo(this.game.aspectRatio / 1.5, this.game.aspectRatio / 1.5)
 		this.cornman.animations.add('left', [0, 1, 2, 3, 4, 5, 6], 5, true);
 		this.cornman.animations.add('right', [0, 1, 2, 3, 4, 5, 6], 5, true);
 		this.cornman.animations.play('left')
-		this.game.add.tween(this.cornman).to( { x: this.cornman.x + 300 }, 2000, Phaser.Easing.Linear.None, true);
+		this.game.add.tween(this.cornman).to( { x: this.cornman.x + 675 }, 2000, Phaser.Easing.Linear.None, true);
 	}
 
 	sendScore() {
