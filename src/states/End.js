@@ -27,21 +27,6 @@ class End extends Phaser.State {
     })
 	}
 
-  getTen() {
-    let request = $.ajax({
-      url: "http://cornman-api.herokuapp.com/scores",
-      type: "get",
-      crossDomain: true,
-      xhrFields: { withCredentials: true },
-    });
-    request.done((response)=>{
-      this.topTen = this.game.cache.getJSON(response);
-    });
-    request.fail((response)=>{
-      debugger;
-    });
-  }
-
   restartGame() {
     this.game.state.start('Main');
   }
