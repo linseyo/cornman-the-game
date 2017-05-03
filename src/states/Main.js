@@ -44,32 +44,37 @@ class Main extends Phaser.State {
 		// this.sky.scale.setTo(5,5);
 
 		this.mountainsBack = this.game.add.tileSprite(0,
-			this.game.height - this.game.cache.getImage('mountains-back').height,
-			this.game.width,
-			this.game.cache.getImage('mountains-back').height,
-			'mountains-back'
-		);
+			this.game.height - (this.game.cache.getImage('mountains-back').height / 2),
+				this.game.cache.getImage('mountains-back').width,
+				this.game.cache.getImage('mountains-back').height,
+				'mountains-back'
+	 	 );
+				this.mountainsBack.scale.setTo((this.game.aspectRatio * 0.85), (this.game.aspectRatio * 0.85))
 
-		this.hillsMid1 = this.game.add.tileSprite(0,
-			this.game.height - this.game.cache.getImage('hills-mid1').height,
-			this.game.width,
-			this.game.cache.getImage('hills-mid1').height,
-			'hills-mid1'
-		);
+	 		this.hillsMid1 = this.game.add.tileSprite(0,
+				this.game.height - (this.game.cache.getImage('mountains-back').height / 2),
+			 this.game.cache.getImage('hills-mid1').width,
+			 this.game.cache.getImage('hills-mid1').height,
+			 'hills-mid1'
+	 );
+	 this.hillsMid1.scale.setTo((this.game.aspectRatio * 0.95), (this.game.aspectRatio * 0.95))
 
-		this.fenceMid2 = this.game.add.tileSprite(0,
-			this.game.height - this.game.cache.getImage('fence-mid2').height,
-			this.game.width,
-			this.game.cache.getImage('fence-mid2').height,
-			'fence-mid2'
-		);
+	 this.fenceMid2 = this.game.add.tileSprite(0,
+		 (this.game.height - this.game.cache.getImage('fence-mid2').height / 2),
+		 this.game.cache.getImage('fence-mid2').width,
+		 this.game.cache.getImage('fence-mid2').height,
+		 'fence-mid2'
+	 );
+	 this.fenceMid2.scale.setTo((this.game.aspectRatio * 0.85), (this.game.aspectRatio * 0.85));
 
-		this.groundFront = this.game.add.tileSprite(0,
-			this.game.height - this.game.cache.getImage('ground-front').height,
+	 this.groundFront = this.game.add.tileSprite(0,
+			(this.game.height - this.game.cache.getImage('ground-front').height) + 80,
 			this.game.width,
-			this.game.cache.getImage('ground-front').height,
+			this.game.cache.getImage('ground-front').height - 40 ,
 			'ground-front'
 		);
+
+		// this.groundFront.scale.setTo();
 
 		this.enemyScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#fffff"});
 		this.coinScore = this.game.add.text(60, 20, "0", { font: "30px Arial", fill: "#fffff"});
@@ -78,7 +83,7 @@ class Main extends Phaser.State {
 
 
 
-		this.player = this.game.add.sprite(500, 1000, 'cornman');
+		this.player = this.game.add.sprite(0,0, 'cornman');
 
 		// this.player.scale.setTo(3, 3);
 
