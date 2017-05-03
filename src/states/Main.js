@@ -74,7 +74,7 @@ class Main extends Phaser.State {
 			'ground-front'
 		);
 
-		// Counters & Legend
+		// COUNTERS & LEGEND
 		this.game.add.text(20, 20, "Enemies Dodged: ");
 		this.enemyScore = this.game.add.text(280, 20, "0");
 
@@ -86,16 +86,23 @@ class Main extends Phaser.State {
 		this.game.add.text(20, 100, "Total Score: ");
 		this.sumScore = this.game.add.text(280, 100, "0");
 
-		this.game.add.text(500, 20, "Bullets: ");
+		this.game.add.text(70, 140, "Bullets: ");
+		this.lilBullet = this.game.add.sprite(20, 142, 'bullet');
+		this.lilBullet.scale.setTo(0.75, 0.75);
+		this.lilBullet.animations.add('fire');
+		this.lilBullet.animations.play('fire', 5, true);
+		this.ammoTotal = this.game.add.text(280, 140, "5", {fill: "#ff0000"});
+
+		this.game.add.text(400, 20, "Collect         to Reload Bullets");
+		this.lilCorn2 = this.game.add.sprite(505, 15, 'golden-corn');
+		this.lilCorn2.scale.setTo(0.25, 0.25);
+		this.lilCorn2.animations.add('shine');
+		this.lilCorn2.animations.play('shine', 8, true);
+
+		this.game.add.text(400, 60, "Collect         to Power Up");
 
 
-
-
-
-		// this.ammoTotal = this.game.add.text(140, 20, "5", { font: "30px Arial", fill: "#fffff"});
-
-
-
+		// PLAYER
 		this.player = this.game.add.sprite(0,0, 'cornman');
 
 		// this.player.scale.setTo(3, 3);

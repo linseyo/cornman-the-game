@@ -13,7 +13,6 @@ class Menu extends Phaser.State {
 
     this.title = this.game.add.image(this.game.widthHalf, this.game.height/3, 'cm-title');
     this.title.anchor.setTo(0.5);
-    // this.title.scale.setTo(this.game.aspectRatio, this.game.aspectRatio);
 
     //startButton position is dependent upon title position
     this.startButton = this.game.add.button(this.game.widthHalf, (this.title.y) + (this.title.height/1.5), 'start-game', this.startGame, this);
