@@ -9,7 +9,8 @@ import How from 'states/How';
 class Game extends Phaser.Game {
 
 	constructor() {
-		super(screen.width, screen.height, Phaser.CANVAS, 'gameArea');
+		super(960, 640, Phaser.CANVAS, 'gameArea');
+		//suggested background size: 1140 by 720
 
 		this.state.add('Boot', Boot, false);
 		this.state.add('Preload', Preload, false);
