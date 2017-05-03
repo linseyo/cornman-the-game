@@ -9,7 +9,6 @@ import How from 'states/How';
 class Game extends Phaser.Game {
 
 	constructor() {
-
 		super(screen.width, screen.height, Phaser.CANVAS, 'gameArea');
 
 		this.state.add('Boot', Boot, false);
@@ -21,6 +20,8 @@ class Game extends Phaser.Game {
 		this.state.add('How', How, false);
 
 		this.state.start('Boot');
+
+		this.aspectRatio = window.devicePixelRatio / 4;
 	}
 
 }
