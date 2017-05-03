@@ -242,7 +242,7 @@ class Main extends Phaser.State {
 		this.cow.animations.play('walk', 3, true);
 
 		this.game.add.tween(this.cow).to({
-			x: this.cow.x - 55000 }, 110000, Phaser.Easing.Linear.None, true);
+			x: this.cow.x - 5500 }, 11000, Phaser.Easing.Linear.None, true);
 
 		this.obstacles.add(this.cow);
 		this.cowTotal++;
@@ -263,7 +263,7 @@ class Main extends Phaser.State {
 		this.tractor.animations.play('walk', 200, true);
 
 		this.game.add.tween(this.tractor).to({
-			x: this.tractor.x - 90000 }, 110000, Phaser.Easing.Linear.None, true);
+			x: this.tractor.x - 6000 }, 9000, Phaser.Easing.Linear.None, true);
 
 		this.obstacles.add(this.tractor);
 		this.tractorTotal++;
@@ -286,7 +286,7 @@ class Main extends Phaser.State {
 		this.weed.animations.getAnimation('waddle').delay = 500
 
 		this.game.add.tween(this.weed).to({
-			x: this.weed.x - 300000 }, 110000, Phaser.Easing.Linear.None, true);
+			x: this.weed.x - 8000 }, 15000, Phaser.Easing.Linear.None, true);
 
 		this.obstacles.add(this.weed);
 		this.weedTotal++;
