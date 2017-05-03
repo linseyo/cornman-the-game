@@ -20,6 +20,10 @@ class Game extends Phaser.Game {
 		this.state.add('How', How, false);
 
 		this.state.start('Boot');
+
+		this.aspectRatio = window.devicePixelRatio / 4;
+		this.widthHalf = screen.width / 2;
+		this.heightHalf = screen.height / 2;
 	}
 
 }
