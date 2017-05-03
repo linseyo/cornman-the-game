@@ -138,6 +138,7 @@ class Main extends Phaser.State {
 		this.poppin = this.game.add.emitter(0, 0, 150);
 		this.poppin.makeParticles('popcorn');
 		this.poppin.gravity = 300;
+
 	}
 	addClouds() {
 		// Generate Obstacles
@@ -218,8 +219,9 @@ class Main extends Phaser.State {
 				this.kernel.reset(this.player.x + 10, this.player.y + 10);
 				this.kernel.body.velocity.x = 1000;
 				this.kernel.body.allowGravity = false;
-				this.kernel.anchor.setTo(0.5);
-				this.kernel.scale.setTo(this.game.aspectRatio, this.game.aspectRatio);
+				// this.kernel.anchor.setTo(0.5);
+				// this.kernel.scale.setTo(10, 10);
+				
 				// this.kernel.kill();
 				// this.ammoCounter--;
 				// this.ammoTotal.text = this.ammoCounter;
@@ -231,6 +233,8 @@ class Main extends Phaser.State {
 	addCows() {
 		// Generate Obstacles
 		this.cow = this.game.add.sprite(2800, 1290, 'cow');
+		this.cow.anchor.setTo(4, 4);
+		this.cow.scale.setTo(this.game.aspectRatio*1.5, this.game.aspectRatio*1.5);
 		// Gives each cow a point to grant when player passes successfully
 		this.cow.grantPoint = true;
 		this.game.physics.arcade.enable(this.cow);
