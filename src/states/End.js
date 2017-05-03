@@ -2,19 +2,32 @@ class End extends Phaser.State {
 
 
 	create() {
-    this.game.stage.backgroundColor = '#d2d9da';
+    this.game.stage.backgroundColor = '#DFF4FF';
 
-		this.headerImage = this.game.add.image(300, 225, 'gameover-title', 'assets/gameover-title.png');
+		this.headerImage = this.game.add.image(this.game.widthHalf, 0, 'gameover-title', 'assets/gameover-title.png');
+		this.headerImage.anchor.setTo(0.5)
+		this.headerImage.scale.setTo(this.game.aspectRatio / 3, this.game.aspectRatio / 3)
+		this.game.add.tween(this.headerImage).to( { y: this.game.heightHalf }, 3000, Phaser.Easing.Bounce.Out, true);
+
+    this.restartButton = this.game.add.button(this.game.widthHalf, (this.headerImage.y) + (this.headerImage.height / 1.5), 'restart', this.restartGame, this);
+		this.restartButton.anchor.setTo(0.5)
+		this.restartButton.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
+		this.restartButton.alpha = 0;
+    this.mainMenuButton = this.game.add.button((this.restartButton.x) + (this.restartButton.width) + 10, (this.headerImage.y) + (this.headerImage.height / 1.5), 'main-menu', this.goToMenu, this);
+		this.mainMenuButton.anchor.setTo(0.5)
+		this.mainMenuButton.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
+		this.mainMenuButton.alpha = 0;
+		this.game.add.tween(this.restartButton).to( { alpha: 1 }, 3000, Phaser.Easing.Linear.None, true, 0, 1000, true);
+		this.game.add.tween(this.mainMenuButton).to( { alpha: 1 }, 3000, Phaser.Easing.Linear.None, true, 0, 1000, true);
 
 
-    this.restartButton = this.game.add.button(650, 700, 'restart', this.restartGame, this);
-    this.mainMenuButton = this.game.add.button(1050, 700, 'main-menu', this.goToMenu, this);
-
-
-		this.endCow = this.game.add.sprite(1800, 1000, 'cow');
+		this.endCow = this.game.add.sprite( this.game.widthHalf + (this.headerImage.width / 3), (this.game.heightHalf) + (this.headerImage.height / 1.5), 'cow');
 		this.endCow.animations.add('walk')
 		this.endCow.animations.play('walk', 3, true);
-		this.game.add.tween(this.endCow).to( { x: this.endCow.x - 3000 }, 20000, Phaser.Easing.Linear.None, true);
+		this.endCow.anchor.setTo(0.5)
+		this.endCow.scale.setTo(this.game.aspectRatio / 3, this.game.aspectRatio / 3)
+		this.game.add.tween(this.endCow).to( { x: this.endCow.x - 3000 }, 200000, Phaser.Easing.Linear.None, true);
+
 	}
 
   restartGame() {
