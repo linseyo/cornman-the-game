@@ -1,9 +1,33 @@
 class End extends Phaser.State {
+  constructor() {
+    super();
+    this.topTenJSON;
+    this.printOut;
 
+  }
+
+  preload(){
+    this.game.load.json('topTen', 'http://cornman-api.herokuapp.com/scores');
+  }
 
 	create() {
-    this.game.stage.backgroundColor = '#DFF4FF';
 
+    this.topTenJSON = this.game.cache.getJSON('topTen');
+    // this.printOut = this.ajaxRequest();
+    this.printOut = this.game.add.group();
+    this.game.time.events.add(1000, this.ajaxRequest, this);
+
+    // this.printOut.alpha = 1;
+    // this.printOut.forEach((score) => {score.anchor.setTo(0.5)})
+    this.game.add.tween(this.printOut).to( { y: -900 }, 2000, Phaser.Easing.Linear.None, true);
+    console.log(this.printOut.y);
+
+    // this.game.time.events.add(2000, function() {
+    //   this.game.add.tween(this.printOut).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
+    //   this.game.add.tween(this.printOut).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+    // }, this);
+
+    this.game.stage.backgroundColor = '#DFF4FF';
 		this.headerImage = this.game.add.image(this.game.widthHalf, 0, 'gameover-title', 'assets/gameover-title.png');
 		this.headerImage.anchor.setTo(0.5)
 		this.headerImage.scale.setTo(this.game.aspectRatio / 3, this.game.aspectRatio / 3)
@@ -29,6 +53,32 @@ class End extends Phaser.State {
 		this.game.add.tween(this.endCow).to( { x: this.endCow.x - 3000 }, 200000, Phaser.Easing.Linear.None, true);
 
 	}
+
+  ajaxRequest() {
+    let title = "Top Ten Scores"
+    this.game.add.text(700, 60, title);
+    let positionY = 1000;
+    let rank = 1;
+    let nth = "st";
+    this.topTenJSON.forEach((score)=>{
+      if (rank === 1){
+        nth = "st";
+      }
+      else if(rank === 2){
+        nth = "nd";
+      }
+      else if(rank === 3){
+        nth = "rd";
+      }
+      else {
+        nth = "th";
+      }
+      let scoreBoard = `${rank}${nth} - ${score.score}`
+      this.printOut.add(this.game.add.text(750, positionY, scoreBoard));
+      positionY += 25;
+      rank += 1;
+    })
+  }
 
   restartGame() {
     this.game.state.start('Main');
