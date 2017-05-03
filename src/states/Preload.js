@@ -48,6 +48,9 @@ class Preload extends Phaser.State {
 
 	create() {
 		this.game.state.start("Menu");
+
+		this.moozic = this.game.add.audio('banjo');
+		this.moozic.play();
 	}
 }
 
