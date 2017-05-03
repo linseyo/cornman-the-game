@@ -79,7 +79,7 @@ class Main extends Phaser.State {
 
 
 		this.player = this.game.add.sprite(500, 1000, 'cornman');
-
+		this.player.anchor.setTo(7);
 		// this.player.scale.setTo(3, 3);
 
 		this.player.animations.add('left', [0, 1, 2, 3, 4, 5, 6], 5, true);
@@ -218,6 +218,8 @@ class Main extends Phaser.State {
 				this.kernel.reset(this.player.x + 10, this.player.y + 10);
 				this.kernel.body.velocity.x = 1000;
 				this.kernel.body.allowGravity = false;
+				this.kernel.anchor.setTo(0.5);
+				this.kernel.scale.setTo(this.game.aspectRatio, this.game.aspectRatio);
 				// this.kernel.kill();
 				// this.ammoCounter--;
 				// this.ammoTotal.text = this.ammoCounter;
