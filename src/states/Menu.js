@@ -9,7 +9,7 @@ class Menu extends Phaser.State {
 
     this.menuBackground = this.game.add.tileSprite(0, 0, screen.width, screen.height, 'menu-background');
     this.menuBackground.autoScroll(0, -15);
-    this.menuBackground.alpha = 0.5;
+    // this.menuBackground.alpha = 0.5;
 
     this.title = this.game.add.image(this.game.widthHalf, screen.height/3, 'cm-title');
     this.title.anchor.setTo(0.5);
