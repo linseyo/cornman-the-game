@@ -75,10 +75,14 @@ class Main extends Phaser.State {
 		);
 
 		// this.groundFront.scale.setTo();
+		this.game.add.text(20, 20, "Enemies Dodged: ");
+		this.enemyScore = this.game.add.text(280, 20, "0");
 
-		this.enemyScore = this.game.add.text(20, 20, "0", { font: "30px Arial", fill: "#fffff"});
-		this.coinScore = this.game.add.text(60, 20, "0", { font: "30px Arial", fill: "#fffff"});
-		this.sumScore = this.game.add.text(100, 20, "0", { font: "30px Arial", fill: "#fffff"});
+		this.game.add.text(20, 60, "Coins Collected: ")
+		this.coinScore = this.game.add.text(280, 60, "0");
+
+		this.game.add.text(20, 100, "Total Score: ");
+		this.sumScore = this.game.add.text(280, 100, "0");
 		// this.ammoTotal = this.game.add.text(140, 20, "5", { font: "30px Arial", fill: "#fffff"});
 
 
