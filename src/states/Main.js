@@ -231,7 +231,8 @@ class Main extends Phaser.State {
 
 	addCows() {
 		// Generate Obstacles
-		this.cow = this.game.add.sprite(2800, 1290, 'cow');
+		this.cow = this.game.add.sprite( 965, 500, 'cow');
+		this.cow.scale.setTo(this.game.aspectRatio / 3, this.game.aspectRatio / 3)
 		// Gives each cow a point to grant when player passes successfully
 		this.cow.grantPoint = true;
 		this.game.physics.arcade.enable(this.cow);
@@ -243,7 +244,7 @@ class Main extends Phaser.State {
 
 		this.obstacles.add(this.cow);
 		this.cowTotal++;
-		this.cowTimer = this.game.time.now + this.game.rnd.integerInRange(6000, 10000);
+		this.cowTimer = this.game.time.now + 3000;
 		this.cow.checkWorldBounds = true;
 		this.cow.outofBoundsKill = true;
 	}
