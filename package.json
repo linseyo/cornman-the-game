@@ -3,8 +3,7 @@
   "description": "You are corn man. You shoot corn.",
   "main": "src/index.js",
   "scripts": {
-    "start": "gulp",
-    "production": "gulp --production"
+    "start": "gulp build",
   },
   "repository": {
     "type": "git",
