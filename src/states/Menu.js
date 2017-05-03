@@ -20,13 +20,10 @@ class Menu extends Phaser.State {
     this.startButton.anchor.setTo(0.5);
     this.startButton.scale.setTo(this.game.aspectRatio/2, this.game.aspectRatio/2);
 
-    //howButton position is dependent upon startButton position
+    //howButton position is dependent upon startButton position`
     this.howButton = this.game.add.button(this.game.widthHalf, (this.startButton.y) + (this.startButton.height/0.75), 'how-to', this.startHow, this);
     this.howButton.anchor.setTo(0.5);
     this.howButton.scale.setTo(this.game.aspectRatio/2, this.game.aspectRatio/2);
-
-    this.moozic = this.game.add.audio('banjo');
-    this.moozic.play();
   }
 
   startGame() {
