@@ -1,5 +1,6 @@
 import Boot from 'states/Boot';
 import Preload from 'states/Preload';
+import Orientation from 'states/Orientation';
 import Menu from 'states/Menu';
 import Main from 'states/Main';
 import Stats from 'states/Stats';
