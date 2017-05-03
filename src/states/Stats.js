@@ -18,21 +18,21 @@ class Stats extends Phaser.State {
 		// this.ammoScore = this.game.add.text(1000, 900, ("Bullets Fired: " + this.ammoScore), { font: "60px Arial", fill: "#fffff"});
 		this.sendButton = this.game.add.button(this.game.widthHalf, (this.playerScore.y) + (this.playerScore.height) + 10, 'send', this.sendScore, this);
 		this.sendButton.anchor.setTo(0.5);
-		this.sendButton.scale.setTo(this.game.aspectRatio / 4, this.game.aspectRatio / 4)
+		this.sendButton.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
 
 		this.enemyScore.anchor.setTo(0.5);
 		this.coinScore.anchor.setTo(0.5);
 		this.playerScore.anchor.setTo(0.5);
 
-		this.headerImage.scale.setTo(this.game.aspectRatio / 3, this.game.aspectRatio / 3)
+		this.headerImage.scale.setTo(this.game.aspectRatio / 1.5, this.game.aspectRatio / 1.5)
 
 		this.lowerImage = this.game.add.image( this.game.widthHalf , (this.sendButton.y) + (this.sendButton.height) + 10, 'taptocont', 'assets/taptocont.png');
 		this.lowerImage.anchor.setTo(0.5)
-		this.lowerImage.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
+		this.lowerImage.scale.setTo(this.game.aspectRatio, this.game.aspectRatio)
 
 		this.cornman = this.game.add.sprite(this.game.width /3 , (this.lowerImage.y) + (this.lowerImage.height) + 10, 'cornman');
 		this.cornman.anchor.setTo(0.5)
-		this.cornman.scale.setTo(this.game.aspectRatio / 3, this.game.aspectRatio / 3)
+		this.cornman.scale.setTo(this.game.aspectRatio / 1.5, this.game.aspectRatio / 1.5)
 		this.cornman.animations.add('left', [0, 1, 2, 3, 4, 5, 6], 5, true);
 		this.cornman.animations.add('right', [0, 1, 2, 3, 4, 5, 6], 5, true);
 		this.cornman.animations.play('left')
