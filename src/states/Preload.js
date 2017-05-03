@@ -8,6 +8,9 @@ class Preload extends Phaser.State {
 		this.game.load.image('menu-background', 'assets/corn.png');
 		this.game.load.image('ground-front', 'assets/ground-front.png');
 
+		// Orientation Assets
+		this.game.load.image('orientation', 'assets/orientation.png')
+
 		// Menu Assets
 		this.game.load.image('cm-title', 'assets/cm-title-darksub.png')
 		this.game.load.image('restart', 'assets/restart-button.png');
@@ -47,7 +50,7 @@ class Preload extends Phaser.State {
 	}
 
 	create() {
-		this.game.state.start("Menu");
+		this.game.state.start("Orientation");
 	}
 }
 
