@@ -56,6 +56,7 @@ class Preload extends Phaser.State {
 
 	create() {
 		this.game.state.start("Orientation");
+
 	}
 }
 
