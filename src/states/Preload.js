@@ -8,6 +8,9 @@ class Preload extends Phaser.State {
 		this.game.load.image('menu-background', 'assets/corn.png');
 		this.game.load.image('ground-front', 'assets/ground-front.png');
 
+		// Orientation Assets
+		this.game.load.image('orientation', 'assets/orientation.png')
+
 		// Menu Assets
 		this.game.load.image('cm-title', 'assets/cm-title-darksub.png')
 		this.game.load.image('restart', 'assets/restart-button.png');
@@ -17,7 +20,7 @@ class Preload extends Phaser.State {
 		this.game.load.image('send', 'assets/send.png');
 		this.game.load.image('how-to', 'assets/how-to.png');
 		this.game.load.image('go-back', 'assets/go-back.png');
-		this.game.load.spritesheet('instruction', 'assets/instruction.png', 2400, 1800);
+		this.game.load.spritesheet('instruction', 'assets/instruction.png', 786, 590);
 
 		// Player Assets
 		this.game.load.spritesheet('cornman', 'assets/cornman2.png', 145, 204);
@@ -52,7 +55,8 @@ class Preload extends Phaser.State {
 	}
 
 	create() {
-		this.game.state.start("Stats");
+		this.game.state.start("Orientation");
+
 	}
 }
 
