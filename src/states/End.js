@@ -2,7 +2,7 @@ class End extends Phaser.State {
 
 
 	create() {
-    this.game.stage.backgroundColor = '#DFF4FF';
+    this.game.stage.backgroundColor = '#878787';
 
 		this.headerImage = this.game.add.image(100, 100, 'gameover-title', 'assets/gameover-title.png');
 

@@ -8,12 +8,8 @@ class Stats extends Phaser.State {
 
     this.game.stage.backgroundColor = '#DFF4FF';
 
-		let statsHeader = "player stats";
-    let continuePhrase = "Tap to Continue";
-    // let saved = "";
-    // let score = function(){adds everything}
-    this.statsHeaderText = this.game.add.text(650, 50, statsHeader, { font: "250px Slackey", textalign: "center"});
-		this.continueText = this.game.add.text(1000, 1200, continuePhrase, { font: "50px Slackey", textalign: "center"});
+
+
     // this.savedText = this.game.add.text(820,300, saved, { font: "50px Arial", textalign: "center"});
 		this.enemyScore = this.game.add.text(1000, 600, ("Enemies dodged: " + this.enemyScore), { font: "60px Slackey", fill: "#fffff"});
 		this.coinScore = this.game.add.text(1000, 700, ("Coins collected: " + this.coinScore), { font: "60px Slackey", fill: "#fffff"});
@@ -31,6 +27,7 @@ class Stats extends Phaser.State {
 
 
 		this.headerImage = this.game.add.image(100, 100, 'playerStat', 'assets/playerstats-title.png');
+		this.headerImage.scale.setTo(3,3)
 		this.lowerImage = this.game.add.image(100, 100, 'taptocont', 'assets/taptocont.png');
 	}
 
