@@ -6,7 +6,6 @@ class Orientation extends Phaser.State {
     this.game.stage.backgroundColor = '#DFF4FF';
     this.game.add.image(0 , 0, 'orientation');
     this.game.scale.forceOrientation(true, false);
-    if(this.game.device.desktop === false) {
       if(this.game.scale.incorrectOrientation){
         this.game.scale.onOrientationChange.add(this.startGame, this);
       }
@@ -14,10 +13,6 @@ class Orientation extends Phaser.State {
         this.startGame();
       }
     }
-    else {
-      this.startGame();
-    }
-  }
 
   startGame() {
     this.game.state.start('Menu');
