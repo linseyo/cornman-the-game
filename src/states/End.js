@@ -13,19 +13,10 @@ class End extends Phaser.State {
 	create() {
 
     this.topTenJSON = this.game.cache.getJSON('topTen');
-    // this.printOut = this.ajaxRequest();
     this.printOut = this.game.add.group();
     this.game.time.events.add(1000, this.ajaxRequest, this);
 
-    // this.printOut.alpha = 1;
-    // this.printOut.forEach((score) => {score.anchor.setTo(0.5)})
     this.game.add.tween(this.printOut).to( { y: -900 }, 2000, Phaser.Easing.Linear.None, true);
-    console.log(this.printOut.y);
-
-    // this.game.time.events.add(2000, function() {
-    //   this.game.add.tween(this.printOut).to({y: 0}, 1500, Phaser.Easing.Linear.None, true);
-    //   this.game.add.tween(this.printOut).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
-    // }, this);
 
     this.game.stage.backgroundColor = '#DFF4FF';
 		this.headerImage = this.game.add.image(this.game.widthHalf, 0, 'gameover-title', 'assets/gameover-title.png');

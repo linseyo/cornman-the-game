@@ -225,7 +225,7 @@ class Main extends Phaser.State {
 		// Touch Enabled jumping function
 	jumpPressed(){
 		if((this.game.time.now > this.jumpTimer) && this.doubleJump <= 2) {
-			this.player.body.velocity.y = -1250;
+			this.player.body.velocity.y = -1000;
 			this.player.body.velocity.x = 2;
 			this.jumpTimer = this.game.time.now + 200;
 			this.doubleJump += 1;
