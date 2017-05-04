@@ -167,7 +167,8 @@ class Main extends Phaser.State {
 		this.poppin.gravity = 300;
 
 		// Stop Button
-		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
+		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.endGame, this);
+		this.game.world.bringToTop(this.stopButton);
 	}
 
 	addClouds() {
