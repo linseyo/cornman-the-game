@@ -107,6 +107,8 @@ class Main extends Phaser.State {
 		this.lilCorn2.animations.play('shine', 8, true);
 
 		this.game.add.text(400, 60, "Collect         to Power Up");
+		this.lilTaco = this.game.add.sprite(500, 50, 'taco');
+		this.lilTaco.scale.setTo(0.2, 0.2);
 
 		this.player.scale.setTo(this.game.aspectRatio / 1.75, this.game.aspectRatio / 1.75)
 		this.player.animations.add('left', [0, 1, 2, 3, 4, 5, 6], 5, true);
@@ -506,7 +508,10 @@ class Main extends Phaser.State {
 		// this.bigCorn.stop(true)
 		this.littleCorn = this.game.add.tween(this.player.scale).to( { x: this.game.aspectRatio / 1.75, y: this.game.aspectRatio / 1.75 }, 200,
 		Phaser.Easing.Linear.None, true, 0, 0, false);
+		this.tacoSign = this.game.add.tween(this.tacoBanner).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
 		this.littleCorn.onComplete.removeAll();
+		this.tacoSign.onComplete.removeAll();
+
 		this.superBigTimer = 0;
 		if (this.superBigTimer === 0){
 			this.player.powerLevel = false;
@@ -545,6 +550,16 @@ class Main extends Phaser.State {
 		powerup.destroy();
 		this.superBigTimer =  this.game.time.now + 6000;
 		this.player.powerLevel = true;
+
+		// this.test = this.game.add.image(this.game.widthHalf + 80, 200, 'taco-banner', 'assets/taco-banner.png');
+		// this.test.anchor.setTo(0.5);
+		// this.test.scale.setTo(0.5, 0.5);
+
+		this.tacoBanner = this.game.add.image(this.game.widthHalf + 100, 200, 'taco-banner', 'assets/taco-banner.png');
+		this.tacoBanner.anchor.setTo(0.5);
+		this.tacoBanner.scale.setTo(0.75, 0.75);
+		this.tacoBanner.alpha = 0;
+		this.tacoSign = this.game.add.tween(this.tacoBanner).to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
 	}
 
 	ammoReload(player, goldCorn){
