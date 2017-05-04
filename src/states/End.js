@@ -26,11 +26,11 @@ class End extends Phaser.State {
 
     this.restartButton = this.game.add.button(330, 360, 'restart', this.restartGame, this);
 		this.restartButton.anchor.setTo(0.5)
-		this.restartButton.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
+		this.restartButton.scale.setTo(this.game.aspectRatio / 1.25, this.game.aspectRatio / 1.25)
 		this.restartButton.alpha = 0;
-    this.mainMenuButton = this.game.add.button(330 + (this.restartButton.width) + 10, 360, 'main-menu', this.goToMenu, this);
+    this.mainMenuButton = this.game.add.button(330 + (this.restartButton.width) + 25, 360, 'main-menu', this.goToMenu, this);
 		this.mainMenuButton.anchor.setTo(0.5)
-		this.mainMenuButton.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
+		this.mainMenuButton.scale.setTo(this.game.aspectRatio / 1.25, this.game.aspectRatio / 1.25)
 		this.mainMenuButton.alpha = 0;
 		this.game.add.tween(this.restartButton).to( { alpha: 1 }, 3000, Phaser.Easing.Linear.None, true, 0, 1000, true);
 		this.game.add.tween(this.mainMenuButton).to( { alpha: 1 }, 3000, Phaser.Easing.Linear.None, true, 0, 1000, true);

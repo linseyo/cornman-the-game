@@ -18,7 +18,7 @@ class Stats extends Phaser.State {
 		// this.ammoScore = this.game.add.text(1000, 900, ("Bullets Fired: " + this.ammoScore), { font: "60px Arial", fill: "#fffff"});
 		this.sendButton = this.game.add.button(this.game.widthHalf, (this.playerScore.y) + (this.playerScore.height) + 15, 'send', this.sendScore, this);
 		this.sendButton.anchor.setTo(0.5);
-		this.sendButton.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
+		this.sendButton.scale.setTo(this.game.aspectRatio / 0.75, this.game.aspectRatio / 0.75)
 
 		this.enemyScore.anchor.setTo(0.5);
 		this.coinScore.anchor.setTo(0.5);
@@ -36,7 +36,7 @@ class Stats extends Phaser.State {
 		this.cornman.animations.add('left', [0, 1, 2, 3, 4, 5, 6], 5, true);
 		this.cornman.animations.add('right', [0, 1, 2, 3, 4, 5, 6], 5, true);
 		this.cornman.animations.play('left')
-		this.game.add.tween(this.cornman).to( { x: this.cornman.x + 675 }, 2000, Phaser.Easing.Linear.None, true);
+		this.game.add.tween(this.cornman).to( { x: this.cornman.x + 680 }, 2000, Phaser.Easing.Linear.None, true);
 	}
 
 	sendScore() {
