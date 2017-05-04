@@ -221,7 +221,7 @@ class Main extends Phaser.State {
 
 		this.goldenSatchel.add(this.goldCorn);
 		this.goldTotal++;
-		this.goldTimer = this.game.time.now + this.game.rnd.integerInRange(900,  5000);
+		this.goldTimer = this.game.time.now + 12000;
 		this.goldCorn.checkWorldBounds = true;
 		this.goldCorn.outofBoundsKill = true;
 	}
