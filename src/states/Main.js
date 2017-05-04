@@ -48,17 +48,17 @@ class Main extends Phaser.State {
 
 		this.mountainsBack = this.game.add.tileSprite(0,
 			this.game.height - (this.game.cache.getImage('mountains-back').height / 2),
-				this.game.cache.getImage('mountains-back').width,
-				this.game.cache.getImage('mountains-back').height,
-				'mountains-back'
+			this.game.cache.getImage('mountains-back').width,
+			this.game.cache.getImage('mountains-back').height,
+			'mountains-back'
 	 	 );
-				this.mountainsBack.scale.setTo((this.game.aspectRatio * 0.85), (this.game.aspectRatio * 0.85))
+			this.mountainsBack.scale.setTo((this.game.aspectRatio * 0.85), (this.game.aspectRatio * 0.85))
 
-	 		this.hillsMid1 = this.game.add.tileSprite(0,
-				this.game.height - (this.game.cache.getImage('mountains-back').height / 2),
-			 this.game.cache.getImage('hills-mid1').width,
-			 this.game.cache.getImage('hills-mid1').height,
-			 'hills-mid1'
+	 	this.hillsMid1 = this.game.add.tileSprite(0,
+			this.game.height - (this.game.cache.getImage('mountains-back').height / 2),
+			this.game.cache.getImage('hills-mid1').width,
+			this.game.cache.getImage('hills-mid1').height,
+			'hills-mid1'
 	 );
 	 this.hillsMid1.scale.setTo((this.game.aspectRatio * 0.95), (this.game.aspectRatio * 0.95))
 
@@ -89,10 +89,6 @@ class Main extends Phaser.State {
 		this.game.add.text(20, 100, "Total Score: ");
 		this.sumScore = this.game.add.text(280, 100, "0");
 
-
-		// THE CORNMAN
-		this.player = this.game.add.sprite(100,0, 'cornman');
-
 		this.game.add.text(70, 140, "Bullets: ");
 		this.lilBullet = this.game.add.sprite(20, 142, 'bullet');
 		this.lilBullet.scale.setTo(0.75, 0.75);
@@ -108,6 +104,8 @@ class Main extends Phaser.State {
 
 		this.game.add.text(400, 60, "Collect         to Power Up");
 
+		// THE CORNMAN
+		this.player = this.game.add.sprite(100,0, 'cornman');
 		this.player.scale.setTo(this.game.aspectRatio / 1.75, this.game.aspectRatio / 1.75)
 		this.player.animations.add('left', [0, 1, 2, 3, 4, 5, 6], 5, true);
 		this.player.animations.add('right', [0, 1, 2, 3, 4, 5, 6], 5, true);
@@ -115,18 +113,19 @@ class Main extends Phaser.State {
 		this.player.body.collideWorldBounds = true;
 		this.player.body.gravity.y = -50;
 		this.player.powerLevel = false;
-		// this.player.body.maxVelocity.y = 1000;
 
 		this.groundFront.body.collideWorldBounds = true;
 		this.groundFront.body.immovable = true;
 		this.groundFront.body.allowGravity = false;
 
+		// Groups
 		this.obstacles = this.game.add.group();
 		this.coinBag = this.game.add.group();
 		this.goldenSatchel = this.game.add.group();
 		this.cumulonimbus = this.game.add.group();
 		this.fertilizer = this.game.add.group();
 
+		// Stop Button
 		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
 
 
@@ -168,6 +167,7 @@ class Main extends Phaser.State {
 		this.poppin.makeParticles('popcorn');
 		this.poppin.gravity = 300;
 	}
+
 	addClouds() {
 		// Generate Obstacles
 		this.cloud = this.game.add.sprite(this.game.rnd.integerInRange(480, 960), this.game.rnd.integerInRange(0, 455), 'cloud-ani');
@@ -237,30 +237,30 @@ class Main extends Phaser.State {
 		// this.powerup.animations.play('taco', 3, true);
 
 		this.game.add.tween(this.powerup).to({
-			x: this.powerup.x - 55000 }, 140000, Phaser.Easing.Linear.None, true);
+			x: this.powerup.x - 55000 }, 1400000, Phaser.Easing.Linear.None, true);
 
 		this.fertilizer.add(this.powerup);
 		this.powerSpawnTotal++;
-		this.powerSpawnTimer = this.game.time.now + 20000;
+		this.powerSpawnTimer = this.game.time.now + 200000;
 		this.powerup.checkWorldBounds = true;
 		this.powerup.outofBoundsKill = true;
 	}
 
+	// Popcorn Animation
 	setupPopcorn(obstacle){
 		obstacle.animations.add('popcorn');
 	}
 
-		// Touch Enabled jumping function
+	// Touch Enabled jumping function
 	jumpPressed(){
 		if((this.game.time.now > this.jumpTimer) && this.doubleJump <= 2) {
 			this.player.body.velocity.y = -1000;
-			this.player.body.velocity.x = 2;
 			this.jumpTimer = this.game.time.now + 200;
 			this.doubleJump += 1;
 		}
 	}
 
-
+	// Touch + Keyboard enabled shooting
 	goShootPressed(){
 		if(this.game.time.now > this.nextFire && this.ammo.countDead() > 0) {
 			this.nextFire = this.game.time.now + this.fireRate;
@@ -300,7 +300,6 @@ class Main extends Phaser.State {
 	}
 
 	addTractors() {
-
 		// Generate Obstacles
 		this.tractor = this.game.add.sprite(965, 450, 'tractor');
 		this.tractor.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
@@ -344,13 +343,10 @@ class Main extends Phaser.State {
 	}
 
 	endGame() {
-		this.player.kill();
-		this.game.time.events.add(Phaser.Timer.SECOND * 3, this.switchState, this);
-	}
-
-	switchState(){
 		this.game.state.start('Stats')
 	}
+
+
 	destroyWeed(kernel, weed){
 		this.kernel.kill();
 		this.weed.kill();
@@ -429,7 +425,7 @@ class Main extends Phaser.State {
 			this.addClouds();
 		}
 
-		if (this.powerSpawnTotal < 10 && this.game.time.now > this.powerSpawnTimer){
+		if (this.powerSpawnTotal < 100 && this.game.time.now > this.powerSpawnTimer){
 			this.addPowerup();
 		}
 
@@ -472,11 +468,11 @@ class Main extends Phaser.State {
 				this.invicibleCorn();
 		}
 
-		if (this.player.powerLevel === false){
-			// Collision to End Game between Player & Obstacles
-			this.game.physics.arcade.overlap(
-				this.player, this.obstacles, this.endGame, null, this);
-		}
+		// if (this.player.powerLevel === false){
+		// 	// Collision to End Game between Player & Obstacles
+		// 	this.game.physics.arcade.overlap(
+		// 		this.player, this.obstacles, this.endGame, null, this);
+		// }
 
 		this.game.physics.arcade.overlap(
 			this.ammo, this.weed, this.destroyWeed, null, this);
