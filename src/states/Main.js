@@ -89,10 +89,10 @@ class Main extends Phaser.State {
 		this.game.add.text(20, 100, "Total Score: ");
 		this.sumScore = this.game.add.text(280, 100, "0");
 
-<<<<<<< HEAD
+
 		// THE CORNMAN
 		this.player = this.game.add.sprite(100,0, 'cornman');
-=======
+
 		this.game.add.text(70, 140, "Bullets: ");
 		this.lilBullet = this.game.add.sprite(20, 142, 'bullet');
 		this.lilBullet.scale.setTo(0.75, 0.75);
@@ -108,10 +108,6 @@ class Main extends Phaser.State {
 
 		this.game.add.text(400, 60, "Collect         to Power Up");
 
-
-		// PLAYER
-		this.player = this.game.add.sprite(0,0, 'cornman');
->>>>>>> master
 		this.player.scale.setTo(this.game.aspectRatio / 1.75, this.game.aspectRatio / 1.75)
 		this.player.animations.add('left', [0, 1, 2, 3, 4, 5, 6], 5, true);
 		this.player.animations.add('right', [0, 1, 2, 3, 4, 5, 6], 5, true);
