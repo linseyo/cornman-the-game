@@ -55,7 +55,7 @@ class Main extends Phaser.State {
 			this.mountainsBack.scale.setTo((this.game.aspectRatio * 0.85), (this.game.aspectRatio * 0.85))
 
 	 	this.hillsMid1 = this.game.add.tileSprite(0,
-			this.game.height - (this.game.cache.getImage('mountains-back').height / 2),
+			this.game.height - (this.game.cache.getImage('hills-mid1').height / 1.5),
 			this.game.cache.getImage('hills-mid1').width,
 			this.game.cache.getImage('hills-mid1').height,
 			'hills-mid1'
@@ -237,11 +237,11 @@ class Main extends Phaser.State {
 		// this.powerup.animations.play('taco', 3, true);
 
 		this.game.add.tween(this.powerup).to({
-			x: this.powerup.x - 55000 }, 1400000, Phaser.Easing.Linear.None, true);
+			x: this.powerup.x - 55000 }, 170000, Phaser.Easing.Linear.None, true);
 
 		this.fertilizer.add(this.powerup);
 		this.powerSpawnTotal++;
-		this.powerSpawnTimer = this.game.time.now + 200000;
+		this.powerSpawnTimer = this.game.time.now + 20000;
 		this.powerup.checkWorldBounds = true;
 		this.powerup.outofBoundsKill = true;
 	}
@@ -281,7 +281,7 @@ class Main extends Phaser.State {
 
 	addCows() {
 		// Generate Obstacles
-		this.cow = this.game.add.sprite( 965, 480, 'cow');
+		this.cow = this.game.add.sprite( 965, 440, 'cow');
 		this.cow.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
 		// Gives each cow a point to grant when player passes successfully
 		this.cow.grantPoint = true;
@@ -301,7 +301,7 @@ class Main extends Phaser.State {
 
 	addTractors() {
 		// Generate Obstacles
-		this.tractor = this.game.add.sprite(965, 450, 'tractor');
+		this.tractor = this.game.add.sprite(965, 420, 'tractor');
 		this.tractor.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
 		// Gives each tractor a point to grant when player passes successfully
 		this.tractor.grantPoint = true;
@@ -321,7 +321,7 @@ class Main extends Phaser.State {
 
 
 	addWeeds() {
-		this.weed = this.game.add.sprite(965, 480, 'weed' );
+		this.weed = this.game.add.sprite(965, 440, 'weed' );
 		this.weed.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
 
 		// Gives each weed a point to grant when player passes successfully
