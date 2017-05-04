@@ -6,6 +6,7 @@ class Orientation extends Phaser.State {
   create() {
     this.moozic = this.game.add.audio('banjo');
     this.moozic.play();
+    this.moozic.loopFull();
 
     this.game.stage.backgroundColor = '#DFF4FF';
     let turnImage = this.game.add.image(0 , 0, 'orientation');
