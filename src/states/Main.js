@@ -55,7 +55,7 @@ class Main extends Phaser.State {
 			this.mountainsBack.scale.setTo((this.game.aspectRatio * 0.85), (this.game.aspectRatio * 0.85))
 
 	 	this.hillsMid1 = this.game.add.tileSprite(0,
-			this.game.height - (this.game.cache.getImage('hills-mid1').height / 1.5),
+			(this.game.height - (this.game.cache.getImage('hills-mid1').height) / 1.75 ) - 20,
 			this.game.cache.getImage('hills-mid1').width,
 			this.game.cache.getImage('hills-mid1').height,
 			'hills-mid1'
@@ -125,8 +125,7 @@ class Main extends Phaser.State {
 		this.cumulonimbus = this.game.add.group();
 		this.fertilizer = this.game.add.group();
 
-		// Stop Button
-		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
+
 
 
 		// Create Button Controller
@@ -166,6 +165,9 @@ class Main extends Phaser.State {
 		this.poppin = this.game.add.emitter(0, 0, 150);
 		this.poppin.makeParticles('popcorn');
 		this.poppin.gravity = 300;
+
+		// Stop Button
+		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
 	}
 
 	addClouds() {
