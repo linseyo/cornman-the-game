@@ -21,7 +21,7 @@ class Orientation extends Phaser.State {
     }
 
     update() {
-      if(this.game.innerWidth < this.game.innerHeight){
+      if(window.innerWidth > window.innerHeight){
         this.startGame();
       }
     }
