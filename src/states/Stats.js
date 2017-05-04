@@ -52,7 +52,7 @@ class Stats extends Phaser.State {
       },
       });
     request.done((response) => {
-
+      this.game.state.start('End');
     })
     request.fail((response) => {
 
