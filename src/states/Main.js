@@ -18,7 +18,10 @@ class Main extends Phaser.State {
 		this.tractorTotal = 0;
 		this.cloudTotal = 0;
 		this.goldTotal = 0;
+		this.powerSpawnTotal = 0;
+		this.powerSpawnTimer = 0
 		this.totalScore = 0;
+		this.superBigTimer = 0;
 		this.tractor;
 		this.weed;
 		this.kernel;
@@ -86,6 +89,10 @@ class Main extends Phaser.State {
 		this.game.add.text(20, 100, "Total Score: ");
 		this.sumScore = this.game.add.text(280, 100, "0");
 
+
+		// THE CORNMAN
+		this.player = this.game.add.sprite(100,0, 'cornman');
+
 		this.game.add.text(70, 140, "Bullets: ");
 		this.lilBullet = this.game.add.sprite(20, 142, 'bullet');
 		this.lilBullet.scale.setTo(0.75, 0.75);
@@ -101,15 +108,13 @@ class Main extends Phaser.State {
 
 		this.game.add.text(400, 60, "Collect         to Power Up");
 
-
-		// PLAYER
-		this.player = this.game.add.sprite(0,0, 'cornman');
 		this.player.scale.setTo(this.game.aspectRatio / 1.75, this.game.aspectRatio / 1.75)
 		this.player.animations.add('left', [0, 1, 2, 3, 4, 5, 6], 5, true);
 		this.player.animations.add('right', [0, 1, 2, 3, 4, 5, 6], 5, true);
 		this.game.physics.arcade.enable([this.player, this.groundFront]);
 		this.player.body.collideWorldBounds = true;
 		this.player.body.gravity.y = -50;
+		this.player.powerLevel = false;
 		// this.player.body.maxVelocity.y = 1000;
 
 		this.groundFront.body.collideWorldBounds = true;
@@ -119,6 +124,8 @@ class Main extends Phaser.State {
 		this.obstacles = this.game.add.group();
 		this.coinBag = this.game.add.group();
 		this.goldenSatchel = this.game.add.group();
+		this.cumulonimbus = this.game.add.group();
+		this.fertilizer = this.game.add.group();
 
 		this.stopButton = this.game.add.button(this.game.width - 90, 15, 'stop-game', this.stopGame, this);
 
@@ -174,6 +181,7 @@ class Main extends Phaser.State {
 		this.game.add.tween(this.cloud).to({
 			x: this.cloud.x - 5500 }, 25000, Phaser.Easing.Linear.None, true);
 
+		this.cumulonimbus.add(this.cloud);
 		this.cloudTotal++;
 		this.cloudTimer = this.game.time.now + this.game.rnd.integerInRange(500, 4000);
 		this.cloud.checkWorldBounds = true;
@@ -216,6 +224,26 @@ class Main extends Phaser.State {
 		this.goldTimer = this.game.time.now + this.game.rnd.integerInRange(900,  5000);
 		this.goldCorn.checkWorldBounds = true;
 		this.goldCorn.outofBoundsKill = true;
+	}
+
+	addPowerup() {
+		// Generate Obstacles
+		this.powerup = this.game.add.sprite(this.game.rnd.integerInRange(480, 960), this.game.rnd.integerInRange(0, 450), 'taco');
+		this.game.physics.arcade.enable(this.powerup);
+		this.powerup.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
+		this.powerup.body.allowGravity = false;
+
+		// this.powerup.animations.add('taco')
+		// this.powerup.animations.play('taco', 3, true);
+
+		this.game.add.tween(this.powerup).to({
+			x: this.powerup.x - 55000 }, 140000, Phaser.Easing.Linear.None, true);
+
+		this.fertilizer.add(this.powerup);
+		this.powerSpawnTotal++;
+		this.powerSpawnTimer = this.game.time.now + 20000;
+		this.powerup.checkWorldBounds = true;
+		this.powerup.outofBoundsKill = true;
 	}
 
 	setupPopcorn(obstacle){
@@ -365,7 +393,7 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.collide(this.coin, this.groundFront);
 
 		if (this.player.body.velocity.y > 0) {
-			this.game.physics.arcade.collide(this.player, this.cloud);
+			this.game.physics.arcade.collide(this.player, this.cumulonimbus);
 		}
 
 		this.mountainsBack.tilePosition.x -= 0.10;
@@ -395,6 +423,10 @@ class Main extends Phaser.State {
 		}
 		if (this.cloudTotal < 1000 && this.game.time.now > this.cloudTimer){
 			this.addClouds();
+		}
+
+		if (this.powerSpawnTotal < 10 && this.game.time.now > this.powerSpawnTimer){
+			this.addPowerup();
 		}
 
 		// Functionality to count passing enemies ONCE
@@ -429,9 +461,18 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.overlap(
 			this.player, this.goldenSatchel, this.ammoReload, null, this);
 
-		// Collision to End Game between Player & Obstacles
 		this.game.physics.arcade.overlap(
-			this.player, this.obstacles, this.endGame, null, this);
+			this.player, this.fertilizer, this.activatePower, null, this);
+
+		if (this.player.powerLevel === true){
+				this.invicibleCorn();
+		}
+
+		if (this.player.powerLevel === false){
+			// Collision to End Game between Player & Obstacles
+			this.game.physics.arcade.overlap(
+				this.player, this.obstacles, this.endGame, null, this);
+		}
 
 		this.game.physics.arcade.overlap(
 			this.ammo, this.weed, this.destroyWeed, null, this);
@@ -442,6 +483,64 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.overlap(
 			this.ammo, this.tractor, this.destroyTractor, null, this);
 
+	}
+
+	invicibleCorn() {
+		this.bigCorn = this.game.add.tween(this.player.scale).to( { x: 1.5, y: 1.5 }, 200, Phaser.Easing.Linear.None, true, 0, 0, false);
+		// this.bigCorn.onComplete.add(this.powerTime)
+		// this.game.time.events.add(50, () => { this.bigCorn.stop() })
+		this.game.physics.arcade.overlap(this.player, this.cow, this.bulldozeCow, null, this)
+		this.game.physics.arcade.overlap(this.player, this.weed, this.bulldozeWeed, null, this);
+		this.game.physics.arcade.overlap(this.player, this.tractor, this.bulldozeTractor, null, this);
+		if (this.game.time.now > this.superBigTimer) {
+			this.powerLevelDecrease();
+		}
+	}
+
+	powerLevelDecrease() {
+		// Reset Player Level to False in order to run Collision
+		// this.bigCorn.stop(true)
+		this.littleCorn = this.game.add.tween(this.player.scale).to( { x: this.game.aspectRatio / 1.75, y: this.game.aspectRatio / 1.75 }, 200,
+		Phaser.Easing.Linear.None, true, 0, 0, false);
+		this.littleCorn.onComplete.removeAll();
+		this.superBigTimer = 0;
+		if (this.superBigTimer === 0){
+			this.player.powerLevel = false;
+		}
+	}
+
+	bulldozeWeed(weed){
+		this.weed.kill();
+
+		// Create Popcorn Effect
+		this.poppin.x = this.weed.centerX;
+		this.poppin.y = this.weed.centerY;
+
+		this.poppin.start(true, 2000, null, 10);
+	}
+
+	bulldozeTractor(tractor){
+		this.tractor.kill();
+		// Create Popcorn Effect
+		this.poppin.x = this.tractor.centerX;
+		this.poppin.y = this.tractor.centerY;
+
+		this.poppin.start(true, 2000, null, 10);
+	}
+
+	bulldozeCow(cow){
+		this.cow.kill();
+		// Create Popcorn Effect
+		this.poppin.x = this.cow.centerX;
+		this.poppin.y = this.cow.centerY;
+
+		this.poppin.start(true, 2000, null, 10);
+	}
+
+	activatePower(player, powerup){
+		powerup.destroy();
+		this.superBigTimer =  this.game.time.now + 6000;
+		this.player.powerLevel = true;
 	}
 
 	ammoReload(player, goldCorn){

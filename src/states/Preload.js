@@ -45,8 +45,9 @@ class Preload extends Phaser.State {
 		// Unused Assets
 		this.game.load.image('sky', 'assets/sky.png');
 		this.game.load.image('rock', 'assets/rock.gif');
+		this.game.load.image('taco', 'assets/taco.png');
 		this.game.load.image('blank', 'assets/blankbutton.png');
-		this.game.load.image('blank', 'assets/blankbutton.png');
+
 
 		// Page Assets
 		this.game.load.image('gameover-title', 'assets/gameover-title.png');
