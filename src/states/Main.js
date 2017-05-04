@@ -464,11 +464,11 @@ class Main extends Phaser.State {
 		this.game.physics.arcade.overlap(
 			this.player, this.fertilizer, this.activatePower, null, this);
 
-
 		if (this.player.powerLevel === true){
 				this.invicibleCorn();
 		}
-		else {
+
+		if (this.player.powerLevel === false){
 			// Collision to End Game between Player & Obstacles
 			this.game.physics.arcade.overlap(
 				this.player, this.obstacles, this.endGame, null, this);
@@ -486,21 +486,29 @@ class Main extends Phaser.State {
 	}
 
 	invicibleCorn() {
-		this.game.add.tween(this.player.scale).to( { x: 1.5, y: 1.5 }, 200, Phaser.Easing.Linear.None, true, 0, 1000, true);
+		this.bigCorn = this.game.add.tween(this.player.scale).to( { x: 1.5, y: 1.5 }, 200, Phaser.Easing.Linear.None, true, 0, 0, false);
+		// this.bigCorn.onComplete.add(this.powerTime)
+		// this.game.time.events.add(50, () => { this.bigCorn.stop() })
 		this.game.physics.arcade.overlap(this.player, this.cow, this.bulldozeCow, null, this)
 		this.game.physics.arcade.overlap(this.player, this.weed, this.bulldozeWeed, null, this);
 		this.game.physics.arcade.overlap(this.player, this.tractor, this.bulldozeTractor, null, this);
-			if (this.game.time.now > this.superBigTimer) {
-				this.powerLevelDecrease();
-			}
+		if (this.game.time.now > this.superBigTimer) {
+			this.powerLevelDecrease();
+		}
 	}
 
 	powerLevelDecrease() {
 		// Reset Player Level to False in order to run Collision
-		// this.player.powerLevel = false;
-		this.game.add.tween(this.player.scale).to( { x: this.game.aspectRatio / 1.75, y: this.game.aspectRatio / 1.75 }, 200, Phaser.Easing.Linear.None, true, 0, 1000, true);
+		// this.bigCorn.stop(true)
+		this.littleCorn = this.game.add.tween(this.player.scale).to( { x: this.game.aspectRatio / 1.75, y: this.game.aspectRatio / 1.75 }, 200,
+		Phaser.Easing.Linear.None, true, 0, 0, false);
+		this.littleCorn.onComplete.removeAll();
 		this.superBigTimer = 0;
+		if (this.superBigTimer === 0){
+			this.player.powerLevel = false;
+		}
 	}
+
 	bulldozeWeed(weed){
 		this.weed.kill();
 
@@ -531,7 +539,7 @@ class Main extends Phaser.State {
 
 	activatePower(player, powerup){
 		powerup.destroy();
-		this.superBigTimer =  this.game.time.now + 2000;
+		this.superBigTimer =  this.game.time.now + 6000;
 		this.player.powerLevel = true;
 	}
 
