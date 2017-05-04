@@ -21,6 +21,7 @@ class Main extends Phaser.State {
 		this.powerSpawnTotal = 0;
 		this.powerSpawnTimer = 0
 		this.totalScore = 0;
+		this.superBigTimer = 0;
 		this.tractor;
 		this.weed;
 		this.kernel;
@@ -219,7 +220,7 @@ class Main extends Phaser.State {
 
 		this.fertilizer.add(this.powerup);
 		this.powerSpawnTotal++;
-		this.powerSpawnTimer = this.game.time.now + this.game.rnd.integerInRange(900,  5000);
+		this.powerSpawnTimer = this.game.time.now + 20000;
 		this.powerup.checkWorldBounds = true;
 		this.powerup.outofBoundsKill = true;
 	}
@@ -396,7 +397,8 @@ class Main extends Phaser.State {
 		if (this.cloudTotal < 1000 && this.game.time.now > this.cloudTimer){
 			this.addClouds();
 		}
-		if (this.powerSpawnTotal < 1000 && this.game.time.now > this.powerSpawnTimer){
+
+		if (this.powerSpawnTotal < 10 && this.game.time.now > this.powerSpawnTimer){
 			this.addPowerup();
 		}
 
@@ -437,9 +439,7 @@ class Main extends Phaser.State {
 
 
 		if (this.player.powerLevel === true){
-			for (i = 0; i > 10; i++)
-			console.log("POWER LEVEL IS OVER 9000")
-			// this.player.powerLevel = false;
+				this.invicibleCorn();
 		}
 		else {
 			// Collision to End Game between Player & Obstacles
@@ -458,9 +458,53 @@ class Main extends Phaser.State {
 
 	}
 
+	invicibleCorn() {
+		this.game.add.tween(this.player.scale).to( { x: 1.5, y: 1.5 }, 200, Phaser.Easing.Linear.None, true, 0, 1000, true);
+		this.game.physics.arcade.overlap(this.player, this.cow, this.bulldozeCow, null, this)
+		this.game.physics.arcade.overlap(this.player, this.weed, this.bulldozeWeed, null, this);
+		this.game.physics.arcade.overlap(this.player, this.tractor, this.bulldozeTractor, null, this);
+			if (this.game.time.now > this.superBigTimer) {
+				this.powerLevelDecrease();
+			}
+	}
+
+	powerLevelDecrease() {
+		// Reset Player Level to False in order to run Collision
+		// this.player.powerLevel = false;
+		this.game.add.tween(this.player.scale).to( { x: this.game.aspectRatio / 1.75, y: this.game.aspectRatio / 1.75 }, 200, Phaser.Easing.Linear.None, true, 0, 1000, true);
+		this.superBigTimer = 0;
+	}
+	bulldozeWeed(weed){
+		this.weed.kill();
+
+		// Create Popcorn Effect
+		this.poppin.x = this.weed.centerX;
+		this.poppin.y = this.weed.centerY;
+
+		this.poppin.start(true, 2000, null, 10);
+	}
+
+	bulldozeTractor(tractor){
+		this.tractor.kill();
+		// Create Popcorn Effect
+		this.poppin.x = this.tractor.centerX;
+		this.poppin.y = this.tractor.centerY;
+
+		this.poppin.start(true, 2000, null, 10);
+	}
+
+	bulldozeCow(cow){
+		this.cow.kill();
+		// Create Popcorn Effect
+		this.poppin.x = this.cow.centerX;
+		this.poppin.y = this.cow.centerY;
+
+		this.poppin.start(true, 2000, null, 10);
+	}
 
 	activatePower(player, powerup){
 		powerup.destroy();
+		this.superBigTimer =  this.game.time.now + 2000;
 		this.player.powerLevel = true;
 	}
 
