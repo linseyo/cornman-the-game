@@ -344,9 +344,13 @@ class Main extends Phaser.State {
 	}
 
 	endGame() {
-		this.game.state.start('Stats');
+		this.player.kill();
+		this.game.time.events.add(Phaser.Timer.SECOND * 3, this.switchState, this);
 	}
 
+	switchState(){
+		this.game.state.start('Stats')
+	}
 	destroyWeed(kernel, weed){
 		this.kernel.kill();
 		this.weed.kill();
