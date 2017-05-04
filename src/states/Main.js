@@ -43,8 +43,6 @@ class Main extends Phaser.State {
 
 		//Set the games background colour
 		this.game.stage.backgroundColor = '#c8f2fb';
-		// this.sky = this.game.add.sprite(0,0,'sky');
-		// this.sky.scale.setTo(5,5);
 
 		this.mountainsBack = this.game.add.tileSprite(0,
 			this.game.height - (this.game.cache.getImage('mountains-back').height / 2),
@@ -238,9 +236,6 @@ class Main extends Phaser.State {
 		this.powerup.scale.setTo(this.game.aspectRatio / 2, this.game.aspectRatio / 2)
 		this.powerup.body.allowGravity = false;
 
-		// this.powerup.animations.add('taco')
-		// this.powerup.animations.play('taco', 3, true);
-
 		this.game.add.tween(this.powerup).to({
 			x: this.powerup.x - 55000 }, 170000, Phaser.Easing.Linear.None, true);
 
@@ -276,7 +271,6 @@ class Main extends Phaser.State {
 			this.kernel.reset(this.player.x + 10, this.player.y + 10);
 			this.kernel.body.velocity.x = 1000;
 			this.kernel.body.allowGravity = false;
-			// this.kernel.kill();
 			this.ammoCounter--;
 			this.ammoTotal.text = this.ammoCounter;
 		}
@@ -473,11 +467,11 @@ class Main extends Phaser.State {
 				this.invicibleCorn();
 		}
 
-		// if (this.player.powerLevel === false){
-		// 	// Collision to End Game between Player & Obstacles
-		// 	this.game.physics.arcade.overlap(
-		// 		this.player, this.obstacles, this.endGame, null, this);
-		// }
+		if (this.player.powerLevel === false){
+			// Collision to End Game between Player & Obstacles
+			this.game.physics.arcade.overlap(
+				this.player, this.obstacles, this.endGame, null, this);
+		}
 
 		this.game.physics.arcade.overlap(
 			this.ammo, this.weed, this.destroyWeed, null, this);
@@ -492,8 +486,6 @@ class Main extends Phaser.State {
 
 	invicibleCorn() {
 		this.bigCorn = this.game.add.tween(this.player.scale).to( { x: 1.5, y: 1.5 }, 200, Phaser.Easing.Linear.None, true, 0, 0, false);
-		// this.bigCorn.onComplete.add(this.powerTime)
-		// this.game.time.events.add(50, () => { this.bigCorn.stop() })
 		this.game.physics.arcade.overlap(this.player, this.cow, this.bulldozeCow, null, this)
 		this.game.physics.arcade.overlap(this.player, this.weed, this.bulldozeWeed, null, this);
 		this.game.physics.arcade.overlap(this.player, this.tractor, this.bulldozeTractor, null, this);
@@ -504,7 +496,6 @@ class Main extends Phaser.State {
 
 	powerLevelDecrease() {
 		// Reset Player Level to False in order to run Collision
-		// this.bigCorn.stop(true)
 		this.littleCorn = this.game.add.tween(this.player.scale).to( { x: this.game.aspectRatio / 1.75, y: this.game.aspectRatio / 1.75 }, 200,
 		Phaser.Easing.Linear.None, true, 0, 0, false);
 		this.tacoSign = this.game.add.tween(this.tacoBanner).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
@@ -550,10 +541,6 @@ class Main extends Phaser.State {
 		this.superBigTimer =  this.game.time.now + 6000;
 		this.player.powerLevel = true;
 
-		// this.test = this.game.add.image(this.game.widthHalf + 80, 200, 'taco-banner', 'assets/taco-banner.png');
-		// this.test.anchor.setTo(0.5);
-		// this.test.scale.setTo(0.5, 0.5);
-
 		this.tacoBanner = this.game.add.image(this.game.widthHalf + 100, 200, 'taco-banner', 'assets/taco-banner.png');
 		this.tacoBanner.anchor.setTo(0.5);
 		this.tacoBanner.scale.setTo(0.75, 0.75);
@@ -573,8 +560,6 @@ class Main extends Phaser.State {
 		this.coinCounter++;
 		this.totalScore = (this.enemiesPassed + this.coinCounter);
 		coin.destroy();
-		// this.coinBag.children[0].kill();
-		// this.coinBag.children[0].destroy();
 		this.coinScore.text = this.coinCounter;
 		this.sumScore.text = this.totalScore;
 	}
